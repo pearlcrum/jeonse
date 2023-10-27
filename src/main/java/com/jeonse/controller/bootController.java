@@ -13,6 +13,6 @@ public class bootController {
         log.info("username={}, age={}", "memberName","memberAge");
         log.info("vaild Ok");
 
-        return "ok";
+        return "/index_1.html";
     }
 }
