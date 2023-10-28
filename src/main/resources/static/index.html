@@ -14,8 +14,7 @@
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/maps-google.html" />
 
-    <title>퇴근하고1하는1개미</title>
-
+    <title>열1하는1조</title>
     <link href="css/app.css" rel="stylesheet">
 
 </head>
@@ -24,7 +23,7 @@
 <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
         <div class="sidebar-content js-simplebar">
-            <a class="sidebar-brand" href="index_1.html">
+            <a class="sidebar-brand" href="index.html">
                 <span class="align-middle">어디까지 알아보고 오셨어요?</span>
             </a>
 
@@ -34,7 +33,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="index_1.html">
+                    <a class="sidebar-link" href="index.html">
                         <i class="align-middle" data-feather="sliders"></i> <span class="align-middle">Dashboard</span>
                     </a>
                 </li>
@@ -74,7 +73,7 @@
                 </li>
 
                 <li class="sidebar-item">
-                    <a class="sidebar-link" href="ui-forms.html">
+                    <a class="sidebar-link" href="ui-forms2.html">
                         <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">Forms</span>
                     </a>
                 </li>
@@ -108,7 +107,7 @@
                 </li>
 
                 <li class="sidebar-item active">
-                    <a class="sidebar-link" href="maps-google_1.html">
+                    <a class="sidebar-link" href="index.html">
                         <i class="align-middle" data-feather="map"></i> <span class="align-middle">Maps</span>
                     </a>
                 </li>
@@ -283,28 +282,53 @@
 <script src="js/app.js"></script>
 
 <script>
+    var map;
+    var infoWindow;
+    var isOpen = false; // To track the open/close state of the InfoWindow
+    var position = {
+        lat: 37.56657309193628,
+        lng: 126.98658696263642
+    };
+    var maxDistance = 0.001; // 클릭 감지 거리 (조절 가능)
+
     function initMaps() {
-        const position = {
-            lat: 37.56657309193628, lng: 126.98658696263642
-        };
-        var defaultMap = {
+        map = new google.maps.Map(document.getElementById("default_map"), {
             zoom: 17,
             center: position,
             mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        new google.maps.Map(document.getElementById("default_map"), defaultMap);
-        // The marker, positioned at Uluru
-        const marker = new AdvancedMarkerView({
-            map: defaultMap,
-            position: position,
-            title: "IBK",
+        });
+
+        // Create an InfoWindow
+        infoWindow = new google.maps.InfoWindow({
+            content: "아이파크 15억"
+        });
+
+        // Set the position where you want to display the InfoWindow
+        var displayPosition = new google.maps.LatLng(position);
+        infoWindow.setPosition(displayPosition);
+        infoWindow.open(map);
+
+        // Add a click event listener to toggle InfoWindow
+        google.maps.event.addListener(map, 'click', function(event) {
+            var clickPosition = event.latLng;
+            var distance = google.maps.geometry.spherical.computeDistanceBetween(position, clickPosition);
+
+            // Check if the click is within the maximum distance
+            if (distance <= maxDistance) {
+                if (isOpen) {
+                    infoWindow.close();
+                } else {
+                    infoWindow.open(map);
+                }
+                isOpen = !isOpen;
+            }
         });
     }
-
-    initMaps();
 </script>
 
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&callback=initMaps"></script>
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMaps"></script>
 
 
 
