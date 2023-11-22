@@ -9,7 +9,11 @@ import java.sql.*;
 public class SpringbootApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(SpringbootApplication.class, args);
+
+		/*
+		내 컴터에 DB가 없어서 주석 처리 해둠 - jshine
 
 		try {
 			Connection conn = DriverManager.getConnection(
@@ -33,6 +37,7 @@ public class SpringbootApplication {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		*/
 	}
 
 }
