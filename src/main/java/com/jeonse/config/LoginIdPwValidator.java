@@ -34,8 +34,10 @@ public class LoginIdPwValidator implements UserDetailsService{
 
         /* 회원가입 구현 후 지워야함 */
 
-        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        String pass = passwordEncoder.encode(user.getPass());
+        /*BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String pass = passwordEncoder.encode(user.getPass());*/
+
+        String pass = user.getPass();
         String roles = "root";
 
         return User.builder()
