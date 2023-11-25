@@ -1,8 +1,11 @@
 package com.jeonse.dto;
 
 import lombok.Data;
+import org.springframework.context.annotation.Bean;
+
 
 @Data
+
 public class MemberDTO {
     private String memID;
     private String name;

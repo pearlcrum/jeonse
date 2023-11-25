@@ -11,10 +11,10 @@ public interface MemberService {
     void insertMem(MemberDTO member);
 
     // 아이디에 따른 회원정보
-    MemberDTO getUserInfo(String mem_id);
+    MemberDTO getUserInfo(String memID);
 
 
     //아이디 중복 체크
-    public int checkId(String memId);
+    public int checkId(String memID);
 
 }

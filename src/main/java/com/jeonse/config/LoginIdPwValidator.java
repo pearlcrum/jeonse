@@ -26,19 +26,22 @@ public class LoginIdPwValidator implements UserDetailsService{
     @Override
     public UserDetails loadUserByUsername(String memID) throws UsernameNotFoundException{
         MemberDTO user = memberMapper.getUserInfo(memID);
-        System.out.println("user");
+        System.out.println(user.getMemID());
         if(user == null) {
             System.out.println("유저가 없습니다."+user);
             throw new UsernameNotFoundException(memID);
         }
 
-        String pass = user.getPass();
-        //String roles = "USER";
+        /* 회원가입 구현 후 지워야함 */
+
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String pass = passwordEncoder.encode(user.getPass());
+        String roles = "root";
 
         return User.builder()
                 .username(memID)
                 .password(pass)
-                //.roles(roles)
+                .roles(roles)
                 .build();
     }
 

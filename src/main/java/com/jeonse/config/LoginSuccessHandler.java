@@ -32,7 +32,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     // Constructor
     public LoginSuccessHandler(String defaultUrl){
 
-        System.out.println("Success");
+        System.out.println("Success"+ defaultUrl);
+
         this.defaultUrl = defaultUrl;
     }
 

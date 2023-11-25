@@ -21,12 +21,12 @@ public class MemberServiceImpl implements MemberService{
         System.out.println("서비스에서 나와"+member);
 
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        member.setPass(passwordEncoder.encode(member.getPass()));
+        memberDto.setPass(passwordEncoder.encode(member.getPass()));
 
-        memberMapper.insertMem(member);
+        memberMapper.insertMem(memberDto);
 
-        System.out.println("서비스에서 암호화된 비밀번호야"+member.getPass());
-        System.out.println("서비스에서 암호화하구 나와"+member);
+        System.out.println("서비스에서 암호화된 비밀번호야"+memberDto.getPass());
+        System.out.println("서비스에서 암호화하구 나와"+memberDto);
     }
 
 
