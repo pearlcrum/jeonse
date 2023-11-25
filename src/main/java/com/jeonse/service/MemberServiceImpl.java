@@ -14,10 +14,21 @@ public class MemberServiceImpl implements MemberService{
     @Override
     public void insertMem(@NotNull MemberDTO member) {
         MemberDTO memberDto = new MemberDTO();
-        memberDto.setMemID( member.getMemID());
+
+        memberDto.setMemID(member.getMemID());
         memberDto.setPass(member.getPass());
         memberDto.setName(member.getName());
         memberDto.setTel(member.getTel());
+        memberDto.setNice(member.getNice());
+        memberDto.setKcb(member.getKcb());
+        memberDto.setIncomeLastYear(member.getIncomeLastYear());
+        memberDto.setIncomeYearBeforeLast(member.getIncomeYearBeforeLast());
+        memberDto.setDebt(member.getDebt());
+        memberDto.setBirth(member.getBirth());
+        memberDto.setNumhouse(member.getNumhouse());
+
+
+
 
 
         System.out.println("서비스에서 나와"+member);

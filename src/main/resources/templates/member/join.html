@@ -55,12 +55,74 @@
                                     <div class="mb-3">
                                         <label class="form-label">비밀번호</label>
                                         <input class="form-control form-control-lg" type="password" id="pass" name="pass" onchange="checkPw()"/>
+
                                         <input type="password" id="passCheck" name="passCheck" class="form-control" placeholder="비밀번호 확인" autocomplete="off" onchange="checkPw()"/>
                                         <span id="checkPw"></span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">전화번호</label>
                                         <input class="form-control form-control-lg" type="text" id="tel" name="tel" onchange="checkTel()"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">생년월일</label>
+                                        <span style="display: flex;">
+                                            <span class="signup-input-birth">
+                                                <input id="signup-birth-yy" type="text" placeholder="년(4자)">
+                                            </span>
+                                            <span class="signup-input-birth" style="margin-left: 10px;">
+                                                <select id="signup-birth-mm" class="selectbox" name="month" onchange="">
+                                                    <option value="month">월</option>
+                                                    <option value="01">1</option>
+                                                    <option value="02">2</option>
+                                                    <option value="03">3</option>
+                                                    <option value="04">4</option>
+                                                    <option value="05">5</option>
+                                                    <option value="06">6</option>
+                                                    <option value="07">7</option>
+                                                    <option value="08">8</option>
+                                                    <option value="09">9</option>
+                                                    <option value="10">10</option>
+                                                    <option value="11">11</option>
+                                                    <option value="12">12</option>
+                                                </select>
+                                            </span>
+                                            <span class="signup-input-birth" style="margin-left: 10px;">
+                                                <input id="signup-birth-dd" type="text" placeholder="일">
+                                            </span>
+                                        </span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">NICE 신용점수</label>
+                                        <input class="form-control form-control-lg" type="text" id="nice" name="nice"
+                                               placeholder="점(숫자만 입력)"/>
+                                        <A href="https://www.credit.co.kr/ib20/mnu/BZWMAN00001" target="신용점수 조회">
+                                            내 신용점수 확인하기! </A>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">KCB 신용점수</label>
+                                        <input class="form-control form-control-lg" type="text" id="kcb" name="kcb"
+                                               placeholder="점(숫자만 입력)"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">작년 소득</label> <small style="color: red">* 부부소득 합산 시 부채도 함께 합산됨.</small>
+                                        <input class="form-control form-control-lg" type="text" id="incomeLastYear" name="incomeLastYear" placeholder="숫자를 입력하세요"/>
+                                        <A href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6467&cntntsId=7903"
+                                           target="소득 조회"> 내 소득 확인하기! </A>
+                                    </div>
+
+                                    <div class="mb-3">
+                                        <label class="form-label">재작년 소득</label>
+                                        <input class="form-control form-control-lg" type="text"
+                                               id="incomeYearBeforeLast" name="incomeYearBeforeLast"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">부채</label>
+                                        <input class="form-control form-control-lg" type="text" id="debt" name="debt"
+                                               placeholder="원(숫자만 입력)"/>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">보유 주택 수</label>
+                                        <input class="form-control form-control-lg" type="number" id="numhouse" name="numhouse"/>
                                     </div>
                                     <div class="text-center mt-3">
                                         <button id="target_btn" type="submit" class="btn btn-lg btn-primary" onclick="regist()">완료</button>
@@ -77,11 +139,31 @@
     </div>
 </main>
 
+
+<style>
+    /* 생년월일 스타일 */
+    #signup-birth-yy {
+        width: 200px;
+        height: 30px;
+    }
+
+    #signup-birth-mm {
+        width: 170px;
+        height: 30px;
+    }
+
+    #signup-birth-dd {
+        width: 200px;
+        height: 30px;
+    }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 
 
 
-
+    /*이메일(아이디) 중복 체크*/
     function checkId(){
         let memID = $('#memID').val();
         console.log("memID >> " + memID);
@@ -98,10 +180,6 @@
 
             return false;
         }
-
-
-
-
         /*
                 let joinForm = document.joinForm;
                 let memId = joinForm.memId.value; */
@@ -132,7 +210,7 @@
         })
     }
 
-
+    /*비밀번호 재확인*/
     function checkPw(){
         let pass = $('#pass').val();
         let passCheck = $('#passCheck').val();
@@ -159,7 +237,7 @@
         }
 
     }
-
+    /*값 null 확인*/
     function checkTel(obj){
         const target = document.getElementById('target_btn');
         var str_space = /\s/;
@@ -172,29 +250,38 @@
 
 
     }
-
+    /*입력 완료 시 form 전송*/
     function regist(){
-        let joinForm = document.joinForm;
+        let joinForm = document.getElementById("joinForm");
 
         let memID = $('#memID').val().trim();
         let pass = $('#pass').val().trim();
         let passCheck = $('#passCheck').val().trim();
         let tel = $('#tel').val().trim();
         let name = $('#name').val().trim();
+        let nice = $('#nice').val().trim();
+        let kcb = $('#kcb').val().trim();
+        let incomeLastYear = $('#incomeLastYear').val().trim();
+        let incomeYearBeforeLast = $('#incomeYearBeforeLast').val().trim();
+        let debt = $('#debt').val().trim();
+        let numhouse = $('#numhouse').val().trim();
+
+        /* 이 부분 수정 필요 ! birth 값 넘기기 에러발생*/
+        let birth = $('#signup-birth-yy').val().trim()+$('#signup-birth-mm').val().trim()+$('#signup-birth-dd').val().trim();
+        console.log(birth);
+        joinForm.append('birth',birth);
 
 
-        if(!memID || !pass || !passCheck || !tel || !name){
+        if(!memID || !pass || !passCheck || !tel || !name || !nice || !kcb || !incomeLastYear || !incomeYearBeforeLast || !debt || !numhouse){
             alert("전부 입력해주세요");
+            history.back();
         }else{
             joinForm.submit();
         }
 
     }
-
 </script>
-
 <script src="/js/app.js"></script>
-
 </body>
 
 </html>

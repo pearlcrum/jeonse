@@ -16,16 +16,10 @@
 
     <!-- 회원가입 -->
     <insert id="insertMem" parameterType="com.jeonse.dto.MemberDTO">
-        insert into member(
-            memID,
-            pass,
-            tel,
-            name
+        insert into member( memID, pass, tel, name, level, quit, nice, kcb, incomeLastYear, incomeYearBeforeLast, debt, birth, numhouse
+
         ) values(
-                    #{memID},
-                    #{pass},
-                    #{tel},
-                    #{name}
+                    #{memID}, #{pass}, #{tel}, #{name}, 1, 0, #{nice}, #{kcb}, #{incomeLastYear}, #{incomeYearBeforeLast}, #{debt}, #{birth}, #{numhouse}
                 )
     </insert>
 

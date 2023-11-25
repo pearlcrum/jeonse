@@ -18,7 +18,7 @@ public class MemberDTO {
     private int incomeLastYear;
     private int incomeYearBeforeLast;
     private int debt;
-    private int age;
+    private int birth;
     private int numhouse;
     private int checklistID;
 

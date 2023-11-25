@@ -46,11 +46,11 @@ public class MemberController {
     //아이디 중복체크
     @PostMapping(value="/joinForm/checkId")
     @ResponseBody
-    public int checkId(@RequestParam("memId") String memId) {
+    public int checkId(@RequestParam("memID") String memID) {
 
-        System.out.println("memId"+memId);
+        System.out.println("memId"+memID);
 
-        int cnt = memberService.checkId(memId);
+        int cnt = memberService.checkId(memID);
 
         return cnt;
     }
