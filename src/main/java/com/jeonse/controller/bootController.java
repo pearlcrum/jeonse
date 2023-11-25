@@ -14,7 +14,7 @@ import java.util.Optional;
 @Slf4j
 public class bootController {
 
-    @GetMapping("/index")
+    @GetMapping("")
     public String index(Model model, @RequestParam("inputEmail") Optional<String> inputEmail,
                         @RequestParam("inputPassword") Optional<String>  inputPassword){
         if (inputEmail.isPresent() && inputPassword.isPresent()) {
@@ -23,14 +23,5 @@ public class bootController {
         }
         return "index";
     }
-
-    @GetMapping("/hello")
-    public String hello(){
-        log.info("username={}, age={}", "memberName","memberAge");
-        log.info("vaild Ok");
-
-        return "/index_1.html";
-    }
-
 
 }

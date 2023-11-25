@@ -1,4 +1,4 @@
-package com.jeonse.controller;
+package com.jeonse.config;
 
 import com.jeonse.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +19,6 @@ public class SecurityController {
         if(userInfo!=null) {
             model.addAttribute("user", memberService.getUserInfo(userInfo.getUsername()));
         }
-        return "/member/home";
+        return "/index";
     }
 }

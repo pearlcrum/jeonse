@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeonse.repository.MemberMapper">
 
-</beans>
+
+    <!-- 로그인 -->
+    <select id="loginMem" parameterType="com.jeonse.dto.MemberDTO" resultType="int">
+        select
+            memID as memID,
+            pass as pass
+        from member
+        where
+            memID = #{memID} and
+            pass = #{pass}
+    </select>
+
+    <!-- 회원가입 -->
+    <insert id="insertMem" parameterType="com.jeonse.dto.MemberDTO">
+        insert into member(
+            memID,
+            pass
+        ) values(
+                    #{memID},
+                    #{pass}
+                )
+    </insert>
+
+    <!-- 아이디에 따른 회원정보 -->
+    <select id="getUserInfo" parameterType="String" resultType="com.jeonse.dto.MemberDTO">
+        select
+            memID as memID,
+            pass as pass
+        from member
+
+    </select>
+
+    <!-- 아이디 중복 확인 -->
+    <select id="checkId" parameterType="String" resultType="int">
+        select count(*) from member where memID = #{memID}
+    </select>
+
+</mapper>

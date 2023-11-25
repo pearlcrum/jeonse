@@ -15,6 +15,8 @@ public class loginController {
     /*
     * 로그인 페이지로, 이메일과 비번을 입력하면 메인페이지로 리다이렉트되고 이메일 비번이 토스트 메시지로 생성됨.
     * */
+
+/*
     @GetMapping("/login")
     public String login() {
         return "login";
@@ -31,6 +33,7 @@ public class loginController {
         redirectAttributes.addAttribute("inputPassword", inputPassword);
         return "redirect:/index";
     }
+*/
 
 }
 

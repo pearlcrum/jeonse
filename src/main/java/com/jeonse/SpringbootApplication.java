@@ -12,14 +12,12 @@ public class SpringbootApplication {
 
 		SpringApplication.run(SpringbootApplication.class, args);
 
-		/*
-		내 컴터에 DB가 없어서 주석 처리 해둠 - jshine
 
-		try {
+		/*try {
 			Connection conn = DriverManager.getConnection(
 					"jdbc:mysql://127.0.0.1:3306/happyhouse",
 					"root",
-					"1234"
+					"carpediem3589@"
 			);
 
 			Statement stmt = conn.createStatement();
@@ -36,8 +34,8 @@ public class SpringbootApplication {
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
-		}
-		*/
+		}*/
+
 	}
 
 }
