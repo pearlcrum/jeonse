@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
+
 
 <head>
     <meta charset="utf-8">
@@ -8,7 +9,8 @@
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
@@ -37,21 +39,31 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="m-sm-4">
-                                <form action="/processSignup" method="post">
+                                <form name="joinForm" id="joinForm" action="/member/join" th:object="${MemberDTO}" method="post">
+                                    <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
                                     <div class="mb-3">
                                         <label class="form-label">이름</label>
-                                        <input class="form-control form-control-lg" type="text" name="inputName" />
+                                        <input class="form-control form-control-lg" type="text" id="name" name="name"  />
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">이메일</label>
-                                        <input class="form-control form-control-lg" type="email" name="inputEmail"/>
+                                        <input class="form-control form-control-lg" type="text" id="memID" name="memID" oninput="checkId()"/>
+                                        <span class="id_already" style="display:none;">누군가 이 아이디를 사용하고 있어요.</span>
+                                        <span class="id_ok" style="display:none;">사용 가능한 아이디입니다.</span>
+                                        <span class="id_space" style="display:none;">공백은 사용할 수 없습니다.</span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">비밀번호</label>
-                                        <input class="form-control form-control-lg" type="password" name="inputPassword"/>
+                                        <input class="form-control form-control-lg" type="password" id="pass" name="pass" onchange="checkPw()"/>
+                                        <input type="password" id="passCheck" name="passCheck" class="form-control" placeholder="비밀번호 확인" autocomplete="off" onchange="checkPw()"/>
+                                        <span id="checkPw"></span>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">전화번호</label>
+                                        <input class="form-control form-control-lg" type="text" id="tel" name="tel" onchange="checkTel()"/>
                                     </div>
                                     <div class="text-center mt-3">
-                                        <button type="submit" class="btn btn-lg btn-primary">완료</button>
+                                        <button id="target_btn" type="submit" class="btn btn-lg btn-primary" onclick="regist()">완료</button>
                                     </div>
                                 </form>
 
@@ -65,6 +77,121 @@
     </div>
 </main>
 
+<script type="text/javascript">
+
+
+
+
+    function checkId(){
+        let memID = $('#memID').val();
+        console.log("memID >> " + memID);
+
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        const target = document.getElementById('target_btn');
+
+        var str_space = /\s/;
+
+        if(str_space.exec(memID) && memID != null) {
+            $('.id_space').css("display","inline-block");
+            target.disabled = true;
+
+            return false;
+        }
+
+
+
+
+        /*
+                let joinForm = document.joinForm;
+                let memId = joinForm.memId.value; */
+        $.ajax({
+            type:'POST',
+            url:'/joinForm/checkId',
+            data:{memID:memID},
+            beforeSend : function(xhr){
+                xhr.setRequestHeader(header, token);
+            },
+            success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
+                if(cnt != 1){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
+                    $('.id_ok').css("display","inline-block");
+                    $('.id_already').css("display", "none");
+                    $('.id_space').css("display","none");
+                    target.disabled = false;
+                } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
+                    $('.id_already').css("display","inline-block");
+                    $('.id_ok').css("display", "none");
+                    $('.id_space').css("display","none");
+                    target.disabled = true;
+                }
+                console.log("cnt >> " + cnt);
+            },
+            error:function(){
+                alert("에러입니다");
+            }
+        })
+    }
+
+
+    function checkPw(){
+        let pass = $('#pass').val();
+        let passCheck = $('#passCheck').val();
+        const target = document.getElementById('target_btn');
+
+        var str_space = /\s/;
+        if(pass != '' && passCheck != '' && !str_space.exec(pass) && !str_space.exec(passCheck) ){
+            if(pass != passCheck){
+                document.getElementById('checkPw').innerHTML='비밀번호가 일치하지 않습니다.';
+                document.getElementById('checkPw').style.color='red';
+                target.disabled = true;
+            }else{
+                document.getElementById('checkPw').innerHTML='비밀번호가 일치합니다.';
+                document.getElementById('checkPw').style.color='blue';
+                target.disabled = false;
+            }
+        }else if(str_space.exec(pass) || str_space.exec(passCheck)){
+            document.getElementById('checkPw').innerHTML='공백은 사용할 수 없습니다';
+            document.getElementById('checkPw').style.color='red';
+            target.disabled = true;
+        }else{
+            document.getElementById('checkPw').innerHTML=' ';
+            target.disabled = true;
+        }
+
+    }
+
+    function checkTel(obj){
+        const target = document.getElementById('target_btn');
+        var str_space = /\s/;
+
+        if(str_space.exec(obj)){
+            target.disabled = true;
+        }else{
+            target.disabled = false;
+        }
+
+
+    }
+
+    function regist(){
+        let joinForm = document.joinForm;
+
+        let memID = $('#memID').val().trim();
+        let pass = $('#pass').val().trim();
+        let passCheck = $('#passCheck').val().trim();
+        let tel = $('#tel').val().trim();
+        let name = $('#name').val().trim();
+
+
+        if(!memID || !pass || !passCheck || !tel || !name){
+            alert("전부 입력해주세요");
+        }else{
+            joinForm.submit();
+        }
+
+    }
+
+</script>
 
 <script src="/js/app.js"></script>
 

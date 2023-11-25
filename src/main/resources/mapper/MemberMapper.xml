@@ -18,10 +18,14 @@
     <insert id="insertMem" parameterType="com.jeonse.dto.MemberDTO">
         insert into member(
             memID,
-            pass
+            pass,
+            tel,
+            name
         ) values(
                     #{memID},
-                    #{pass}
+                    #{pass},
+                    #{tel},
+                    #{name}
                 )
     </insert>
 

@@ -16,6 +16,8 @@ public class MemberServiceImpl implements MemberService{
         MemberDTO memberDto = new MemberDTO();
         memberDto.setMemID( member.getMemID());
         memberDto.setPass(member.getPass());
+        memberDto.setName(member.getName());
+        memberDto.setTel(member.getTel());
 
 
         System.out.println("서비스에서 나와"+member);
