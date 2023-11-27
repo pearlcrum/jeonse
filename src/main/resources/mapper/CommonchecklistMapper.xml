@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeonse.repository.CommonchecklistMapper">
+    <!-- 값 넣기 -->
+    <insert id="insertCommonchecklist" parameterType="com.jeonse.dto.CommonchecklistDTO">
+        insert into commonchecklist values(
+                                              #{memID},
+                                              #{agentCheck},
+                                              #{foriegnerCheck},
+                                              #{familyCheck},
+                                              #{loanAmount},
+                                              #{housePrice},
+                                              #{jeonseDeposit},
+                                              #{jeonseTerm},
+                                              #{landlordPossessionMonth},
+                                              #{seniorDebt}
+                                          )
+    </insert>
+    <!-- 값 지우기 -->
+    <delete id="deleteCommonchecklist" parameterType="String">
+        delete from commonchecklist where memID=#{memID}
+    </delete>
+    <!-- 기존에 있는지 체크-->
+    <select id="checkCommonchecklistID" parameterType="String" resultType="int">
+        select count(*) from commonchecklist where memID = #{memID}
+    </select>
+</mapper>

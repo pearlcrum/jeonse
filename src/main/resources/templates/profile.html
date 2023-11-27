@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:https="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="utf-8">
@@ -19,8 +19,80 @@
 
     <link href="/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-</head>
 
+</head>
+<style>
+    .tooltip {
+        position: absolute;
+        left: 45px;
+        top: 310px;
+        /*padding: 10px;*/
+        /*border-radius:5px;*/
+        color: red;
+        text-align: center;
+        display: none;
+    }
+
+    .tooltip2 {
+        position: absolute;
+        left: 110px;
+        top: 520px;
+        /*padding: 10px;*/
+        /*border-radius:5px;*/
+        color: red;
+        text-align: center;
+        display: none;
+    }
+
+    .tooltip:after {
+        display: inline;
+        position: absolute;
+        top: -30px;
+        left: 30px;
+        width: 0px;
+        height: 0px;
+    }
+
+    .tooltip2:after {
+        display: inline;
+        position: absolute;
+        top: -30px;
+        left: 30px;
+        width: 0px;
+        height: 0px;
+    }
+
+    .wrap:hover .tooltip {
+        display: inline;
+    }
+
+    .wrap:hover .tooltip2 {
+        display: inline;
+    }
+
+    #search-suggestions {
+        display: none;
+        position: absolute;
+        color:black;
+        width: 80%;
+        background-color: #fff;
+        border: 1px solid #ccc;
+        max-height: 150px;
+        overflow-y: auto;
+        margin-top: 5px;
+        z-index: 1;
+    }
+
+    .suggestion {
+        padding: 8px;
+        cursor: pointer;
+    }
+
+    .suggestion:hover {
+        background-color: #f0f0f0;
+    }
+
+</style>
 <body>
 <div class="wrapper">
     <nav id="sidebar" class="sidebar js-sidebar">
@@ -30,10 +102,11 @@
             </a>
 
             <ul class="sidebar-nav">
-                <li class="sidebar-header">
-                    Pages
+                <li class="sidebar-link">
+                    <input class="align-middle" id="search-input" style="width:155px;" type="text" placeholder="매물을 검색하세요">
+                    <button class="align-middle" type="button" style="display:inline">검색</button>
+                    <div id="search-suggestions"></div>
                 </li>
-
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
@@ -72,173 +145,14 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
-                            <div class="position-relative">
-                                <i class="align-middle" data-feather="bell"></i>
-                                <span class="indicator">4</span>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-                             aria-labelledby="alertsDropdown">
-                            <div class="dropdown-menu-header">
-                                4 New Notifications
-                            </div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-danger" data-feather="alert-circle"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Update completed</div>
-                                            <div class="text-muted small mt-1">Restart server 12 to complete the
-                                                update.
-                                            </div>
-                                            <div class="text-muted small mt-1">30m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-warning" data-feather="bell"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Lorem ipsum</div>
-                                            <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate
-                                                hendrerit et.
-                                            </div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-primary" data-feather="home"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Login from 192.186.1.8</div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-success" data-feather="user-plus"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">New connection</div>
-                                            <div class="text-muted small mt-1">Christina accepted your request.</div>
-                                            <div class="text-muted small mt-1">14h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-menu-footer">
-                                <a href="#" class="text-muted">Show all notifications</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-                            <div class="position-relative">
-                                <i class="align-middle" data-feather="message-square"></i>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0"
-                             aria-labelledby="messagesDropdown">
-                            <div class="dropdown-menu-header">
-                                <div class="position-relative">
-                                    4 New Messages
-                                </div>
-                            </div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Vanessa Tucker">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Vanessa Tucker</div>
-                                            <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu
-                                                tortor.
-                                            </div>
-                                            <div class="text-muted small mt-1">15m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="William Harris">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">William Harris</div>
-                                            <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.
-                                            </div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Christina Mason">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Christina Mason</div>
-                                            <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-                                            <div class="text-muted small mt-1">4h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle"
-                                                 alt="Sharon Lessman">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Sharon Lessman</div>
-                                            <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed,
-                                                posuere ac, mattis non.
-                                            </div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-menu-footer">
-                                <a href="#" class="text-muted">Show all messages</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
                         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                             <i class="align-middle" data-feather="settings"></i>
                         </a>
-
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
-                            <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
-                            <span class="text-dark">Charles Hall</span>
+                            <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Shine-J" /> <span class="text-dark">Shine-J</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="profile.html"><i class="align-middle me-1"
-                                                                            data-feather="user"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i>
-                                Analytics</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index_1.html"><i class="align-middle me-1"
-                                                                            data-feather="settings"></i> Settings &
-                                Privacy</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1"
-                                                                 data-feather="help-circle"></i> Help Center</a>
-                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/profile"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                             <a class="dropdown-item" href="#">Log out</a>
                         </div>
                     </li>
@@ -251,30 +165,41 @@
 
                 <div class="mb-3">
                     <h1 class="h3 d-inline align-middle">회원정보</h1>
-                    <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
 
-                    </a>
                 </div>
                 <div class="row">
                     <div class="col-md-4 col-xl-3">
                         <div class="card mb-3">
                             <div class="card-header">
-                                <h5 class="card-title mb-0">E-mail</h5>
+                                <h5 class="card-title mb-0">Profile</h5>
                             </div>
-                            <div class="card-body text-center">
-                                <img src="/img/avatars/gieunsen.png" alt="gieunsen" class="img-fluid rounded-circle mb-2"
-                                     width="120" height="120"/>
-                                <h5 class="card-title mb-0">Your E-mail</h5>
+                            <div class="card-body text-center position-relative">
+                                <img src="/img/avatars/gieunsen.png" alt="gieunsen" class="img-fluid rounded-circle mb-2" width="120" height="120"/>
+                                <h5 class="card-title mb-0">Your Image</h5>
                                 <div class="text-muted mb-2">Lead Developer</div>
+
+                                <!-- 버튼 추가 -->
+                                <button type="button" class="btn btn-primary btn-sm position-absolute bottom-0 end-0 mb-2">금리 특약 예상 서비스</button>
                             </div>
+
 
 
                             <hr class="my-0"/>
                             <div class="card-body">
-                                <h5 class="h6 card-title">신용정보</h5>
+                                <h5 class="h6 card-title" style="display:inline-block; margin-right: 5px;">신용정보</h5>
+                                <div class="wrap">
+                                    <a href="https://www.credit.co.kr/ib20/mnu/BZWMAN00001" target="_blank"
+                                       style="display:inline-block;">
+                                        <img src="/img/avatars/question_471664.png" width="20" height="20">
+                                    </a>
+                                    <h5 class="tooltip">신용점수 보러가기</h5>
+                                </div>
+
                                 <ul>
                                     <li>NICE 신용점수<textarea class="form-control" id="niceScore" rows="1"
                                                            placeholder="NICE 신용점수"></textarea></li>
+                                    <br>
+
                                     <li>KCB 신용점수<textarea class="form-control" id="kcbScore" rows="1"
                                                           placeholder="KCB 신용점수"></textarea></li>
                                 </ul>
@@ -282,199 +207,251 @@
                             </div>
                             <hr class="my-0"/>
                             <div class="card-body">
-                                <h5 class="h6 card-title">소득정보</h5>
+                                <div class="wrap">
+                                    <h5 class="h6 card-title" style="display:inline-block; margin-right: 5px;">소득정보</h5>
+                                    <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6467&cntntsId=7903"
+                                       target="_blank" style="display:inline-block;">
+                                        <img src="/img/avatars/question_471664.png" width="20" height="20">
+                                    </a>
+                                    <h5 class="tooltip2">소득점수 보러가기</h5>
+                                </div>
                                 <ul>
-                                <li>본인 총소득<textarea class="form-control" id="customerIncome" rows="1"
-                                                    placeholder="총소득"></textarea></li>
+
+                                    <li>작년 소득<textarea class="form-control" id="lastIncome" rows="1"
+                                                       placeholder="작년 소득"></textarea></li>
+                                    <br>
+                                    <li>재작년 소득<textarea class="form-control" id="last2Income" rows="1"
+                                                        placeholder="재작년 소득"></textarea></li>
+                                    <br>
+
+                                    <li>부채<textarea class="form-control" id="debt" rows="1"
+                                                    placeholder="부채"></textarea></li>
+                                    <br>
+                                    <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                 </ul>
                             </div>
                             <hr class="my-0"/>
                             <div class="card-body">
-                                <h5 class="h6 card-title">Elsewhere</h5>
+                                <h5 class="h6 card-title">Else</h5>
                                 <ul class="list-unstyled mb-0">
-                                    <li class="mb-1"><a href="#">staciehall.co</a></li>
-                                    <li class="mb-1"><a href="#">Twitter</a></li>
-                                    <li class="mb-1"><a href="#">Facebook</a></li>
-                                    <li class="mb-1"><a href="#">Instagram</a></li>
-                                    <li class="mb-1"><a href="#">LinkedIn</a></li>
+                                    <li class="mb-1">
+                                        <button type="submit" name="del" class="btn btn-lg btn-danger">회원 탈퇴</button>
+                                    </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-md-8 col-xl-9">
+                    <div class="col-md-4 col-xl-9">
                         <div class="card">
                             <div class="card-header">
 
-                                <h5 class="card-title mb-0">위시리스트</h5>
+                                <h5 class="card-title mb-0">회원 정보 수정</h5>
                             </div>
 
                             <div class="card-body h-100">
 
-                                <div class="d-flex align-items-start">
-                                    <img src="/img/avatars/avatar-5.jpg" width="36" height="36"
-                                         class="rounded-circle me-2" alt="Vanessa Tucker">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">5m ago</small>
-                                        <strong>Vanessa Tucker</strong> started following <strong>Christina
-                                        Mason</strong><br/>
-                                        <small class="text-muted">Today 7:51 pm</small><br/>
-
-                                    </div>
-                                </div>
-
-                                <hr/>
-                                <div class="d-flex align-items-start">
-                                    <img src="/img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2"
-                                         alt="Charles Hall">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">30m ago</small>
-                                        <strong>Charles Hall</strong> posted something on <strong>Christina
-                                        Mason</strong>'s timeline<br/>
-                                        <small class="text-muted">Today 7:21 pm</small>
-
-                                        <div class="border text-sm text-muted p-2 mt-1">
-                                            Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam
-                                            semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc,
-                                            blandit vel, luctus
-                                            pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus.
-                                            Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante.
-                                        </div>
-
-                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
-                                                                                          data-feather="heart"></i> Like</a>
-                                    </div>
-                                </div>
-
-                                <hr/>
-                                <div class="d-flex align-items-start">
-                                    <img src="/img/avatars/avatar-4.jpg" width="36" height="36"
-                                         class="rounded-circle me-2" alt="Christina Mason">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">1h ago</small>
-                                        <strong>Christina Mason</strong> posted a new blog<br/>
-
-                                        <small class="text-muted">Today 6:35 pm</small>
-                                    </div>
-                                </div>
-
-                                <hr/>
-                                <div class="d-flex align-items-start">
-                                    <img src="/img/avatars/avatar-2.jpg" width="36" height="36"
-                                         class="rounded-circle me-2" alt="William Harris">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">3h ago</small>
-                                        <strong>William Harris</strong> posted two photos on <strong>Christina
-                                        Mason</strong>'s timeline<br/>
-                                        <small class="text-muted">Today 5:12 pm</small>
-
-                                        <div class="row g-0 mt-1">
-                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                                <img src="/img/photos/unsplash-1.jpg" class="img-fluid pe-2"
-                                                     alt="Unsplash">
-                                            </div>
-                                            <div class="col-6 col-md-4 col-lg-4 col-xl-3">
-                                                <img src="/img/photos/unsplash-2.jpg" class="img-fluid pe-2"
-                                                     alt="Unsplash">
-                                            </div>
-                                        </div>
-
-                                        <a href="#" class="btn btn-sm btn-danger mt-1"><i class="feather-sm"
-                                                                                          data-feather="heart"></i> Like</a>
-                                    </div>
-                                </div>
-
-                                <hr/>
-                                <div class="d-flex align-items-start">
-                                    <img src="/img/avatars/avatar-2.jpg" width="36" height="36"
-                                         class="rounded-circle me-2" alt="William Harris">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">1d ago</small>
-                                        <strong>William Harris</strong> started following <strong>Christina
-                                        Mason</strong><br/>
-                                        <small class="text-muted">Yesterday 3:12 pm</small>
-
-                                        <div class="d-flex align-items-start mt-1">
-                                            <a class="pe-3" href="#">
-                                                <img src="/img/avatars/avatar-4.jpg" width="36" height="36"
-                                                     class="rounded-circle me-2" alt="Christina Mason">
-                                            </a>
-                                            <div class="flex-grow-1">
-                                                <div class="border text-sm text-muted p-2 mt-1">
-                                                    Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem.
-                                                    Maecenas nec odio et ante tincidunt tempus.
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="m-sm-4">
+                                            <form action="/processSignup" method="post">
+                                                <div class="mb-3">
+                                                    <label class="form-label">이름</label>
+                                                    <input class="form-control form-control-lg" type="text"
+                                                           name="inputName"/>
                                                 </div>
-                                            </div>
+
+                                                <div class="mb-3">
+                                                    <label class="form-label">비밀번호</label>
+                                                    <input class="form-control form-control-lg" type="password"
+                                                           name="inputPassword"/>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label class="form-label">전화번호</label>
+                                                    <input class="form-control form-control-lg" type="tel"
+                                                           name="inputTel"/>
+                                                </div>
+                                                <div class="text-center mt-3">
+                                                    <button type="submit" class="btn btn-lg btn-primary">수정</button>
+                                                </div>
+                                            </form>
+
                                         </div>
                                     </div>
-                                </div>
 
-                                <hr/>
-                                <div class="d-flex align-items-start">
-                                    <img src="/img/avatars/avatar-4.jpg" width="36" height="36"
-                                         class="rounded-circle me-2" alt="Christina Mason">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">1d ago</small>
-                                        <strong>Christina Mason</strong> posted a new blog<br/>
-                                        <small class="text-muted">Yesterday 2:43 pm</small>
-                                    </div>
-                                </div>
 
-                                <hr/>
-                                <div class="d-flex align-items-start">
-                                    <img src="/img/avatars/avatar.jpg" width="36" height="36" class="rounded-circle me-2"
-                                         alt="Charles Hall">
-                                    <div class="flex-grow-1">
-                                        <small class="float-end text-navy">1d ago</small>
-                                        <strong>Charles Hall</strong> started following <strong>Christina Mason</strong><br/>
-                                        <small class="text-muted">Yesterdag 1:51 pm</small>
-                                    </div>
-                                </div>
-
-                                <hr/>
-                                <div class="d-grid">
-                                    <a href="#" class="btn btn-primary">Load more</a>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                        <div class="card">
+                            <div class="card-header">
 
-            </div>
-        </main>
+                                <h5 class="card-title mb-0">My wish home</h5>
+                            </div>
 
-        <footer class="footer">
-            <div class="container-fluid">
-                <div class="row text-muted">
-                    <div class="col-6 text-start">
-                        <p class="mb-0">
-                            <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
-                            &copy;
-                        </p>
+                            <div class="card-body h-100">
+
+                                <div class="container">
+
+                                    <form action="/processSignup" method="post">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">주소</label>
+                                                    <input class="form-control form-control-lg" type="address" name="inputAdd" style="width: 100%" />
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <div class="form-group">
+                                                    <label class="form-label">kb 시세</label>
+                                                    <input class="form-control form-control-lg" type="price" name="inputPrice" style="width: 100%" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- 버튼 추가 -->
+                                        <div class="form-group text-center">
+                                            <br>
+                                            <button type="submit" class="btn btn-primary">상세보기</button>
+                                            <br>
+                                        </div>
+                                    </form>
+
+                                </div>
+
+                                <br>
+                                <br>
+
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="card">
+                                                <div class="card-body h-100 d-flex align-items-center justify-content-center">
+                                                    <div class="card-body text-center" style="background-color: skyblue; width: 400px; height: 200px;">
+                                                        <h3 style="color: grey">IBK 전세대출</h3>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6">
+
+                                            <div class="card">
+                                                <div class="card-body h-100 d-flex align-items-center justify-content-center">
+                                                    <div class="card-body text-center" style="background-color: lightgoldenrodyellow; width: 400px; height: 200px;">
+                                                        <h3 style="color: grey">IBK 전세대출</h3>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+
+
+
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-6 text-end">
-                        <ul class="list-inline">
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
-                            </li>
-                            <li class="list-inline-item">
-                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
-                            </li>
-                        </ul>
-                    </div>
+
                 </div>
             </div>
-        </footer>
+
+
     </div>
 </div>
 
+
+
+</main>
+
+<footer class="footer">
+    <div class="container-fluid">
+        <div class="row text-muted">
+            <div class="col-6 text-start">
+                <p class="mb-0">
+                    <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
+                    &copy;
+                </p>
+            </div>
+            <div class="col-6 text-end">
+                <ul class="list-inline">
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                    </li>
+                    <li class="list-inline-item">
+                        <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+</div>
+</div>
+
 <script src="/js/app.js"></script>
+<script>
+    // 가상의 검색어 데이터 (실제로는 서버에서 가져와야 함)
+    const searchSuggestions = ["JavaScript", "HTML", "CSS", "React", "Vue", "Angular"];
+
+    const searchInput = document.getElementById('search-input');
+    const searchSuggestionsContainer = document.getElementById('search-suggestions');
+
+    // 검색어 입력 시 자동 완성 기능 활성화
+    searchInput.addEventListener('input', function () {
+        const inputValue = this.value.toLowerCase();
+
+        // 검색어 추천 목록 생성
+        const suggestions = searchSuggestions.filter(suggestion =>
+            suggestion.toLowerCase().startsWith(inputValue)
+        );
+
+        // 검색어 추천 목록을 화면에 표시
+        showSuggestions(suggestions);
+    });
+
+    // 검색어 추천 목록을 화면에 표시하는 함수
+    function showSuggestions(suggestions) {
+        if (suggestions.length === 0) {
+            searchSuggestionsContainer.style.display = 'none';
+            return;
+        }
+
+        // 검색어 추천 목록을 생성하여 화면에 표시
+        searchSuggestionsContainer.innerHTML = '';
+        suggestions.forEach(suggestion => {
+            const suggestionElement = document.createElement('div');
+            suggestionElement.classList.add('suggestion');
+            suggestionElement.textContent = suggestion;
+            suggestionElement.addEventListener('click', function () {
+                // 검색어를 클릭하면 해당 검색어를 검색창에 채우고 추천 목록 숨김
+                searchInput.value = suggestion;
+                searchSuggestionsContainer.style.display = 'none';
+            });
+            searchSuggestionsContainer.appendChild(suggestionElement);
+        });
+
+        // 검색어 추천 목록을 보이도록 설정
+        searchSuggestionsContainer.style.display = 'block';
+    }
+
+    // 화면을 클릭하면 검색어 추천 목록을 숨김
+    document.addEventListener('click', function (event) {
+        if (!searchSuggestionsContainer.contains(event.target) && event.target !== searchInput) {
+            searchSuggestionsContainer.style.display = 'none';
+        }
+    });
+</script>
+
 
 </body>
 

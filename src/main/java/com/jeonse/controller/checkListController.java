@@ -9,8 +9,8 @@ import java.util.Optional;
 
 @Controller
 public class checkListController {
-        @GetMapping("/checklist")
+        /*@GetMapping("/checklist")
         public String checklist() {
             return "checklist";
-        }
+        }*/
 }

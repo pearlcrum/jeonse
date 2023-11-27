@@ -18,6 +18,7 @@ public class SecurityController {
     public String home(@AuthenticationPrincipal UserDetails userInfo, Model model) {
         if(userInfo!=null) {
             model.addAttribute("user", memberService.getUserInfo(userInfo.getUsername()));
+
         }
         return "/index";
     }

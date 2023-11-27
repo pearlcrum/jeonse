@@ -5,18 +5,14 @@ import lombok.Data;
 @Data
 public class HouseinfoDTO {
     private int houseID;
+    private String city;
+    private String gu;
+    private String dong;
+    private String aptName;
+    private int dealAmount;
     private int buildYear;
     private int dealYear;
-    private String dong;
-    private int bonbun;
-    private int bubun;
-    private int dongID;
-    private int wishID;
-    private int landCode;
-    private String apartmentName;
-    private int areaforExclusiveUse;
-    private int jibun;
-    private int regionalCode;
+    private double area;
     private int floor;
     private double lat;
     private double lng;

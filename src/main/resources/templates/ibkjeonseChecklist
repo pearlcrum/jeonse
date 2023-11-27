@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -58,7 +58,6 @@
                         <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>
                     </a>
                 </li>
-
             </ul>
         </div>
     </nav>
@@ -247,221 +246,116 @@
         </nav>
 
         <main class="content">
-            <form action="/checklistNextStep" id="checklistNextStep" th:object="${CommonchecklistDTO}" method="post">
-<!--            <form action="/processCheckList" method="post">-->
-            <div class="container-fluid p-0">
-
-                <div class="mb-3">
-                    <h1 class="h3 d-inline align-middle">공통 체크리스트 </h1>
-                    <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                        Get more form examples
-                    </a>
-                </div>
-                <div class="row">
-                    <div class="col-12 col-lg-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">공인중개업자를 통해 임대차계약을 체결하고 임차보증금의 5%이상을 계약금으로 지급하셨습니까? </h5>
-                            </div>
-                            <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">임대인이 외국인입니까?</h5>
-                            </div>
-                            <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">임대인과 임차인 관게(배우자, 직계존비속, 형제자매 여부)</h5>
-                            </div>
-                            <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">주택 보유 수가 1개 이하입니까?</h5>
-                            </div>
-                            <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">보유하고 있는 주택이 투기과열 혹기 투지지역에 해당합니까?(보유하고 있는 주택이 없다면 X에 체크)</h5>
-                            </div>
-                            <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">희망하는 대출 한도를 입력해주세요.</h5>
-                            </div>
-                            <div class="card-body">
-                                <textarea class="form-control" rows="2" placeholder="숫자로 입력바랍니다."></textarea>
-                            </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">고객님의 신용점수를 입력해주세요.</h5>
-                            </div>
-                            <div class="card-body mb-0"> <!-- 여기에 mb-2 클래스 추가 -->
-                                <div class="form-group">
-                                    <label for="niceScore">NICE 신용점수</label>
-                                    <textarea class="form-control" id="niceScore" rows="1"
-                                              placeholder="NICE 신용점수"></textarea>
+            <form action="/processCheckList" method="post">
+                <div class="container-fluid p-0">
+                    <div class="mb-3">
+                        <h1 class="h3 d-inline align-middle">전세 체크리스트 </h1>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">전입을 하셨습니까? </h5>
+                                </div>
+                                <div class="card-body">
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option1"
+                                               name="jeonip" checked>
+                                        <span class="form-check-label">O</span>
+                                    </label>
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option2"
+                                               name="jeonip" checked>
+                                        <span class="form-check-label">X</span>
+                                    </label>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="kcbScore">KCB 신용점수</label>
-                                    <textarea class="form-control" id="kcbScore" rows="1"
-                                              placeholder="KCB 신용점수"></textarea>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">확정일자를 받으셨습니까?</h5>
+                                </div>
+                                <div class="card-body">
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option1"
+                                               name="confirmDate" checked>
+                                        <span class="form-check-label">O</span>
+                                    </label>
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option2"
+                                               name="confirmDate">
+                                        <span class="form-check-label">X</span>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">고객님과 배우자의 소득을 입력하여주세요.</h5>
-                            </div>
-                            <div class="card-body mb-0"> <!-- 여기에 mb-2 클래스 추가 -->
-                                <div class="form-group">
-                                    <label for="niceScore">본인</label>
-                                    <textarea class="form-control" id="customerIncome" rows="1"
-                                              placeholder="본인 총 소득"></textarea>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">본 건의 대출금리는 몇 퍼센트입니까?</h5>
+                                </div>
+                                <div class="card-body">
+                                    <textarea class="form-control" rows="1" name="interestRate" placeholder="숫자로 입력바랍니다."></textarea>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="kcbScore">배우자</label>
-                                    <textarea class="form-control" id="pouseIncome" rows="1"
-                                              placeholder="배우자 총소득"></textarea>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">현재 이용 중이신 전세대출이 있습니까?</h5>
+                                </div>
+                                <div class="card-body">
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option1"
+                                               name="nowJeonse" checked>
+                                        <span class="form-check-label">O</span>
+                                    </label>
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option2"
+                                               name="nowJeonse">
+                                        <span class="form-check-label">X</span>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
-
-                        <div class="card">
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">총 임차보증금과 계약기간을 입력하여주세요..</h5>
-                            </div>
-                            <div class="card-body mb-0"> <!-- 여기에 mb-2 클래스 추가 -->
-                                <div class="form-group">
-                                    <label for="niceScore">임차보증금</label>
-                                    <textarea class="form-control" id="
-rentDeposit" rows="1"
-                                              placeholder="임차보증금"></textarea>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">신용관리 대상에 해당하십니까?</h5>
+                                </div>
+                                <div class="card-body">
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option1"
+                                               name="creditManagement" checked>
+                                        <span class="form-check-label">O</span>
+                                    </label>
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option2"
+                                               name="creditManagement">
+                                        <span class="form-check-label">X</span>
+                                    </label>
                                 </div>
                             </div>
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <label for="kcbScore">계약기간</label>
-                                    <textarea class="form-control" id="Term" rows="1"
-                                              placeholder="계약기간"></textarea>
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">임대인이 임차보증금반환채권을 질권설정하는 것을 승낙하였습니까?</h5>
+                                </div>
+                                <div class="card-body">
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option1"
+                                               name="landLordPermit" checked>
+                                        <span class="form-check-label">O</span>
+                                    </label>
+                                    <label class="form-check">
+                                        <input class="form-check-input" type="radio" value="option2"
+                                               name="landLordPermit">
+                                        <span class="form-check-label">X</span>
+                                    </label>
                                 </div>
                             </div>
-                        </div>
 
-
-                        <div class="card" >
-                            <div class="card-header">
-                                <h5 class="card-title mb-0">임대인이 임차목적물을 소유한지 3개월 경과하였습니까? </h5>
+                            <div class="text-center mt-3">
+                                <button type="submit" class="btn btn-lg btn-primary">다음</button>
                             </div>
-                            <div class="card-body">
-                                <label th:for="landlordPossessionMonth">O</label>
-                                <input type="radio" th:field="*{landlordPossessionMonth}" value="true"/>
-                                <label th:for="landlordPossessionMonth">X</label>
-                                <input type="radio" th:field="*{landlordPossessionMonth}" value="false"/>
-                            </div>
-
-
-
-
-                            <!--<div class="card-body" id="radio_btn">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
-                            </div>-->
                         </div>
                     </div>
                 </div>
-            </div>
-            </form>
 
+            </form>
         </main>
 
         <footer class="footer">
@@ -494,16 +388,7 @@ rentDeposit" rows="1"
         </footer>
     </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<script type="text/javascript">
-    function regist(){
-        let checkListForm = document.getElementById("checklistNextStep");
 
-        let radio = $('#landlordPossessionMonth').val().trim();
-        console.log(radio);
-    }
-
-</script>
 <script src="/js/app.js"></script>
 
 </body>
