@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 
 <head>
     <meta charset="utf-8">
@@ -247,7 +247,7 @@
         </nav>
 
         <main class="content">
-            <form action="/checklistNextStep" id="checklistNextStep" th:object="${CommonchecklistDTO}" method="post">
+            <form action="@{/checklistNextStep}" id="checklistNextStep" th:object="${commonchecklistDTO}" method="post">
 <!--            <form action="/processCheckList" method="post">-->
             <div class="container-fluid p-0">
 
@@ -264,18 +264,8 @@
                                 <h5 class="card-title mb-0">공인중개업자를 통해 임대차계약을 체결하고 임차보증금의 5%이상을 계약금으로 지급하셨습니까? </h5>
                             </div>
                             <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
+                                <input type="radio" th:field="*{agentCheck}" value=1> O</input><br>
+                                <input type="radio" th:field="*{agentCheck}" value=0> X</iput>
                             </div>
                         </div>
                         <div class="card">
@@ -283,18 +273,8 @@
                                 <h5 class="card-title mb-0">임대인이 외국인입니까?</h5>
                             </div>
                             <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
+                                <input type="radio" th:field="*{foriengerCheck}" value=1> O</input><br>
+                                <input type="radio" th:field="*{foriengerCheck}" value=0> X</iput>
                             </div>
                         </div>
 
@@ -303,18 +283,8 @@
                                 <h5 class="card-title mb-0">임대인과 임차인 관게(배우자, 직계존비속, 형제자매 여부)</h5>
                             </div>
                             <div class="card-body">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
+                                <input type="radio" th:field="*{familyCheck}" value=1> O</input><br>
+                                <input type="radio" th:field="*{familyCheck}" value=0> X</iput>
                             </div>
                         </div>
                         <div class="card">
@@ -433,33 +403,16 @@ rentDeposit" rows="1"
                                 <h5 class="card-title mb-0">임대인이 임차목적물을 소유한지 3개월 경과하였습니까? </h5>
                             </div>
                             <div class="card-body">
-                                <label th:for="landlordPossessionMonth">O</label>
-                                <input type="radio" th:field="*{landlordPossessionMonth}" value="true"/>
-                                <label th:for="landlordPossessionMonth">X</label>
-                                <input type="radio" th:field="*{landlordPossessionMonth}" value="false"/>
+                                <input type="radio" th:field="*{landlordPossessionMonth}" value=1> O</input><br>
+                                <input type="radio" th:field="*{landlordPossessionMonth}" value=0> X</iput>
                             </div>
-
-
-
-
-                            <!--<div class="card-body" id="radio_btn">
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">O
-            </span>
-                                </label>
-                                <label class="form-check">
-                                    <input class="form-check-input" type="radio" value="option1"
-                                           name="radios-example" checked>
-                                    <span class="form-check-label">X
-            </span>
-                                </label>
-                            </div>-->
                         </div>
                     </div>
                 </div>
             </div>
+                <div class="text-center mt-3">
+                    <button id="target_btn" type="submit" class="btn btn-lg btn-primary" onclick="regist()">완료</button>
+                </div>
             </form>
 
         </main>
@@ -498,8 +451,7 @@ rentDeposit" rows="1"
 <script type="text/javascript">
     function regist(){
         let checkListForm = document.getElementById("checklistNextStep");
-
-        let radio = $('#landlordPossessionMonth').val().trim();
+        checkListForm.submit();
         console.log(radio);
     }
 
