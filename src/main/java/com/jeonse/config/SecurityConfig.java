@@ -33,7 +33,7 @@ public class SecurityConfig{
     @Bean
     public AuthenticationSuccessHandler LoginSuccessHandler() {
         // loginIdname, defaultUrl
-        return new LoginSuccessHandler("/main");
+        return new LoginSuccessHandler("/");
     }
 
 
@@ -61,7 +61,7 @@ public class SecurityConfig{
                 .passwordParameter("pass")
                 .failureHandler(loginFailHandler) //실패 핸들러
                 .successHandler(LoginSuccessHandler())//성공 핸들러
-                .defaultSuccessUrl("/main")
+                .defaultSuccessUrl("/")
                 .permitAll().and() //로그인 성공시 이동
                 .logout()
                 .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout")) //로그아웃 경로
