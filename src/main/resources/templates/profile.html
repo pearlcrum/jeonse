@@ -22,10 +22,21 @@
 
 </head>
 <style>
+
+    .sidebar-nav input,
+    .sidebar-nav button,
+    .sidebar-nav a {
+        font-size: 14px; /* 원하는 크기로 조절 */
+    }
+
+    .sidebar-item i {
+        font-size: 16px; /* 아이콘 크기 조절 */
+    }
+
     .tooltip {
         position: absolute;
         left: 45px;
-        top: 310px;
+        top: 345px;
         /*padding: 10px;*/
         /*border-radius:5px;*/
         color: red;
@@ -35,8 +46,8 @@
 
     .tooltip2 {
         position: absolute;
-        left: 110px;
-        top: 520px;
+        left: 112px;
+        top: 583px;
         /*padding: 10px;*/
         /*border-radius:5px;*/
         color: red;
@@ -114,17 +125,17 @@
                     </a>
                 </li>
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/login">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">로그인</span>
-                    </a>
-                </li>
+<!--                <li class="sidebar-item">-->
+<!--                    <a class="sidebar-link" href="/login">-->
+<!--                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">로그인</span>-->
+<!--                    </a>-->
+<!--                </li>-->
 
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/signup">
-                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>
-                    </a>
-                </li>
+<!--                <li class="sidebar-item">-->
+<!--                    <a class="sidebar-link" href="/signup">-->
+<!--                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>-->
+<!--                    </a>-->
+<!--                </li>-->
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/checklist">
@@ -178,12 +189,13 @@
                                 <h5 class="card-title mb-0">Your Image</h5>
                                 <div class="text-muted mb-2">Lead Developer</div>
 
-                                <!-- 버튼 추가 -->
-                                <button type="button" class="btn btn-primary btn-sm position-absolute bottom-0 end-0 mb-2">금리 특약 예상 서비스</button>
+                                <!-- 금리 특약 예상서비스 연결 코드 추가 필요-->
+                                <button class="btn btn-primary">금리 특약 예상 서비스</button>
                             </div>
 
 
 
+                            <form action="/processSignup" method="post"> <!--신용정보 관련 form. 경로 수정필요  -->
                             <hr class="my-0"/>
                             <div class="card-body">
                                 <h5 class="h6 card-title" style="display:inline-block; margin-right: 5px;">신용정보</h5>
@@ -194,17 +206,19 @@
                                     </a>
                                     <h5 class="tooltip">신용점수 보러가기</h5>
                                 </div>
-
-                                <ul>
-                                    <li>NICE 신용점수<textarea class="form-control" id="niceScore" rows="1"
-                                                           placeholder="NICE 신용점수"></textarea></li>
-                                    <br>
-
-                                    <li>KCB 신용점수<textarea class="form-control" id="kcbScore" rows="1"
-                                                          placeholder="KCB 신용점수"></textarea></li>
-                                </ul>
+                                <div style="text-align: center;">
+                                    <ul style="text-align: left; list-style: none; padding: 0;">
+                                        <li>NICE 신용점수<textarea class="form-control" id="niceScore" rows="1" placeholder="NICE 신용점수"></textarea></li>
+                                        <br>
+                                        <li>KCB 신용점수<textarea class="form-control" id="kcbScore" rows="1" placeholder="KCB 신용점수"></textarea></li>
+                                    </ul>
+                                    <button class="btn btn-primary">제출</button>
+                                </div>
 
                             </div>
+                            </form>
+
+                            <form action="/processSignup" method="post"> <!--소득정보 관련 form. 경로 수정필요  -->
                             <hr class="my-0"/>
                             <div class="card-body">
                                 <div class="wrap">
@@ -215,7 +229,8 @@
                                     </a>
                                     <h5 class="tooltip2">소득점수 보러가기</h5>
                                 </div>
-                                <ul>
+                                <div style="text-align: center;">
+                                    <ul style="text-align: left; list-style: none; padding: 0;">
 
                                     <li>작년 소득<textarea class="form-control" id="lastIncome" rows="1"
                                                        placeholder="작년 소득"></textarea></li>
@@ -229,7 +244,12 @@
                                     <br>
                                     <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                 </ul>
+                                <button class="btn btn-primary">제출</button>
+                                    </div>
                             </div>
+                            </form>
+
+
                             <hr class="my-0"/>
                             <div class="card-body">
                                 <h5 class="h6 card-title">Else</h5>
@@ -254,7 +274,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="m-sm-4">
-                                            <form action="/processSignup" method="post">
+                                            <form action="/processSignup" method="post"> <!--정보 수정 form. 경로 수정 필요-->
                                                 <div class="mb-3">
                                                     <label class="form-label">이름</label>
                                                     <input class="form-control form-control-lg" type="text"
@@ -293,7 +313,7 @@
 
                                 <div class="container">
 
-                                    <form action="/processSignup" method="post">
+                                    <form action="/processSignup" method="post"> <!--주소 및 kb 시세 상세보기 form 경로 수정 필요-->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
@@ -328,7 +348,7 @@
                                             <div class="card">
                                                 <div class="card-body h-100 d-flex align-items-center justify-content-center">
                                                     <div class="card-body text-center" style="background-color: skyblue; width: 400px; height: 200px;">
-                                                        <h3 style="color: grey">IBK 전세대출</h3>
+                                                        <h3 style="color: grey">IBK 안심 전세대출</h3>
                                                     </div>
                                                 </div>
 
