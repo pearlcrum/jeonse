@@ -24,38 +24,47 @@
             <a class="sidebar-brand" href="/">
                 <span class="align-middle">어디까지 알아보고 오셨어요?</span>
             </a>
+
             <ul class="sidebar-nav">
                 <li class="sidebar-header">
                     Pages
                 </li>
+
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
                     </a>
                 </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/login">
                         <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">로그인</span>
                     </a>
                 </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/signup">
                         <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>
                     </a>
                 </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/checklist">
                         <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>
                     </a>
                 </li>
+
             </ul>
         </div>
     </nav>
+
     <div class="main">
         <nav class="navbar navbar-expand navbar-light navbar-bg">
             <a class="sidebar-toggle js-sidebar-toggle">
                 <i class="hamburger align-self-center"></i>
             </a>
+
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
@@ -209,6 +218,7 @@
                         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                             <i class="align-middle" data-feather="settings"></i>
                         </a>
+
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                             <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Charles Hall"/>
                             <span class="text-dark">Charles Hall</span>
@@ -231,6 +241,7 @@
                 </ul>
             </div>
         </nav>
+
         <main class="content">
             <form action="checklistNextStep" id="checklistNextStep" th:object="${commonchecklistDTO}" method="post">
                 <!--            <form action="/processCheckList" method="post">-->

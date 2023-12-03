@@ -9,7 +9,8 @@
     <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
     <meta name="author" content="AdminKit">
     <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="/img/icons/icon-48x48.png" />
 
@@ -30,35 +31,23 @@
             </a>
 
             <ul class="sidebar-nav">
-                <li class="sidebar-header">
-                    Pages
-                </li>
-
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
                     </a>
                 </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/login">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">로그인</span>
-                    </a>
-                </li>인
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/signup">
-                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>
-                    </a>
-                </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/checklist">
                         <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>
                     </a>
                 </li>
 
+                <li class="sidebar-link">
+                    <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
+                    <input class="align-middle" id="aptName" name="aptName" style="width:155px;" type="text" placeholder="매물을 검색하세요">
+                    <button class="align-middle" type="button" style="display:inline" onclick="searchHouse()">검색</button>
+                    <div id="search-suggestions"></div>
+                </li>
             </ul>
         </div>
     </nav>
@@ -72,152 +61,14 @@
             <div class="navbar-collapse collapse">
                 <ul class="navbar-nav navbar-align">
                     <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" id="alertsDropdown" data-bs-toggle="dropdown">
-                            <div class="position-relative">
-                                <i class="align-middle" data-feather="bell"></i>
-                                <span class="indicator">4</span>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="alertsDropdown">
-                            <div class="dropdown-menu-header">
-                                4 New Notifications
-                            </div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-danger" data-feather="alert-circle"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Update completed</div>
-                                            <div class="text-muted small mt-1">Restart server 12 to complete the update.</div>
-                                            <div class="text-muted small mt-1">30m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-warning" data-feather="bell"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Lorem ipsum</div>
-                                            <div class="text-muted small mt-1">Aliquam ex eros, imperdiet vulputate hendrerit et.</div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-primary" data-feather="home"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">Login from 192.186.1.8</div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <i class="text-success" data-feather="user-plus"></i>
-                                        </div>
-                                        <div class="col-10">
-                                            <div class="text-dark">New connection</div>
-                                            <div class="text-muted small mt-1">Christina accepted your request.</div>
-                                            <div class="text-muted small mt-1">14h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-menu-footer">
-                                <a href="#" class="text-muted">Show all notifications</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-icon dropdown-toggle" href="#" id="messagesDropdown" data-bs-toggle="dropdown">
-                            <div class="position-relative">
-                                <i class="align-middle" data-feather="message-square"></i>
-                            </div>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end py-0" aria-labelledby="messagesDropdown">
-                            <div class="dropdown-menu-header">
-                                <div class="position-relative">
-                                    4 New Messages
-                                </div>
-                            </div>
-                            <div class="list-group">
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-5.jpg" class="avatar img-fluid rounded-circle" alt="Vanessa Tucker">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Vanessa Tucker</div>
-                                            <div class="text-muted small mt-1">Nam pretium turpis et arcu. Duis arcu tortor.</div>
-                                            <div class="text-muted small mt-1">15m ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-2.jpg" class="avatar img-fluid rounded-circle" alt="William Harris">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">William Harris</div>
-                                            <div class="text-muted small mt-1">Curabitur ligula sapien euismod vitae.</div>
-                                            <div class="text-muted small mt-1">2h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-4.jpg" class="avatar img-fluid rounded-circle" alt="Christina Mason">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Christina Mason</div>
-                                            <div class="text-muted small mt-1">Pellentesque auctor neque nec urna.</div>
-                                            <div class="text-muted small mt-1">4h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                                <a href="#" class="list-group-item">
-                                    <div class="row g-0 align-items-center">
-                                        <div class="col-2">
-                                            <img src="/img/avatars/avatar-3.jpg" class="avatar img-fluid rounded-circle" alt="Sharon Lessman">
-                                        </div>
-                                        <div class="col-10 ps-2">
-                                            <div class="text-dark">Sharon Lessman</div>
-                                            <div class="text-muted small mt-1">Aenean tellus metus, bibendum sed, posuere ac, mattis non.</div>
-                                            <div class="text-muted small mt-1">5h ago</div>
-                                        </div>
-                                    </div>
-                                </a>
-                            </div>
-                            <div class="dropdown-menu-footer">
-                                <a href="#" class="text-muted">Show all messages</a>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="nav-item dropdown">
                         <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
                             <i class="align-middle" data-feather="settings"></i>
                         </a>
-
                         <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
                             <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Shine-J" /> <span class="text-dark">Shine-J</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a class="dropdown-item" href="profile.html"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="pie-chart"></i> Analytics</a>
-                            <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="index_1.html"><i class="align-middle me-1" data-feather="settings"></i> Settings & Privacy</a>
-                            <a class="dropdown-item" href="#"><i class="align-middle me-1" data-feather="help-circle"></i> Help Center</a>
-                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/profile"><i class="align-middle me-1" data-feather="user"></i> Profile</a>
                             <a class="dropdown-item" href="/member/logout">Log out</a>
                         </div>
                     </li>
@@ -229,27 +80,36 @@
     </div>
 </div>
 <script src="/js/app.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 
+<!--맵-->
 <script>
     var map;
     var infoWindow;
-    var isOpen = false;
+    //var isOpen = false;
+    var content;
     var position = {
         lat: 37.56657309193628,
         lng: 126.98658696263642
     };
     var maxDistance = 0.001; // 클릭 감지 거리 (조절 가능)
 
-    function initMaps() {
+    function initMaps(position, content) {
         map = new google.maps.Map(document.getElementById("default_map"), {
             zoom: 17,
             center: position,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
+        var marker = new google.maps.Marker({
+            position: position,
+            map: map,
+            title: content
+        });
+
         // Create an InfoWindow
         infoWindow = new google.maps.InfoWindow({
-            content: "아이파크 15억"
+            content: content
         });
 
         // Set the position where you want to display the InfoWindow
@@ -257,8 +117,13 @@
         infoWindow.setPosition(displayPosition);
         infoWindow.open(map);
 
+        google.maps.event.addListener(infoWindow,'click',function(){
+            location.href('/checklist?lat='+position.lat+'&lng='+position.lng);
+        });
+
+
         // Add a click event listener to toggle InfoWindow
-        google.maps.event.addListener(map, 'click', function(event) {
+        /*google.maps.event.addListener(map, 'click', function(event) {
             var clickPosition = event.latLng;
             var distance = google.maps.geometry.spherical.computeDistanceBetween(position, clickPosition);
 
@@ -271,26 +136,51 @@
                 }
                 isOpen = !isOpen;
             }
-        });
+        });*/
+    }
+
+    function searchHouse(){
+
+        let aptName = $('#aptName').val().trim();
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        console.log(aptName);
+        $.ajax({
+            type: 'POST',
+            url: '/houseSearch',
+            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            data: {aptName:aptName},
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader(header, token);
+            },
+            success: function (house) {
+                if(house==null){
+                    console.log("error");
+                }else{
+                    console.log("house search success!");
+                    console.log(house.lat);
+                    var position = {
+                        lat: house.lat,
+                        lng: house.lng
+                    };
+                    initMaps(position, house.aptName);
+                }
+            },
+            error: function () {
+                alert("ERROR");
+            }
+        })
     }
 </script>
-<script th:inline="javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var inputEmail = /*[[${inputEmail}]]*/ '';
-        var inputPassword = /*[[${inputPassword}]]*/ '';
-
-        if(inputEmail && inputPassword ){
-            showToast("이메일: " + inputEmail + "\n패스워드: " + inputPassword);
-        }
-    });
-</script>
-
-
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMaps"></script>
+<script>
+    // 검색어 추천 목록 생성
+    /*const suggestions = searchSuggestions.filter(suggestion =>
+        suggestion.startsWith(inputValue)
+    );*/
 
 
-
-
+</script>
 </body>
 
 </html>

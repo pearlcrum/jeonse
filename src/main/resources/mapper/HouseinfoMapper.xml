@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.jeonse.repository.MemberMapper">
+<mapper namespace="com.jeonse.repository.HouseinfoMapper">
 
     <!-- houseID에 따른 매물 조회 -->
-    <select id="getHouseinfo" parameterType="int" resultType="com.jeonse.dto.HouseinfoDTO">
+    <select id="getHouseInfo" parameterType="int" resultType="com.jeonse.dto.HouseinfoDTO">
         select
         *
         from houseinfo
@@ -12,10 +12,17 @@
 
     <!-- 행정동에 따른 매물 조회 -->
     <!--https://m.blog.naver.com/zxxne/222476370039-->
-    <select id="getHouseinfoByDong" parameterType="com.jeonse.dto.HouseinfoDTO" resultType="map">
+    <select id="getHouseInfoByDong" parameterType="String" resultType="map">
         select
         *
         from houseinfo
         where dong = #{dong}
     </select>
+    <select id="getHouseInfoByName" parameterType="String" resultType="com.jeonse.dto.HouseinfoDTO">
+        select
+            *
+        from houseinfo
+        where aptName like concat('%',#{aptName},'%')
+    </select>
+
 </mapper>
