@@ -94,32 +94,34 @@
     };
     var maxDistance = 0.001; // 클릭 감지 거리 (조절 가능)
 
-    function initMaps(position, content) {
+    function initMaps(position, house) {
         map = new google.maps.Map(document.getElementById("default_map"), {
             zoom: 17,
             center: position,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-        var marker = new google.maps.Marker({
-            position: position,
-            map: map,
-            title: content
+
+
+        // Creates a info window of the marker.
+        var infoWindow = new google.maps.InfoWindow({
+            content:
+                "<h2>"+house.aptName+"</h2>"
+                + "<p>"+house.dealAmount+"</p>"
+                + "<a href='/checklist'>대출 조회하기</a>"
         });
 
-        // Create an InfoWindow
-        infoWindow = new google.maps.InfoWindow({
-            content: content
-        });
+        infoWindow.open(map);
+
 
         // Set the position where you want to display the InfoWindow
         var displayPosition = new google.maps.LatLng(position);
         infoWindow.setPosition(displayPosition);
-        infoWindow.open(map);
+        //infoWindow.open(map);
 
-        google.maps.event.addListener(infoWindow,'click',function(){
+        /*google.maps.event.addListener(infoWindow,'click',function(){
             location.href('/checklist?lat='+position.lat+'&lng='+position.lng);
-        });
+        });*/
 
 
         // Add a click event listener to toggle InfoWindow
@@ -158,12 +160,11 @@
                     console.log("error");
                 }else{
                     console.log("house search success!");
-                    console.log(house.lat);
                     var position = {
                         lat: house.lat,
                         lng: house.lng
                     };
-                    initMaps(position, house.aptName);
+                    initMaps(position, house);
                 }
             },
             error: function () {
