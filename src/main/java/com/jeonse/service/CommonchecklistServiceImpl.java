@@ -3,6 +3,8 @@ package com.jeonse.service;
 import com.jeonse.dto.CommonchecklistDTO;
 import com.jeonse.dto.MemberDTO;
 import com.jeonse.repository.CommonchecklistMapper;
+import com.jeonse.repository.IbkansimjeonseMapper;
+import com.jeonse.repository.MemberMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -10,14 +12,17 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class CommonchecklistServiceImpl implements CommonchecklistService{
+
     @Autowired
     CommonchecklistMapper commonchecklistMapper;
-
+    @Autowired
+    MemberMapper memberMapper;
     @Override
     public int insertCommonchecklist(@NotNull CommonchecklistDTO list){
 
         //공통 체크리스트에 문제 있을 경우
         // return 0;
+        /*
         if(list.isAgentCheck()==false){
             return 0;
         }else if(list.isForiengerCheck()==false){
@@ -26,9 +31,9 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
             return 0;
         }else if(list.getJeonseTerm()<3 || list.getJeonseTerm()>24){
             return 0;
-        }else if(list.getLandlordPossessionMonth()<3){
+        }else if(list.getLandlordPossessionMonth()<1){
             return 0;
-        }else {
+        }else {*/
             //공통 체크리스트에 문제 없을 경우
             CommonchecklistDTO commonchecklistDto = new CommonchecklistDTO();
             commonchecklistDto.setMemID(list.getMemID());
@@ -43,7 +48,6 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
             commonchecklistDto.setSeniorDebt(list.getSeniorDebt());
             commonchecklistMapper.insertCommonchecklist(commonchecklistDto);
             return 1;
-        }
 
     }
     @Override
@@ -58,4 +62,16 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
         System.out.println("serviceImpl >> " + cnt);
         return cnt;
     }
+    @Override
+    public MemberDTO getMember(String memID){
+        MemberDTO user = memberMapper.getMemberDTO(memID);
+        System.out.println("로그인한 친구 정보야"+user);
+        return user;
+    }
+    @Override
+    public CommonchecklistDTO getCommonChecklist(String memID){
+        CommonchecklistDTO commonchecklistDTO=commonchecklistMapper.getCommonChecklist(memID);
+        return commonchecklistDTO;
+    }
+
 }

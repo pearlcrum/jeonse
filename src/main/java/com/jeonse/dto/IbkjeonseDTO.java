@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 public class IbkjeonseDTO {
-    private int ibkjeonseID;
+    private String memID;
     private boolean jeonip;//전입가능 여부
     private boolean confirmDate;//확정일자
     private double interestRate;//금리

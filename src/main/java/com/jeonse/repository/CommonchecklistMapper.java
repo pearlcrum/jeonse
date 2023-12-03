@@ -12,4 +12,6 @@ public interface CommonchecklistMapper {
     void deleteCommonchecklist(String memID); // 값 삭제
 
     int checkCommonchecklistID(String memID); //중복 값 확인
+
+    CommonchecklistDTO getCommonChecklist(String memID);
 }

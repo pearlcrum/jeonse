@@ -57,4 +57,12 @@ public class MemberServiceImpl implements MemberService{
         System.out.println("serviceImpl >> " + cnt);
         return cnt;
     }
+
+    //재성 수정 부분
+    @Override
+    public MemberDTO getMemberDTO(String memID){
+        MemberDTO user = memberMapper.getMemberDTO(memID);
+        System.out.println("All info of member"+user);
+        return user;
+    }
 }

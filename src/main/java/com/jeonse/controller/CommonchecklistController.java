@@ -1,8 +1,12 @@
 package com.jeonse.controller;
 
 import com.jeonse.dto.CommonchecklistDTO;
+import com.jeonse.dto.IbkansimjeonseDTO;
+import com.jeonse.dto.IbkjeonseDTO;
 import com.jeonse.dto.MemberDTO;
 import com.jeonse.service.CommonchecklistService;
+import com.jeonse.service.IbkansimjeonseService;
+import com.jeonse.service.IbkjeonseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -23,6 +27,12 @@ public class CommonchecklistController {
     @Autowired
     private CommonchecklistService commonchecklistService;
 
+    @Autowired
+    private IbkansimjeonseService ibkansimjeonseService;
+
+    @Autowired
+    private IbkjeonseService ibkjeonseService;
+    private String memberID;
 
     //체크리스트 보여주기
     @GetMapping("/checklist")
@@ -34,50 +44,43 @@ public class CommonchecklistController {
         }else{
             //체크리스트에 값이 없는 경우
             //memid 를 받아야함.
+            memberID=memID;
             System.out.println("memID is " + memID);
+            MemberDTO member=commonchecklistService.getMember(memID);
+            System.out.println("nice is"+ member.getNice());
+            System.out.println("kcb is"+ member.getKcb());
+            System.out.println("incomeLastYear is"+ member.getIncomeLastYear());
+            System.out.println("incomeYearBefore is"+ member.getIncomeYearBeforeLast());
+            System.out.println("debt is"+ member.getDebt());
+            System.out.println("birth is"+ member.getBirth());
+            System.out.println("numhouse is"+ member.getNumhouse());
+
         }
         return "checklist";
     }
 
-    @PostMapping("/checklist")
-    public String checklistSubmit(CommonchecklistDTO commonchecklistDTO) {
-        System.out.println("@@@"+  commonchecklistDTO.getLandlordPossessionMonth());
-        commonchecklistService.insertCommonchecklist(commonchecklistDTO);
-        return "redirect/main";
+    @PostMapping("/checklistNextStep")
+    public String checklistNextStep(CommonchecklistDTO commonchecklistDTO) {
+        System.out.println("@@@");
+        //값 잘 들어오네
+        System.out.println("agentCheck y/n"+  commonchecklistDTO.isAgentCheck());
+        System.out.println("foreingerCheck y/n"+  commonchecklistDTO.isForiengerCheck());
+        System.out.println("familyCheck y/n"+  commonchecklistDTO.isFamilyCheck());
+        System.out.println("loanAmount "+  commonchecklistDTO.getLoanAmount());
+        System.out.println("housePrice "+  commonchecklistDTO.getHousePrice());
+        System.out.println("jeonseDepoist "+  commonchecklistDTO.getJeonseDeposit());
+        System.out.println("jeonseTerm "+  commonchecklistDTO.getJeonseTerm());
+        System.out.println("landlordPoss y/n"+  commonchecklistDTO.getLandlordPossessionMonth());
+        System.out.println("seniorDebt "+  commonchecklistDTO.getSeniorDebt());
+        //가지고 온 값들 db insert
+        commonchecklistDTO.setMemID(memberID);
+        int good = commonchecklistService.insertCommonchecklist(commonchecklistDTO);
+        //good이 1일 경우
+        return "redirect:ibkansimjeonseChecklist";
+        //good이 0일 경우 error 페이지 개발 필요
     }
-    /*@PostMapping("/checklistNextStep")
-    public String checklistNextStep(@RequestParam("checklistNextStep") CommonchecklistDTO checklistDto ) {
-        System.out.println("여기는 잘 들어 오나요?");
-        commonchecklistService.insertCommonchecklist(checklistDto);
-        return "redirect:/index";
-    }*/
 
 
-    /*@GetMapping("/checklist")
-    //public String checklist(HttpServletRequest request) throws Exception{
-    public String checklist(CommonchecklistDTO commonchecklistDTO) {
-        //체크리스트에 값이 이미 있는 경우
-        //세션 초기화 및 profile로 이동하여 기존 체크리스트 삭제 요청 필요
-        //체크리스트에 값이 없는 경우
-
-        //HttpSession session = request.getSession();
-
-        System.out.println("@@@@" + commonchecklistDTO.getLandlordPossessionMonth());
-        //session.setAttribute("memID",memID); //세션에 현재 들어온 사람 정보 넣기.
-        return "checklist";
-    }*/
-    //체크리스트 값 입력
-    /*@PostMapping("/checklistNextStep")
-    public String checklistNextStep(@RequestParam("checklistNextStep") CommonchecklistDTO checklistDto, HttpServletRequest request) {
-        System.out.println("여기는 잘 들어 오나요?");
-        HttpSession session=request.getSession();
-        String memID=(String)session.getAttribute("memID");
-        System.out.println(memID);
-        System.out.println("여기보세요"+checklistDto.getJeonseTerm());
-        //session.setAttribute(); //여기에 넣자
-        commonchecklistService.insertCommonchecklist(checklistDto);
-        return "redirect:/index";
-    }*/
     public String processSignup(@RequestParam("inputName") String inputName,
                                 @RequestParam("inputEmail") String inputEmail,
                                 @RequestParam("inputPassword") String inputPassword,
@@ -89,18 +92,64 @@ public class CommonchecklistController {
         redirectAttributes.addAttribute("inputEmail", inputEmail);
         redirectAttributes.addAttribute("inputPassword", inputPassword);
         return "redirect:index";
-    /*
-    //아이디 중복체크
-    @PostMapping(value="/joinForm/checkId")
-    @ResponseBody
-    public int checkId(@RequestParam("memId") String memId) {
 
-        System.out.println("memId"+memId);
-
-        int cnt = memberService.checkId(memId);
-
-        return cnt;
-    }*/
     }
+    @GetMapping("/ibkansimjeonseChecklist")
+    public String ibkansimjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkansimjeonseDTO ibkansimjeonseDTO) {
+        //체크리스트에 값이 이미 있는 경우
 
+            //체크리스트에 값이 없는 경우
+            //memid 를 받아야함.
+            memberID=memID;
+            System.out.println("memID is " + memID);
+
+        return "ibkansimjeonseChecklist";
+    }
+    @PostMapping("/ansimJeonseCheckList")
+    public String ansimJeonseCheckList(IbkansimjeonseDTO ibkansimjeonseDTO){
+        System.out.println("###");
+        //값 잘 들어오네
+        System.out.println("insurance y/n"+  ibkansimjeonseDTO.isInsurance());
+        System.out.println("isNearAgent y/n"+  ibkansimjeonseDTO.isNearAgent());
+        System.out.println("isShouldPayInTwoWeeks y/n"+  ibkansimjeonseDTO.isShouldPayInTwoWeeks());
+        System.out.println("isPropertyRestrict y/n "+  ibkansimjeonseDTO.isPropertyRestrict());
+        System.out.println("getChecklistID "+  ibkansimjeonseDTO.getChecklistID());
+        //가지고 온 값들 db insert
+        ibkansimjeonseDTO.setMemID(memberID);
+        int good = ibkansimjeonseService.insertIbkansimjeonse(ibkansimjeonseDTO);
+        //good이 1일 경우
+        return "redirect:ibkjeonseChecklist";
+        //good이 0일 경우 error 페이지 개발 필요
+    }
+    @GetMapping("/ibkjeonseChecklist")
+    public String ibkjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkjeonseDTO ibkjeonseDTO) {
+        //체크리스트에 값이 이미 있는 경우
+
+        //체크리스트에 값이 없는 경우
+        //memid 를 받아야함.
+        memberID=memID;
+        System.out.println("ibk jeonse memID is " + memID);
+
+        //추후 결과 화면 값 나오면 여기서 체크
+        return "ibkjeonseChecklist";
+    }
+    @PostMapping("/ibkJeonseCheckList")
+    public String ibkJeonseCheckList(IbkjeonseDTO ibkjeonseDTO){
+        System.out.println("***");
+        //값 잘 들어오네
+        System.out.println("jeonip y/n"+  ibkjeonseDTO.isJeonip());
+        System.out.println("confirmDate y/n"+  ibkjeonseDTO.isConfirmDate());
+        System.out.println("interestRate "+  ibkjeonseDTO.getInterestRate());
+        System.out.println("nowJeonse y/n "+  ibkjeonseDTO.isNowJeonse());
+        System.out.println("creditManagement "+  ibkjeonseDTO.isCreditManagement());
+        System.out.println("landLordPermit "+  ibkjeonseDTO.isLandLordPermit());
+        System.out.println("checklistID "+  ibkjeonseDTO.getChecklistID());
+        //가지고 온 값들 db insert
+        ibkjeonseDTO.setMemID(memberID);
+        int good = ibkjeonseService.insertIbkjeonse(ibkjeonseDTO);
+        //good이 1일 경우
+        return "redirect:result";
+        //good이 0일 경우 error 페이지 개발 필요
+    }
 }
+

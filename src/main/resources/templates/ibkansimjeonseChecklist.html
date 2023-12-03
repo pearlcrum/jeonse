@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
 <html lang="en">
 
 <head>
@@ -9,7 +10,8 @@
     <meta name="author" content="AdminKit">
     <meta name="keywords"
           content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
-
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="shortcut icon" href="/img/icons/icon-48x48.png"/>
 
@@ -246,7 +248,9 @@
         </nav>
 
         <main class="content">
-            <form action="/processCheckList" method="post">
+            <form action="/ansimJeonseCheckList" id="ansimJeonseCheckList" th:object="${ibkansimjeonseDTO}"  method="post">
+                <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
+
                 <div class="container-fluid p-0">
                     <div class="mb-3">
                         <h1 class="h3 d-inline align-middle">안심전세 체크리스트 </h1>
@@ -258,16 +262,8 @@
                                     <h5 class="card-title mb-0">전세금안심대출보증서 발급 및 권리보험 가입이 가능하십니까?</h5>
                                 </div>
                                 <div class="card-body">
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option1"
-                                               name="insurance" checked>
-                                        <span class="form-check-label">O</span>
-                                    </label>
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option2"
-                                               name="insurance" checked>
-                                        <span class="form-check-label">X</span>
-                                    </label>
+                                    <input type="radio" name="insurance" th:field="*{insurance}" value=1> O</input><br>
+                                    <input type="radio" name="insurance" th:field="*{insurance}" value=0> X</input>
                                 </div>
                             </div>
                             <div class="card">
@@ -275,16 +271,8 @@
                                     <h5 class="card-title mb-0">임차물과 공인중개사가 원격지에 해당합니까?</h5>
                                 </div>
                                 <div class="card-body">
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option1"
-                                               name="nearAgent" checked>
-                                        <span class="form-check-label">O</span>
-                                    </label>
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option2"
-                                               name="nearAgent">
-                                        <span class="form-check-label">X</span>
-                                    </label>
+                                    <input type="radio" name="nearAgent" th:field="*{nearAgent}" value=1> O</input><br>
+                                    <input type="radio" name="nearAgent" th:field="*{nearAgent}" value=0> X</input>
                                 </div>
                             </div>
                             <div class="card">
@@ -292,37 +280,22 @@
                                     <h5 class="card-title mb-0">계약일자와 잔금일 간의 기간이 14일 이내입니까?</h5>
                                 </div>
                                 <div class="card-body">
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option1"
-                                               name="shouldPayInTwoWeeks" checked>
-                                        <span class="form-check-label">O</span>
-                                    </label>
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option2"
-                                               name="shouldPayInTwoWeeks">
-                                        <span class="form-check-label">X</span>
-                                    </label>
+                                    <input type="radio" name="shouldPayInTwoWeeks" th:field="*{shouldPayInTwoWeeks}" value=1> O</input><br>
+                                    <input type="radio" name="shouldPayInTwoWeeks" th:field="*{shouldPayInTwoWeeks}" value=0> X</input>
                                 </div>
                             </div>
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title mb-0">소유권 침해(경매신청, 압류, 가압류, 가처분, 가등기 등)가 있습니까?</h5>
                                 </div>
+
                                 <div class="card-body">
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option1"
-                                               name="propertyRestrict" checked>
-                                        <span class="form-check-label">O</span>
-                                    </label>
-                                    <label class="form-check">
-                                        <input class="form-check-input" type="radio" value="option2"
-                                               name="propertyRestrict">
-                                        <span class="form-check-label">X</span>
-                                    </label>
+                                    <input type="radio" name="propertyRestrict" th:field="*{propertyRestrict}" value=1> O</input><br>
+                                    <input type="radio" name="propertyRestrict" th:field="*{propertyRestrict}" value=0> X</input>
                                 </div>
                             </div>
                             <div class="text-center mt-3">
-                                <button type="submit" class="btn btn-lg btn-primary">완료</button>
+                                <button id="target_btn" type="submit" class="btn btn-lg btn-primary" onclick="regist()">완료</button>
                             </div>
                         </div>
                     </div>
@@ -361,7 +334,15 @@
         </footer>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+    function regist(){
+        let checkListForm = document.getElementById("ansimJeonseCheckList");
+        checkListForm.submit();
+        console.log(radio);
+    }
 
+</script>
 <script src="/js/app.js"></script>
 
 </body>

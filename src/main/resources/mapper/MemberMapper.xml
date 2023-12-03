@@ -37,4 +37,10 @@
         select count(*) from member where memID = #{memID}
     </select>
 
+    <!-- 모든 회원정보 id에 따른 -->
+    <select id="getMemberDTO" parameterType="String" resultType="com.jeonse.dto.MemberDTO">
+        select * from member where memID = #{memID}
+
+    </select>
+
 </mapper>
