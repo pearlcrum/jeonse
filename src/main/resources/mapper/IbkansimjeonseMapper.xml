@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeonse.repository.IbkansimjeonseMapper">
+    <!-- 값 넣기 -->
+    <insert id="insertIbkansimjeonse" parameterType="com.jeonse.dto.IbkansimjeonseDTO">
+        insert into ibkansimjeonse values(
+        #{memID},
+        #{insurance},
+        #{nearAgent},
+        #{shouldPayInTwoWeeks},
+        #{propertyRestrict},
+        #{checklistID}
+        )
+    </insert>
+    <select id="getIbkansimjeonseDTO" parameterType="String" resultType="com.jeonse.dto.IbkansimjeonseDTO">
+        select * from ibkansimjeonse where memID = #{memID}
+    </select>
+</mapper>

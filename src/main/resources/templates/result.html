@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout">
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+    <meta name="author" content="AdminKit">
+    <meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link rel="shortcut icon" href="/img/icons/icon-48x48.png"/>
+
+    <link rel="canonical" href="https://demo-basic.adminkit.io/pages-profile.html"/>
+
+    <title>어디까지 알아보고 오셨어요?</title>
+
+    <link href="/css/app.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        #search-suggestions {
+            display: none;
+            position: absolute;
+            color: black;
+            width: 80%;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            max-height: 150px;
+            overflow-y: auto;
+            margin-top: 5px;
+            z-index: 1;
+        }
+
+        .suggestion {
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .suggestion:hover {
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<style>
+    .tooltip {
+        position: absolute;
+        left: 45px;
+        top: 310px;
+        /*padding: 10px;*/
+        /*border-radius:5px;*/
+        color: red;
+        text-align: center;
+        display: none;
+    }
+
+    .tooltip2 {
+        position: absolute;
+        left: 110px;
+        top: 520px;
+        /*padding: 10px;*/
+        /*border-radius:5px;*/
+        color: red;
+        text-align: center;
+        display: none;
+    }
+
+    .tooltip:after {
+        display: inline;
+        position: absolute;
+        top: -30px;
+        left: 30px;
+        width: 0px;
+        height: 0px;
+    }
+
+    .tooltip2:after {
+        display: inline;
+        position: absolute;
+        top: -30px;
+        left: 30px;
+        width: 0px;
+        height: 0px;
+    }
+
+    .wrap:hover .tooltip {
+        display: inline;
+    }
+
+    .wrap:hover .tooltip2 {
+        display: inline;
+    }
+
+</style>
+<body>
+<div class="wrapper">
+    <nav id="sidebar" class="sidebar js-sidebar">
+        <div class="sidebar-content js-simplebar">
+            <a class="sidebar-brand" href="/">
+                <span class="align-middle">어디까지 알아보고 오셨어요?</span>
+            </a>
+
+            <ul class="sidebar-nav">
+                <li class="sidebar-link">
+                    <input class="align-middle" id="search-input" style="width:155px;" type="text"
+                           placeholder="매물을 검색하세요">
+                    <button class="align-middle" type="button" style="display:inline">검색</button>
+                    <div id="search-suggestions"></div>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/profile">
+                        <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/login">
+                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">로그인</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/signup">
+                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>
+                    </a>
+                </li>
+
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="/checklist">
+                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>
+                    </a>
+                </li>
+
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main">
+        <nav class="navbar navbar-expand navbar-light navbar-bg">
+            <a class="sidebar-toggle js-sidebar-toggle">
+                <i class="hamburger align-self-center"></i>
+            </a>
+
+            <div class="navbar-collapse collapse">
+                <ul class="navbar-nav navbar-align">
+                    <li class="nav-item dropdown">
+                        <a class="nav-icon dropdown-toggle d-inline-block d-sm-none" href="#" data-bs-toggle="dropdown">
+                            <i class="align-middle" data-feather="settings"></i>
+                        </a>
+                        <a class="nav-link dropdown-toggle d-none d-sm-inline-block" href="#" data-bs-toggle="dropdown">
+                            <img src="/img/avatars/avatar.jpg" class="avatar img-fluid rounded me-1" alt="Shine-J"/>
+                            <span class="text-dark">Shine-J</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="/profile"><i class="align-middle me-1"
+                                                                        data-feather="user"></i> Profile</a>
+                            <a class="dropdown-item" href="#">Log out</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <main class="content">
+            <div class="container-fluid p-0">
+                <div class="mb-3">
+                    <h1 class="h3 d-inline align-middle">심사 결과</h1>
+                </div>
+                <div class="row">
+                    <div class="col-md-4 col-xl-12">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="card-title mb-0">매물 정보</h5>
+                            </div>
+                            <div class="card-body h-100">
+                                <div class="card" id="default_map" style="height:300px;"></div>
+                                <script src="/js/app.js"></script>
+                                <script>
+                                    var map;
+                                    var infoWindow;
+                                    var isOpen = false;
+                                    var position = {
+                                        lat: 37.56657309193628,
+                                        lng: 126.98658696263642
+                                    };
+
+                                    function initMaps() {
+                                        map = new google.maps.Map(document.getElementById("default_map"), {
+                                            zoom: 17,
+                                            center: position,
+                                            mapTypeId: google.maps.MapTypeId.ROADMAP
+                                        });
+
+                                        infoWindow = new google.maps.InfoWindow({
+                                            content: "아이파크 15억"
+                                        });
+                                        var displayPosition = new google.maps.LatLng(position);
+                                        infoWindow.setPosition(displayPosition);
+                                        infoWindow.open(map);
+
+                                    }
+                                </script>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMaps"></script>
+
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="m-sm-4">
+                                            <div class="mb-3">
+                                                <label class="form-label" >주소: <span th:text="${address}"></span></label>
+
+                                            </div>
+
+                                            <div class="mb-3">
+                                                <label class="form-label">KB시세: <span th:text="${housePrice}"></span></label>
+                                            </div>
+                                            <div class="mb-3">
+                                                <label class="form-label">선순위 채권: <span th:text="${seniorDebt}"></span></label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="container-fluid p-0">
+                            <div class="row">
+                                <div class="col-md-4 col-xl-12">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            <h5 class="card-title mb-0">대출가능여부</h5>
+                                        </div>
+                                        <div class="card-body h-100">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="card">
+                                                            <div class="card-body h-100 d-flex align-items-center justify-content-center">
+                                                                <div class="card-body text-center" style="background-color: skyblue;">
+                                                                    <h3 style="color: grey">IBK 안심전세대출</h3>
+                                                                    <h3><span th:text="${ibkAnsimJeonseResult}"></span></h3>
+                                                                    <h5>대출 한도: <span th:text="${ibkAnsimJeonseAmount}" 원></span></h5>
+                                                                    <h6>
+                                                                        <ul th:each="reason: ${ibkAnsimJeonseReason}">
+                                                                            <li th:text="${reason}"></li>
+                                                                        </ul>
+                                                                    </h6>
+                                                                    <img src="???" alt="기은센 우는 임티">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="card">
+                                                            <div class="card-body h-100 d-flex align-items-center justify-content-center">
+                                                                <div class="card-body text-center" style="background-color: lightgoldenrodyellow;">
+                                                                    <h3 style="color: grey">IBK 전세대출</h3>
+                                                                    <h3><span th:text="${ibkJeonseResult}"></span></h3>
+                                                                    <h5>대출 한도: <span th:text="${ibkJeonseAmount}" 원></span></h5>
+                                                                    <h6>
+                                                                        <ul th:each="reason: ${ibkJeonseReason}">
+                                                                            <li th:text="${reason}">
+                                                                            </li>
+                                                                        </ul>
+                                                                    </h6>
+                                                                    <img src="???" alt="기은센 우는 임티">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="container-fluid">
+                <div class="row text-muted">
+                    <div class="col-6 text-start">
+                        <p class="mb-0">
+                            <a class="text-muted" href="https://adminkit.io/" target="_blank"><strong>AdminKit</strong></a>
+                            &copy;
+                        </p>
+                    </div>
+                    <div class="col-6 text-end">
+                        <ul class="list-inline">
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Support</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Help Center</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Privacy</a>
+                            </li>
+                            <li class="list-inline-item">
+                                <a class="text-muted" href="https://adminkit.io/" target="_blank">Terms</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+    // 가상의 검색어 데이터 (실제로는 서버에서 가져와야 함)
+    const searchSuggestions = ["JavaScript", "HTML", "CSS", "React", "Vue", "Angular"];
+
+    const searchInput = document.getElementById('search-input');
+    const searchSuggestionsContainer = document.getElementById('search-suggestions');
+
+    // 검색어 입력 시 자동 완성 기능 활성화
+    searchInput.addEventListener('input', function () {
+        const inputValue = this.value.toLowerCase();
+
+        // 검색어 추천 목록 생성
+        const suggestions = searchSuggestions.filter(suggestion =>
+            suggestion.toLowerCase().startsWith(inputValue)
+        );
+
+        // 검색어 추천 목록을 화면에 표시
+        showSuggestions(suggestions);
+    });
+
+    // 검색어 추천 목록을 화면에 표시하는 함수
+    function showSuggestions(suggestions) {
+        if (suggestions.length === 0) {
+            searchSuggestionsContainer.style.display = 'none';
+            return;
+        }
+
+        // 검색어 추천 목록을 생성하여 화면에 표시
+        searchSuggestionsContainer.innerHTML = '';
+        suggestions.forEach(suggestion => {
+            const suggestionElement = document.createElement('div');
+            suggestionElement.classList.add('suggestion');
+            suggestionElement.textContent = suggestion;
+            suggestionElement.addEventListener('click', function () {
+                // 검색어를 클릭하면 해당 검색어를 검색창에 채우고 추천 목록 숨김
+                searchInput.value = suggestion;
+                searchSuggestionsContainer.style.display = 'none';
+            });
+            searchSuggestionsContainer.appendChild(suggestionElement);
+        });
+
+        // 검색어 추천 목록을 보이도록 설정
+        searchSuggestionsContainer.style.display = 'block';
+    }
+
+    // 화면을 클릭하면 검색어 추천 목록을 숨김
+    document.addEventListener('click', function (event) {
+        if (!searchSuggestionsContainer.contains(event.target) && event.target !== searchInput) {
+            searchSuggestionsContainer.style.display = 'none';
+        }
+    });
+</script>
+
+</body>
+
+</html>
