@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>금리특약 시뮬레이션</title>
+    <style>
+        .input-container {
+            margin-bottom: 10px;
+        }
+
+        body {
+          font-family: "돋움", Dotum, Arial, sans-serif;
+        }
+        table {
+          border-collapse: collapse;
+
+        }
+
+        th, td {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+
+        th:nth-child(1){
+            width: 15%;
+            text-align: center;
+        background-color: #2E9AFE;
+        color: white;
+        padding: 8px;
+
+        }
+        td:nth-child(1) {
+          width: 15%;
+          text-align: center;
+          background-color: #f0f0f0;
+        }
+
+        th:nth-child(2){
+           width: 35%;
+           text-align: center;
+           background-color: #2E9AFE;
+            color: white;
+            padding: 8px;
+        }
+
+        td:nth-child(2) {
+            width: 35%;
+        }
+
+        th:nth-child(3){
+            width: 27%;
+            text-align: center;
+            background-color: #2E9AFE;
+            color: white;
+            padding: 8px;
+        }
+        td:nth-child(3) {
+            width: 27%;
+            text-align: center;         }
+
+        th:nth-child(4){
+            width: 25%;
+            text-align: center;
+            background-color: #2E9AFE;
+            color: white;
+            padding: 8px;
+        }
+        td:nth-child(4) {
+            width: 25%;
+            text-align: center;
+        }
+
+
+        table {
+          margin-left: auto;
+          margin-right: auto;
+        }
+
+        h1 {
+          text-align: center;
+        }
+
+        button {
+          display: block;
+          margin: 20px auto;
+          padding: 15px 30px;
+          font-size: 16px;
+          background-color: #2E9AFE;
+          color: white;
+          border: none;
+          cursor: pointer;
+          border-radius: 5px;
+        }
+
+        #tableContainer {
+            position: relative;
+        }
+
+        /* 결과를 표시할 div를 표 오른쪽 아래에 위치하도록 조정 */
+        #resultContainer {
+            position: absolute;
+            top: 85%;
+            right: 0;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            }
+
+        /* 결과 문구 스타일 */
+        #resultText {
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+
+<h1 onclick="refreshPage()">금리특약 어디까지 알아보셨어요?</h1>
+
+<div id="tableContainer">
+    <form id="surveyForm">
+
+        <table>
+
+            <tr>
+                <th>교차판매항목</th>
+                <th>우대 기준</th>
+                <th>답변</th>
+                <th>결과</th>
+            </tr>
+
+            <tr>
+                <td>신용(체크)카드 결제실적</td>
+                <td>
+                    전전월부터 전월 중 결제실적이 100만원 이상이십니까?
+                    <br><small>1. 당행결제계좌에 한하며 이용대금이 본인의 계좌에서 출금되는 시점을 기준으로 인정함
+                    <br>2. 국내외 현금서비스 연회비 및 수수료 제외</small>
+                </td>
+                <td>
+                    <div class="input-container">
+                        <label class="form-label">전전월 신용(체크)카드 결제실적</label>
+                        <input class="form-control form-control-lg" type="text" id="answer1A"/>
+                        <br>
+                        <label class="form-label">전월 신용(체크)카드 결제실적</label>
+                        <input class="form-control form-control-lg" type="text" id="answer1B"/>
+                    </div>
+                </td>
+                <td id="result1">
+                    <!-- 결과를 표시할 div 엘리먼트 추가 -->
+                    <div id="resultContainer1"></div>
+                </td>
+            </tr>
+
+            <tr>
+                <td>급여(연금)이체</td>
+                <td>
+                    전전월부터 전월 중 급여이체 100만원 이상 혹은 6대 연금이체 60만원 이상이십니까?
+                    <br><small>*6대 연금은 국민, 공무원, 군인, 사학, 보훈, 장해연금에 한함</small>
+                </td>
+                <td>
+                    <div class="input-container">
+                        <label class="form-label">전전월 급여 혹은 연금실적</label>
+                        <br><input class="form-control form-control-lg" type="text" id="answer2A" placeholder="급여"/>
+                        <input class="form-control form-control-lg" type="text" id="answer2C" placeholder="연금"/>
+                        <br>
+                        <label class="form-label">전월 급여 혹은 연금실적</label>
+                        <br><input class="form-control form-control-lg" type="text" id="answer2B" placeholder="급여"/>
+                        <input class="form-control form-control-lg" type="text" id="answer2D" placeholder="연금"/>
+                        <br><small style="color: red">*급여, 연금 중 하나만 입력가능</small>
+                    </div>
+                </td>
+                <td id="result2"></td>
+            </tr>
+
+            <tr>
+                <td>적립식 예금</td>
+                <td>
+                    전전월부터 전월 중 10만원 이상 입금 실적이 1건 이상이십니까?
+                    <br><small>*주택청약종합저축계좌는 제외</small>
+                </td>
+                <td>
+                    <div class="input-container">
+                        <label class="form-label">전전월 적금 입금 건수</label>
+                        <input class="form-control form-control-lg" type="text" id="answer3A"/>
+                        <br>
+                        <label class="form-label">전월 적금 입금 건수</label>
+                        <input class="form-control form-control-lg" type="text" id="answer3B"/>
+                    </div>
+                </td>
+                <td id="result3"></td>
+            </tr>
+
+            <tr>
+                <td>제세공과금 자동이체</td>
+                <td>
+                    전전전월부터 전월 중 제세공과금 등 자동이체가 3건 이상이십니까?
+                    <br><small>1. 매월 자동납부하는 아파트 관리비, 도시가스요금, 전기료, 전화료 등이 실적인정
+                    <br>2. 신용(체크)카드 이용대금의 자동이체 출금은 인정되지 않음</small>
+                </td>
+                <td>
+                    <div class="input-container">
+                        <label class="form-label">전전월 공과금 자동이체 건수</label>
+                        <input class="form-control form-control-lg" type="text" id="answer4A"/>
+                        <br>
+                        <label class="form-label">전월 공과금 자동이체 건수</label>
+                        <input class="form-control form-control-lg" type="text" id="answer4B"/>
+                    </div>
+                </td>
+                <td id="result4"></td>
+            </tr>
+
+            <tr>
+                <td>주택청약종합저축</td>
+                <td>
+                    전전월부터 전월 중 입금 실적이 1건 이상이십니까?
+                </td>
+                <td>
+                    <div class="input-container">
+                        <label class="form-label">전전월 청약 입금 건수</label>
+                        <input class="form-control form-control-lg" type="text" id="answer5A"/>
+                        <br>
+                        <label class="form-label">전월 청약 입금 건수</label>
+                        <input class="form-control form-control-lg" type="text" id="answer5B"/>
+                    </div>
+                </td>
+                <td id="result5"></td>
+            </tr>
+
+            <tr>
+                <td>스마트뱅킹</td>
+                <td>
+                    전월 스마트뱅킹을 통한 이체가 2건 이상이십니까?
+                </td>
+                <td>
+                    <div class="input-container">
+                        <label class="form-label">전월 이체 건수</label>
+                        <input class="form-control form-control-lg" type="text" id="answer6A"/>
+                    </div>
+                </td>
+                <td id="result6"></td>
+            </tr>
+
+            <tr>
+                <td>개인종합자산관리계좌</td>
+                <td>
+                    전월말 기준 개인종합자산관리계좌(ISA)를 보유하고 계십니까?
+                </td>
+                <td>
+                    <select id="question7" name="question7">
+                        <option value="nothing">선택</option>
+                        <option value="yes">O</option>
+                        <option value="no">X</option>
+                    </select>
+                </td>
+                <td id="result7"></td>
+            </tr>
+        </table>
+
+        <div id="resultContainer" class="input-container"></div>
+
+        <small style="color: red;">*"실적제공 동의서"를 작성한 대출고객의 배우자, 부모, 자녀가 기준에 적합하는 경우에도 인정가능
+        </small>
+
+        <!-- 결과 출력 및 버튼 -->
+        <div class="input-container" style="margin-top: 20px;">
+            <button type="button" onclick="calculateScore()">감면가능 금리 조회하기</button>
+        </div>
+
+    </form>
+
+    <script>
+        function calculateScore() {
+            let score = 0;
+
+
+            // 첫 번째 질문
+            let answer1A = parseInt(document.getElementById("answer1A").value) || 0;
+            let answer1B = parseInt(document.getElementById("answer1B").value) || 0;
+
+            if (answer1A + answer1B >= 1000000) {
+                score += 0.2;
+                document.getElementById("result1").innerHTML = "다음 다음 달부터 0.2% 금리 감면 가능합니다.";
+            }
+
+            // 두 번째 질문
+            let answer2A = parseInt(document.getElementById("answer2A").value) || 0;
+            let answer2B = parseInt(document.getElementById("answer2B").value) || 0;
+            let answer2C = parseInt(document.getElementById("answer2C").value) || 0;
+            let answer2D = parseInt(document.getElementById("answer2D").value) || 0;
+
+            if (answer2A + answer2B >= 1000000 || answer2C + answer2D >= 600000) {
+                score += 0.2;
+                document.getElementById("result2").innerHTML = "다음 다음 달부터 0.2% 금리 감면 가능합니다.";
+            }
+
+            // 세 번째 질문
+            let answer3A = parseInt(document.getElementById("answer3A").value) || 0;
+            let answer3B = parseInt(document.getElementById("answer3B").value) || 0;
+
+            if (answer3A + answer3B >= 1) {
+                score += 0.1;
+                document.getElementById("result3").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+            }
+
+            // 네 번째 질문
+            let answer4A = parseInt(document.getElementById("answer4A").value) || 0;
+            let answer4B = parseInt(document.getElementById("answer4B").value) || 0;
+
+            if (answer4A + answer4B >= 3) {
+                score += 0.1;
+                document.getElementById("result4").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+            }
+
+            // 다섯 번재 질문
+            let answer5A = parseInt(document.getElementById("answer5A").value) || 0;
+            let answer5B = parseInt(document.getElementById("answer5B").value) || 0;
+
+            if (answer5A + answer5B >= 1) {
+                score += 0.2;
+                document.getElementById("result5").innerHTML = "다음 다음 달부터 0.2% 금리 감면 가능합니다.";
+            }
+
+            // 여섯 번째 질문
+            let answer6A = parseInt(document.getElementById("answer6A").value) || 0;
+
+            if (answer6A  >= 2) {
+                score += 0.1;
+                document.getElementById("result6").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+            }
+
+            // 일곱 번째 질문
+            let answer7 = document.getElementById("question7").value;
+
+            if (answer7 === "yes") {
+                score += 0.1;
+                document.getElementById("result7").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+            }
+            else {
+                var result7Element = document.getElementById("result7");
+                result7Element.innerHTML = '<a href="https://mybank.ibk.co.kr/uib/jsp/index.jsp" target="_blank">ISA계좌 개설하기!</a>';
+            }
+
+             // 감면가능 최고 금리
+            if (score > 0.8) {
+            score = 0.8;
+            }
+
+            // 결과값 반올림
+            score = Math.round(score * 10) / 10;
+
+            // 결과 출력
+            let resultContainer = document.getElementById("resultContainer");
+            resultContainer.innerHTML = "고객님께서 받으실 수 있는 최고 감면한도는 " + score + "점입니다.";
+        }
+
+
+            function refreshPage() {
+            // 제목 클릭 시 페이지 새로고침
+            window.location.href = window.location.href;
+        }
+
+    </script>
+</body>
+</html>
+
+
+
