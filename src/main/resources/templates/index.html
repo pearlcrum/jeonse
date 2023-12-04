@@ -94,7 +94,15 @@
     };
     var maxDistance = 0.001; // 클릭 감지 거리 (조절 가능)
 
-    function initMaps(position, house) {
+    $(document ).ready(function initMap(){
+        map = new google.maps.Map(document.getElementById("default_map"), {
+            zoom: 17,
+            center: position,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    });
+
+    function setMaps(position, house) {
         map = new google.maps.Map(document.getElementById("default_map"), {
             zoom: 17,
             center: position,
@@ -108,7 +116,7 @@
             content:
                 "<h2>"+house.aptName+"</h2>"
                 + "<p>"+house.dealAmount+"</p>"
-                + "<a href='/checklist'>대출 조회하기</a>"
+                + "<a href='/checklist?houseID="+house.houseID+"'>대출 조회하기</a>"
         });
 
         infoWindow.open(map);
@@ -159,12 +167,12 @@
                 if(house==null){
                     console.log("error");
                 }else{
-                    console.log("house search success!");
+                    console.log("house search success!"+house.houseID);
                     var position = {
                         lat: house.lat,
                         lng: house.lng
                     };
-                    initMaps(position, house);
+                    setMaps(position, house);
                 }
             },
             error: function () {
@@ -173,7 +181,7 @@
         })
     }
 </script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMaps"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMap"></script>
 <script>
     // 검색어 추천 목록 생성
     /*const suggestions = searchSuggestions.filter(suggestion =>
