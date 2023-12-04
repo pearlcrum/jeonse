@@ -1,8 +1,10 @@
 package com.jeonse.service;
 
 import com.jeonse.dto.CommonchecklistDTO;
+import com.jeonse.dto.HouseinfoDTO;
 import com.jeonse.dto.MemberDTO;
 import com.jeonse.repository.CommonchecklistMapper;
+import com.jeonse.repository.HouseinfoMapper;
 import com.jeonse.repository.IbkansimjeonseMapper;
 import com.jeonse.repository.MemberMapper;
 import org.jetbrains.annotations.NotNull;
@@ -17,6 +19,9 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
     CommonchecklistMapper commonchecklistMapper;
     @Autowired
     MemberMapper memberMapper;
+
+    @Autowired
+    HouseinfoMapper houseMapper;
     @Override
     public int insertCommonchecklist(@NotNull CommonchecklistDTO list){
 
@@ -46,6 +51,7 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
             commonchecklistDto.setJeonseTerm(list.getJeonseTerm());
             commonchecklistDto.setLandlordPossessionMonth(list.getLandlordPossessionMonth());
             commonchecklistDto.setSeniorDebt(list.getSeniorDebt());
+            commonchecklistDto.setHouseID(list.getHouseID());
             commonchecklistMapper.insertCommonchecklist(commonchecklistDto);
             return 1;
 
@@ -74,4 +80,12 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
         return commonchecklistDTO;
     }
 
+    @Override
+    public String getAddress(String memID){
+        int houseID=commonchecklistMapper.getHouseIDFromCommonchecklist(memID);
+        HouseinfoDTO houseinfoDTO=houseMapper.getHouseInfo(houseID);
+        String address="";
+        address=houseinfoDTO.getCity()+" "+houseinfoDTO.getGu()+" "+houseinfoDTO.getDong()+" "+houseinfoDTO.getAptName();
+        return address;
+    }
 }

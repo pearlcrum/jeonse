@@ -34,9 +34,11 @@ public class CommonchecklistController {
     private IbkjeonseService ibkjeonseService;
     private String memberID;
 
+    private int houseID;
+
     //체크리스트 보여주기
     @GetMapping("/checklist")
-    public String checklist(@SessionAttribute(name="memID", required = false) String memID,  CommonchecklistDTO commonchecklistDTO) {
+    public String checklist(@SessionAttribute(name="memID", required = false) String memID,@RequestParam(value="houseID") String houseId, CommonchecklistDTO commonchecklistDTO) {
         //체크리스트에 값이 이미 있는 경우
         if(commonchecklistService.checkCommonchecklistID(memID)!=0){
             //세션 초기화 및 profile로 이동하여 기존 체크리스트 삭제 요청 필요 (-->해야해?)
@@ -45,6 +47,8 @@ public class CommonchecklistController {
             //체크리스트에 값이 없는 경우
             //memid 를 받아야함.
             memberID=memID;
+            houseID=Integer.parseInt(houseId);
+            System.out.println("**** house ID is "+ houseID);
             System.out.println("memID is " + memID);
             MemberDTO member=commonchecklistService.getMember(memID);
             System.out.println("nice is"+ member.getNice());
@@ -74,6 +78,7 @@ public class CommonchecklistController {
         System.out.println("seniorDebt "+  commonchecklistDTO.getSeniorDebt());
         //가지고 온 값들 db insert
         commonchecklistDTO.setMemID(memberID);
+        commonchecklistDTO.setHouseID(houseID);
         int good = commonchecklistService.insertCommonchecklist(commonchecklistDTO);
         //good이 1일 경우
         return "redirect:ibkansimjeonseChecklist";

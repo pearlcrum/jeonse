@@ -13,5 +13,7 @@ public interface CommonchecklistMapper {
 
     int checkCommonchecklistID(String memID); //중복 값 확인
 
+    int getHouseIDFromCommonchecklist(String memID);
+
     CommonchecklistDTO getCommonChecklist(String memID);
 }

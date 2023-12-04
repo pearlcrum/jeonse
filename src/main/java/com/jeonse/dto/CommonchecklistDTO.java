@@ -14,4 +14,5 @@ public class CommonchecklistDTO {
     private int jeonseTerm; //전세 기간
     private int landlordPossessionMonth;
     private int seniorDebt;
+    private int houseID;
 }

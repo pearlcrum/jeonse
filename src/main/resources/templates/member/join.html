@@ -61,13 +61,12 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">전화번호</label>
-                                        <input class="form-control form-control-lg" type="text" id="tel" name="tel" onchange="checkTel()"/>
+                                        <input class="form-control form-control-lg" type="text" id="tel" name="tel" oninput="checkTel()"/>
+                                        <span id="checkTel"></span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">생년월일</label>
-                                        <input class="form-control form-control-lg" type="text" id="birth" name="birth"
-                                               placeholder="yyyy-mm-dd"/>
-                                        <!--<span style="display: flex;">
+                                        <span style="display: flex;">
                                             <span class="signup-input-birth">
                                                 <input id="signup-birth-yy" type="text" placeholder="년(4자)">
                                             </span>
@@ -91,7 +90,7 @@
                                             <span class="signup-input-birth" style="margin-left: 10px;">
                                                 <input id="signup-birth-dd" type="text" placeholder="일">
                                             </span>
-                                        </span>-->
+                                        </span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">NICE 신용점수</label>
@@ -240,17 +239,28 @@
 
     }
     /*값 null 확인*/
-    function checkTel(obj){
+    function checkTel(v){
         const target = document.getElementById('target_btn');
         var str_space = /\s/;
+        let tel = document.getElementById('tel').value;
 
-        if(str_space.exec(obj)){
-            target.disabled = true;
-        }else{
+        var phoneRegex = /^[0-9]{3}-[0-9]{4}-[0-9]{4}$/;
+        console.log(v);
+        if(tel.length === 11){
+            document.getElementById('tel').value = formatPhoneNumber(tel);
+            document.getElementById('checkTel').innerHTML = '';
             target.disabled = false;
         }
-
-
+        else if (!phoneRegex.test(tel)) {
+            document.getElementById('checkTel').innerHTML = '11자리 핸드폰번호를 입력해주세요 (000-0000-0000)';
+            document.getElementById('checkTel').style.color = 'red';
+            target.disabled = true;
+        }
+    }
+    function formatPhoneNumber(phoneNumber) {
+        var cleaned = phoneNumber.replace(/\D/g, '');
+        var formatted = cleaned.replace(/^(\d{3})(\d{4})(\d{4})$/, '$1-$2-$3');
+        return formatted;
     }
     /*입력 완료 시 form 전송*/
     function regist(){
@@ -267,16 +277,14 @@
         let incomeYearBeforeLast = $('#incomeYearBeforeLast').val().trim();
         let debt = $('#debt').val().trim();
         let numhouse = $('#numhouse').val().trim();
-        let birth = $('#birth').val().trim();
 
         /* 이 부분 수정 필요 ! birth 값 넘기기 에러발생*/
-        /*var birth = $('#signup-birth-yy').val().trim()+$('#signup-birth-mm').val().trim()+$('#signup-birth-dd').val().trim();
-        $("joinForm").append('&birth='+birth);
-        console.log(joinForm);*/
+        let birth = $('#signup-birth-yy').val().trim()+$('#signup-birth-mm').val().trim()+$('#signup-birth-dd').val().trim();
+        console.log(birth);
+        joinForm.append('birth',birth);
 
 
-
-        if(!memID || !pass || !passCheck || !tel || !name || !nice || !kcb || !incomeLastYear || !incomeYearBeforeLast || !debt || !numhouse || !birth){
+        if(!memID || !pass || !passCheck || !tel || !name || !nice || !kcb || !incomeLastYear || !incomeYearBeforeLast || !debt || !numhouse){
             alert("전부 입력해주세요");
             history.back();
         }else{

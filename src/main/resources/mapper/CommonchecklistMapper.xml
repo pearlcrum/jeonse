@@ -13,7 +13,7 @@
                                               #{jeonseDeposit},
                                               #{jeonseTerm},
                                               #{landlordPossessionMonth},
-                                              #{seniorDebt}
+                                              #{seniorDebt}, #{houseID}
                                           )
     </insert>
     <!-- 값 지우기 -->
@@ -27,5 +27,9 @@
 
     <select id="getCommonChecklist" parameterType="String" resultType="com.jeonse.dto.CommonchecklistDTO">
         select * from commonchecklist where memID = #{memID}
+    </select>
+
+    <select id="getHouseIDFromCommonchecklist" parameterType="String" resultType="int">
+        select houseID from commonchecklist where memID = #{memID}
     </select>
 </mapper>

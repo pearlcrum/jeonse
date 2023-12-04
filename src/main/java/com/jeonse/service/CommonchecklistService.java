@@ -14,5 +14,6 @@ public interface CommonchecklistService {
     int checkCommonchecklistID(String memID);
     MemberDTO getMember(String memID); //member에서 nice, kcb , 소득, 부채, birth, numhouse 가져오기 위함
 
+    String getAddress(String memID);
     CommonchecklistDTO getCommonChecklist(String memID);
 }

@@ -37,6 +37,7 @@ public class ResultController {
         IbkansimjeonseDTO ibkansimjeonseDTO=ibkansimjeonseService.getIbkansimjeonseDTO(memID);
         IbkjeonseDTO ibkjeonseDTO=ibkjeonseService.getIbkjeonseDTO(memID);
         MemberDTO memberDTO=memberService.getMemberDTO(memID);
+        String address=commonchecklistService.getAddress(memID);
         String name=memberDTO.getName();
         String pass=memberDTO.getPass();
         String tel=memberDTO.getTel();
@@ -164,7 +165,7 @@ public class ResultController {
         double customerPays; //소득대비 금융위험부담률
         //고객이 연간 부담하는 대출이자(본건 대출 포함) / 고객의 연소득 * 100
         // 본건 대출 제외 대출에 적용하는 이자 한은 가중평균 가계대출금리 5.24 + 1
-        customerPays=(debt*6.24/100)+(loanAmount*interestRate/100)/incomeLastYear;
+        customerPays=(debt*6.24/100)+(loanAmount*interestRate/100)/incomeLastYear*100;
         if(customerPays>0.4) {
             ibkJeonseReason.add("소득 대비 부채의 비중이 과도하여 취급이 불가능합니다.");
         }
@@ -218,6 +219,8 @@ public class ResultController {
             ibkJeonseAmount=0;
         }
 
+
+        model.addAttribute("address",address);
         model.addAttribute("housePrice",housePrice); //kb시세
         model.addAttribute("seniorDebt",seniorDebt); //선순위 채권
         model.addAttribute("loanAmount",loanAmount); // 대출 신청금액
