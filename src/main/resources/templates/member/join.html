@@ -65,7 +65,9 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">생년월일</label>
-                                        <span style="display: flex;">
+                                        <input class="form-control form-control-lg" type="text" id="birth" name="birth"
+                                               placeholder="yyyy-mm-dd"/>
+                                        <!--<span style="display: flex;">
                                             <span class="signup-input-birth">
                                                 <input id="signup-birth-yy" type="text" placeholder="년(4자)">
                                             </span>
@@ -89,7 +91,7 @@
                                             <span class="signup-input-birth" style="margin-left: 10px;">
                                                 <input id="signup-birth-dd" type="text" placeholder="일">
                                             </span>
-                                        </span>
+                                        </span>-->
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">NICE 신용점수</label>
@@ -265,14 +267,16 @@
         let incomeYearBeforeLast = $('#incomeYearBeforeLast').val().trim();
         let debt = $('#debt').val().trim();
         let numhouse = $('#numhouse').val().trim();
+        let birth = $('#birth').val().trim();
 
         /* 이 부분 수정 필요 ! birth 값 넘기기 에러발생*/
-        let birth = $('#signup-birth-yy').val().trim()+$('#signup-birth-mm').val().trim()+$('#signup-birth-dd').val().trim();
-        console.log(birth);
-        joinForm.append('birth',birth);
+        /*var birth = $('#signup-birth-yy').val().trim()+$('#signup-birth-mm').val().trim()+$('#signup-birth-dd').val().trim();
+        $("joinForm").append('&birth='+birth);
+        console.log(joinForm);*/
 
 
-        if(!memID || !pass || !passCheck || !tel || !name || !nice || !kcb || !incomeLastYear || !incomeYearBeforeLast || !debt || !numhouse){
+
+        if(!memID || !pass || !passCheck || !tel || !name || !nice || !kcb || !incomeLastYear || !incomeYearBeforeLast || !debt || !numhouse || !birth){
             alert("전부 입력해주세요");
             history.back();
         }else{
