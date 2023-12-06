@@ -17,6 +17,7 @@
     <link rel="shortcut icon" href="/img/icons/icon-48x48.png"/>
 
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-profile.html"/>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
     <title>금리 특약 예상 서비스</title>
 
@@ -321,11 +322,11 @@
                 <!--                    </a>-->
                 <!--                </li>-->
 
-<!--                <li class="sidebar-item">-->
-<!--                    <a class="sidebar-link" href="/checklist">-->
-<!--                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>-->
-<!--                    </a>-->
-<!--                </li>-->
+                <!--                <li class="sidebar-item">-->
+                <!--                    <a class="sidebar-link" href="/checklist">-->
+                <!--                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>-->
+                <!--                    </a>-->
+                <!--                </li>-->
 
             </ul>
         </div>
@@ -410,8 +411,8 @@
                                         <label class="form-label">전전월 급여 혹은 연금실적</label>
                                         <input class="form-control form-control-lg validation" type="text" id="answer2A" placeholder="급여"/>
                                         <input class="form-control form-control-lg validation" type="text" id="answer2C" placeholder="연금"/>
-                                        </div>
-                                        <br>
+                                    </div>
+                                    <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 급여 혹은 연금실적</label>
                                         <input class="form-control form-control-lg validation" type="text" id="answer2B" placeholder="급여"/>
@@ -454,8 +455,8 @@
                                     <div class="input-container">
                                         <label class="form-label">전전월 공과금 자동이체 건수</label>
                                         <input class="form-control form-control-lg validation" type="text" id="answer4A"/>
-                                        </div>
-                                        <br>
+                                    </div>
+                                    <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 공과금 자동이체 건수</label>
                                         <input class="form-control form-control-lg validation" type="text" id="answer4B"/>
@@ -473,8 +474,8 @@
                                     <div class="input-container">
                                         <label class="form-label">전전월 청약 입금 건수</label>
                                         <input class="form-control form-control-lg validation" type="text" id="answer5A"/>
-                                        </div>
-                                        <br>
+                                    </div>
+                                    <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 청약 입금 건수</label>
                                         <input class="form-control form-control-lg validation" type="text" id="answer5B"/>
@@ -530,9 +531,9 @@
                             let score = 0;
 
 
-                            // 첫 번째 질문
-                            let answer1A = parseInt(document.getElementById("answer1A").value) || 0;
-                            let answer1B = parseInt(document.getElementById("answer1B").value) || 0;
+                           // 첫 번째 질문
+                            let answer1A = parseInt(document.getElementById("answer1A").value.replace(/,/g, '')) || 0;
+                            let answer1B = parseInt(document.getElementById("answer1B").value.replace(/,/g, '')) || 0;
 
                             if (answer1A + answer1B >= 1000000) {
                                 score += 0.2;
@@ -540,10 +541,10 @@
                             }
 
                             // 두 번째 질문
-                            let answer2A = parseInt(document.getElementById("answer2A").value) || 0;
-                            let answer2B = parseInt(document.getElementById("answer2B").value) || 0;
-                            let answer2C = parseInt(document.getElementById("answer2C").value) || 0;
-                            let answer2D = parseInt(document.getElementById("answer2D").value) || 0;
+                            let answer2A = parseInt(document.getElementById("answer2A").value.replace(/,/g, '')) || 0;
+                            let answer2B = parseInt(document.getElementById("answer2B").value.replace(/,/g, '')) || 0;
+                            let answer2C = parseInt(document.getElementById("answer2C").value.replace(/,/g, '')) || 0;
+                            let answer2D = parseInt(document.getElementById("answer2D").value.replace(/,/g, '')) || 0;
 
                             if (answer2A + answer2B >= 1000000 || answer2C + answer2D >= 600000) {
                                 score += 0.2;
@@ -551,8 +552,8 @@
                             }
 
                             // 세 번째 질문
-                            let answer3A = parseInt(document.getElementById("answer3A").value) || 0;
-                            let answer3B = parseInt(document.getElementById("answer3B").value) || 0;
+                            let answer3A = parseInt(document.getElementById("answer3A").value.replace(/,/g, '')) || 0;
+                            let answer3B = parseInt(document.getElementById("answer3B").value.replace(/,/g, '')) || 0;
 
                             if (answer3A + answer3B >= 1) {
                                 score += 0.1;
@@ -560,8 +561,8 @@
                             }
 
                             // 네 번째 질문
-                            let answer4A = parseInt(document.getElementById("answer4A").value) || 0;
-                            let answer4B = parseInt(document.getElementById("answer4B").value) || 0;
+                            let answer4A = parseInt(document.getElementById("answer4A").value.replace(/,/g, '')) || 0;
+                            let answer4B = parseInt(document.getElementById("answer4B").value.replace(/,/g, '')) || 0;
 
                             if (answer4A + answer4B >= 3) {
                                 score += 0.1;
@@ -569,8 +570,8 @@
                             }
 
                             // 다섯 번재 질문
-                            let answer5A = parseInt(document.getElementById("answer5A").value) || 0;
-                            let answer5B = parseInt(document.getElementById("answer5B").value) || 0;
+                            let answer5A = parseInt(document.getElementById("answer5A").value.replace(/,/g, '')) || 0;
+                            let answer5B = parseInt(document.getElementById("answer5B").value.replace(/,/g, '')) || 0;
 
                             if (answer5A + answer5B >= 1) {
                                 score += 0.2;
@@ -578,12 +579,13 @@
                             }
 
                             // 여섯 번째 질문
-                            let answer6A = parseInt(document.getElementById("answer6A").value) || 0;
+                            let answer6A = parseInt(document.getElementById("answer6A").value.replace(/,/g, '')) || 0;
 
-                            if (answer6A  >= 2) {
+                            if (answer6A >= 2) {
                                 score += 0.1;
                                 document.getElementById("result6").innerHTML = "익익월부터 0.1% 금리 감면 가능합니다.";
                             }
+
 
                             // 일곱 번째 질문
                             let answer7 = document.getElementById("question7").value;
@@ -597,9 +599,9 @@
                                 result7Element.innerHTML = '<a href="https://mybank.ibk.co.kr/uib/jsp/index.jsp" target="_blank">ISA계좌 개설하기!</a>';
                             }
 
-                            // 감면가능 최고 금리
+                             // 감면가능 최고 금리
                             if (score > 0.8) {
-                                score = 0.8;
+                            score = 0.8;
                             }
 
                             // 결과값 반올림
@@ -607,11 +609,11 @@
 
                             // 결과 출력
                             let resultContainer = document.getElementById("resultContainer");
-                            resultContainer.innerHTML = "고객님께서 받으실 수 있는 최고 감면한도는 " + score + "%입니다.";
+                            resultContainer.innerHTML = "고객님께서 받으실 수 있는 최고 감면한도는 " + score + "점입니다.";
                         }
 
 
-                        function refreshPage() {
+                            function refreshPage() {
                             // 제목 클릭 시 페이지 새로고침
                             window.location.href = window.location.href;
                         }
@@ -622,10 +624,10 @@
 
 
                 </div>
+            </div>
+
+
     </div>
-
-
-</div>
 </div>
 
 
@@ -662,7 +664,7 @@
 </footer>
 </div>
 </div>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script src="/js/app.js"></script>
 <script>
     // 가상의 검색어 데이터 (실제로는 서버에서 가져와야 함)
@@ -716,23 +718,23 @@
         }
     });
 </script>
-</script>
+
 <script>
     $(document).ready(function(){
-$('.validation').on("input", function(e) {
-   const prevValue = e.target.value.slice(0, -1)
-   const regex = /[^0-9]/g;
-   const newNum = e.target.value.replace(regex, "");
-   if(newNum > 10**10){
-        e.target.value = prevValue
-        $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
-        $(this).siblings(".checkVal").css("display", "block")
-        $(this).siblings(".checkVal").css("color", "red");
-   }else{
-        e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        $(this).siblings(".checkVal").css("display", "none")
-   }
-});
+  $('.validation').on("input", function(e) {
+       const prevValue = e.target.value.slice(0, -1)
+       const regex = /[^0-9]/g;
+       const newNum = e.target.value.replace(regex, "");
+       if(newNum > 10**10){
+            e.target.value = prevValue
+            $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
+            $(this).siblings(".checkVal").css("display", "block")
+            $(this).siblings(".checkVal").css("color", "red");
+       }else{
+            e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            $(this).siblings(".checkVal").css("display", "none")
+       }
+  });
 });
 </script>
 

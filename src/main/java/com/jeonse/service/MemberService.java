@@ -28,4 +28,5 @@ public interface MemberService {
 
     void updateMemberIncome(HashMap<String,Object> income);
 
+    int deleteMember(String memID);
 }

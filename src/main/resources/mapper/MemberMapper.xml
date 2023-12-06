@@ -55,4 +55,7 @@
         where memID=#{memID}
     </update>
 
+    <delete id="deleteMember" parameterType="String">
+        delete from member where memID=#{memID}
+    </delete>
 </mapper>

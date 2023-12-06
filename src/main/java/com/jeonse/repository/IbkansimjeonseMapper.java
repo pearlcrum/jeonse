@@ -9,5 +9,6 @@ public interface IbkansimjeonseMapper {
     void insertIbkansimjeonse(IbkansimjeonseDTO ibkansimjeonseDTO);
 
     IbkansimjeonseDTO getIbkansimjeonseDTO(String memID);
+    int deleteIbkAnsimjeonse(String memID);
 
 }

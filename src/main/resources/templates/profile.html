@@ -260,7 +260,9 @@
                                 <h5 class="h6 card-title">Else</h5>
                                 <ul class="list-unstyled mb-0">
                                     <li class="mb-1">
-                                        <button type="submit" name="del" class="btn btn-lg btn-danger">회원 탈퇴</button>
+                                        <form action="/deleteMember" method="post">
+                                            <button type="submit" name="del" class="btn btn-lg btn-danger">회원 탈퇴</button>
+                                        </form>
                                     </li>
                                 </ul>
                             </div>
@@ -318,17 +320,17 @@
 
                                 <div class="container">
 
-                                    <form action="/processSignup" method="post"> <!--주소 및 kb 시세 상세보기 form 경로 수정 필요-->
+                                    <form action="/result" method="get"> <!--주소 및 kb 시세 상세보기 form 경로 수정 필요-->
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label">주소</label>
-                                                    <label class="form-label" >주소: <span th:text="${address}" style="width: 100%" ></span></label>
+                                                    <label class="form-label" >: <span th:text="${address}" style="width: 100%" ></span></label>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <label class="form-label">kb 시세</label>
+                                                    <label class="form-label"></label>
                                                     <label class="form-label">KB시세: <span th:text="${housePrice}" style="width: 100%" ></span></label>
                                                 </div>
                                             </div>

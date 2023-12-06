@@ -28,4 +28,6 @@ public interface MemberMapper {
     int updateMemberCredit(HashMap<String,Object> credit);
 
     int updateMemberIncome(HashMap<String,Object> income);
+
+    int deleteMember(String memID);
 }

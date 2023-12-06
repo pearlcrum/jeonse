@@ -17,4 +17,8 @@
     <select id="getIbkjeonseDTO" parameterType="String" resultType="com.jeonse.dto.IbkjeonseDTO">
         select * from ibkjeonse where memID = #{memID}
     </select>
+
+    <delete id="deleteIbkjeonse" parameterType="String">
+        delete from ibkjeonse where memID=#{memID}
+    </delete>
 </mapper>

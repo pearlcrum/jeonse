@@ -8,4 +8,6 @@ public interface IbkjeonseService {
     int insertIbkjeonse(IbkjeonseDTO ibkjeonseDTO);
 
     IbkjeonseDTO getIbkjeonseDTO(String memID);
+
+    int deleteIbkjeonse(String memID);
 }

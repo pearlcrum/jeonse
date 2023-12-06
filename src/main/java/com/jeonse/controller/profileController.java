@@ -248,6 +248,18 @@ public class profileController {
     }
 
 
+    @PostMapping("/deleteMember")
+    public String deleteMember(){
+    //public String deleteMember(HttpServletRequest httpServletRequest){
+        System.out.println("is it working ????");
+        //httpServletRequest.getSession().invalidate(); //세션 파기
+
+        ibkansimjeonseService.deleteIbkAnsimjeonse(memberID);
+        ibkjeonseService.deleteIbkjeonse(memberID);
+        commonchecklistService.deleteCommonchecklist(memberID);
+        memberService.deleteMember(memberID);//현재 값 잘 들어가 있음.
+        return "/member/logout";
+    }
 
     @PostMapping("/updateMemberCredit")
     public String updateMemberCredit(CreditDTO creditDTO) {

@@ -31,4 +31,9 @@ public class IbkjeonseServiceImpl implements IbkjeonseService{
         IbkjeonseDTO ibkjeonseDTO=ibkjeonseMapper.getIbkjeonseDTO(memID);
         return ibkjeonseDTO;
     }
+    @Override
+    public int deleteIbkjeonse(String memID){
+        ibkjeonseMapper.deleteIbkjeonse(memID);
+        return 0;
+    }
 }

@@ -78,5 +78,10 @@ public class MemberServiceImpl implements MemberService{
     public void updateMemberIncome(HashMap<String,Object> income) {memberMapper.updateMemberIncome(income);}
 
 
+    @Override
+    public int deleteMember(String memID){
+        memberMapper.deleteMember(memID);
+        return 0;
+    }
 
 }

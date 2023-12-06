@@ -46,4 +46,9 @@ public class IbkansimjeonseServiceImpl implements IbkansimjeonseService{
         IbkansimjeonseDTO ibkansimjeonseDTO=ibkansimjeonseMapper.getIbkansimjeonseDTO(memID);
         return ibkansimjeonseDTO;
     }
+    @Override
+    public int deleteIbkAnsimjeonse(String memID){
+        ibkansimjeonseMapper.deleteIbkAnsimjeonse(memID);
+        return 0;
+    }
 }
