@@ -35,7 +35,6 @@
                             회원가입
                         </p>
                     </div>
-
                     <div class="card">
                         <div class="card-body">
                             <div class="m-sm-4">
@@ -51,85 +50,80 @@
                                         <span class="id_already" style="display:none;">누군가 이 아이디를 사용하고 있어요.</span>
                                         <span class="id_ok" style="display:none;">사용 가능한 아이디입니다.</span>
                                         <span class="id_space" style="display:none;">공백은 사용할 수 없습니다.</span>
+                                        <span class="id_form" style="display:none;">이메일 형식에 맞게 입력해주세요.</span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">비밀번호</label>
-                                        <input class="form-control form-control-lg" type="password" id="pass" name="pass" onchange="checkPw()"/>
+                                        <input class="form-control form-control-lg" type="password" id="pass" name="pass" placeholder="비밀번호" onchange="checkPw()"/>
 
                                         <input type="password" id="passCheck" name="passCheck" class="form-control" placeholder="비밀번호 확인" autocomplete="off" onchange="checkPw()"/>
                                         <span id="checkPw"></span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">전화번호</label>
-                                        <input class="form-control form-control-lg" type="text" id="tel" name="tel" oninput="checkTel()"/>
+                                        <input class="form-control form-control-lg" type="text" id="tel" name="tel" oninput="checkTel()" onkeydown="return isNumberKey(event)"/>
                                         <span id="checkTel"></span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">생년월일</label>
                                         <span style="display: flex;">
                                             <span class="signup-input-birth">
-                                                <input id="signup-birth-yy" type="text" placeholder="년(4자)">
-                                            </span>
-                                            <span class="signup-input-birth" style="margin-left: 10px;">
-                                                <select id="signup-birth-mm" class="selectbox" name="month" onchange="">
-                                                    <option value="month">월</option>
-                                                    <option value="01">1</option>
-                                                    <option value="02">2</option>
-                                                    <option value="03">3</option>
-                                                    <option value="04">4</option>
-                                                    <option value="05">5</option>
-                                                    <option value="06">6</option>
-                                                    <option value="07">7</option>
-                                                    <option value="08">8</option>
-                                                    <option value="09">9</option>
-                                                    <option value="10">10</option>
-                                                    <option value="11">11</option>
-                                                    <option value="12">12</option>
+                                                <select id="signup-birth-yy" class="selectbox" name="birthyy" onchange="">
+                                                    <option value="" disabled selected>년</option>
                                                 </select>
                                             </span>
                                             <span class="signup-input-birth" style="margin-left: 10px;">
-                                                <input id="signup-birth-dd" type="text" placeholder="일">
+                                                <select id="signup-birth-mm" class="selectbox" name="birthmm" onchange="">
+                                                    <option value="" disabled selected>월</option>
+                                                </select>
+                                            </span>
+                                            <span class="signup-input-birth" style="margin-left: 10px;">
+                                                <select id="signup-birth-dd" class="selectbox" name="birthdd" onchange="">
+                                                    <option value="" disabled selected>일</option>
+                                                </select>
                                             </span>
                                         </span>
+                                        <input style="display:none" name="birth"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">NICE 신용점수</label>
                                         <input class="form-control form-control-lg" type="text" id="nice" name="nice"
-                                               placeholder="점(숫자만 입력)"/>
+                                               placeholder="점(숫자만 입력)" onkeydown="return isNumberKey(event)"/>
                                         <A href="https://www.credit.co.kr/ib20/mnu/BZWMAN00001" target="신용점수 조회">
                                             내 신용점수 확인하기! </A>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">KCB 신용점수</label>
                                         <input class="form-control form-control-lg" type="text" id="kcb" name="kcb"
-                                               placeholder="점(숫자만 입력)"/>
+                                               placeholder="점(숫자만 입력)" onkeydown="return isNumberKey(event)"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">작년 소득</label> <small style="color: red">* 부부소득 합산 시 부채도 함께 합산됨.</small>
-                                        <input class="form-control form-control-lg" type="text" id="incomeLastYear" name="incomeLastYear" placeholder="숫자를 입력하세요"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="incomeLastYear" name="incomeLastYear" placeholder="원(숫자만 입력)" onkeydown="return isNumberKey(event)"/>
+                                        <span class="checkVal"></span>
                                         <A href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6467&cntntsId=7903"
                                            target="소득 조회"> 내 소득 확인하기! </A>
                                     </div>
 
                                     <div class="mb-3">
                                         <label class="form-label">재작년 소득</label>
-                                        <input class="form-control form-control-lg" type="text"
-                                               id="incomeYearBeforeLast" name="incomeYearBeforeLast"/>
+                                        <input class="form-control form-control-lg validation" type="text"
+                                               id="incomeYearBeforeLast" name="incomeYearBeforeLast" placeholder="원(숫자만 입력)" onkeydown="return isNumberKey(event)"/>
+                                        <span class="checkVal"></span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">부채</label>
                                         <input class="form-control form-control-lg" type="text" id="debt" name="debt"
-                                               placeholder="원(숫자만 입력)"/>
+                                               placeholder="원(숫자만 입력)" onkeydown="return isNumberKey(event)"/>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">보유 주택 수</label>
-                                        <input class="form-control form-control-lg" type="number" id="numhouse" name="numhouse"/>
+                                        <input class="form-control form-control-lg" type="number" id="numhouse" name="numhouse" placeholder="개(숫자만 입력)" onkeydown="return isNumberKey(event)"/>
                                     </div>
                                     <div class="text-center mt-3">
-                                        <button id="target_btn" type="submit" class="btn btn-lg btn-primary" onclick="regist()">완료</button>
+                                        <button id="target_btn" type="submit" class="btn btn-lg btn-primary" onclick="regist(event)">완료</button>
                                     </div>
                                 </form>
-
                             </div>
                         </div>
                     </div>
@@ -167,20 +161,40 @@
     /*이메일(아이디) 중복 체크*/
     function checkId(){
         let memID = $('#memID').val();
-        console.log("memID >> " + memID);
 
         var token = $("meta[name='_csrf']").attr("content");
         var header = $("meta[name='_csrf_header']").attr("content");
         const target = document.getElementById('target_btn');
 
         var str_space = /\s/;
-
         if(str_space.exec(memID) && memID != null) {
-            $('.id_space').css("display","inline-block");
+            $('.id_space').css({
+                'display': 'inline-block',
+                'color': 'red'
+            });
             target.disabled = true;
-
             return false;
         }
+        if(!isValidEmail(memID)){
+            $('.id_form').css({
+                'display': 'inline-block',
+                'color': 'red'
+            });
+            target.disabled = true;
+            return false;
+        }
+        else{
+            $('.id_form').css({
+                'display': 'none',
+                'color': 'red'
+            });
+            target.disabled = false;
+        }
+        function isValidEmail(email) {
+            var pattern = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+            return pattern.test(email);
+        }
+
         /*
                 let joinForm = document.joinForm;
                 let memId = joinForm.memId.value; */
@@ -193,20 +207,22 @@
             },
             success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
                 if(cnt != 1){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                    $('.id_ok').css("display","inline-block");
+                    $('.id_ok').css({
+                        'display': 'inline-block',
+                        'color': 'blue'
+                    });
                     $('.id_already').css("display", "none");
                     $('.id_space').css("display","none");
                     target.disabled = false;
                 } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
-                    $('.id_already').css("display","inline-block");
+                    $('.id_already').css({
+                        'display': 'inline-block',
+                        'color': 'red'
+                    });
                     $('.id_ok').css("display", "none");
                     $('.id_space').css("display","none");
                     target.disabled = true;
                 }
-                console.log("cnt >> " + cnt);
-            },
-            error:function(){
-                alert("에러입니다");
             }
         })
     }
@@ -256,6 +272,7 @@
             document.getElementById('checkTel').style.color = 'red';
             target.disabled = true;
         }
+
     }
     function formatPhoneNumber(phoneNumber) {
         var cleaned = phoneNumber.replace(/\D/g, '');
@@ -263,7 +280,7 @@
         return formatted;
     }
     /*입력 완료 시 form 전송*/
-    function regist(){
+    function regist(event){
         let joinForm = document.getElementById("joinForm");
 
         let memID = $('#memID').val().trim();
@@ -279,19 +296,76 @@
         let numhouse = $('#numhouse').val().trim();
 
         /* 이 부분 수정 필요 ! birth 값 넘기기 에러발생*/
-        let birth = $('#signup-birth-yy').val().trim()+$('#signup-birth-mm').val().trim()+$('#signup-birth-dd').val().trim();
-        console.log(birth);
-        joinForm.append('birth',birth);
+        //let birth = $('#signup-birth-yy').val().trim()+$('#signup-birth-mm').val().trim()+$('#signup-birth-dd').val().trim();
+        //joinForm.append('birth',birth);
+        //console.log("birth" + birth);
 
+        // 동적으로 폼 데이터 수정
+        var yy = document.getElementById('signup-birth-yy').value;
+        var mm = document.getElementById('signup-birth-mm').value;
+        var dd = document.getElementById('signup-birth-dd').value;
+        let birth = yy + mm + dd;
+        joinForm.elements['birth'].value = Number(birth);
 
+        event.preventDefault();
+        // 폼 제출
         if(!memID || !pass || !passCheck || !tel || !name || !nice || !kcb || !incomeLastYear || !incomeYearBeforeLast || !debt || !numhouse){
             alert("전부 입력해주세요");
-            history.back();
+            event.preventDefault();
         }else{
             joinForm.submit();
         }
-
     }
+    // 숫자 입력 회계처리
+    $(document).ready(function(){
+        $('.validation').on("input", function(e) {
+
+            const prevValue = e.target.value.slice(0, -1)
+            const regex = /[^0-9]/g;
+            const newNum = e.target.value.replace(regex, "");
+            if(newNum > 10**10){
+                e.target.value = prevValue
+                $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
+                $(this).siblings(".checkVal").css("display", "block")
+                $(this).siblings(".checkVal").css("color", "red");
+            }else{
+                e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                $(this).siblings(".checkVal").css("display", "none")
+                        const valueWithoutComma = newNum.replace(/,/g, "");
+
+            }
+        });
+    });
+
+    // 숫자만 입력
+    function isNumberKey(event) {
+        var keyCode = event.which || event.keyCode;
+        if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105) || keyCode === 8) {
+            return true;
+        }
+        else{
+            event.preventDefault();
+        }
+
+        return false;
+    }
+    // 년/월/일 옵션 생성
+    function populateOptions(selectElement, start, end) {
+        for (let i = start; i <= end; i++) {
+            let option = document.createElement("option");
+            option.value = i < 10 ? "0" + i : "" + i;
+            if(selectElement.id === "signup-birth-yy")
+                option.text = i + "년";
+            else if(selectElement.id === "signup-birth-mm")
+                option.text = i + "월";
+            else if(selectElement.id === "signup-birth-dd")
+                option.text = i + "일";
+            selectElement.add(option);
+        }
+    }
+    populateOptions(document.getElementById("signup-birth-yy"), 1900, 2023);
+    populateOptions(document.getElementById("signup-birth-mm"), 1, 12);
+    populateOptions(document.getElementById("signup-birth-dd"), 1, 31);
 </script>
 <script src="/js/app.js"></script>
 </body>
