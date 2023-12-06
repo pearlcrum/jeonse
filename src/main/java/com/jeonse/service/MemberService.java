@@ -1,9 +1,12 @@
 package com.jeonse.service;
 
 import com.jeonse.dto.MemberDTO;
+import com.jeonse.dto.MessageDTO;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public interface MemberService {
@@ -24,4 +27,5 @@ public interface MemberService {
     void updateMemberCredit(HashMap<String,Object> credit);
 
     void updateMemberIncome(HashMap<String,Object> income);
+
 }

@@ -1,12 +1,15 @@
 package com.jeonse.service;
 import com.jeonse.dto.MemberDTO;
+import com.jeonse.dto.MessageDTO;
 import com.jeonse.repository.MemberMapper;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -73,4 +76,7 @@ public class MemberServiceImpl implements MemberService{
     }
     @Override
     public void updateMemberIncome(HashMap<String,Object> income) {memberMapper.updateMemberIncome(income);}
+
+
+
 }
