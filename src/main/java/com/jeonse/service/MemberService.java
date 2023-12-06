@@ -3,6 +3,8 @@ package com.jeonse.service;
 import com.jeonse.dto.MemberDTO;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public interface MemberService {
 
@@ -19,4 +21,7 @@ public interface MemberService {
     //내가 수정한 부분 아이디에 따른 모든 회원정보
     MemberDTO getMemberDTO(String memID);
 
+    void updateMemberCredit(HashMap<String,Object> credit);
+
+    void updateMemberIncome(HashMap<String,Object> income);
 }

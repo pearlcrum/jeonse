@@ -5,6 +5,8 @@ package com.jeonse.repository;
 import com.jeonse.dto.MemberDTO;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.HashMap;
+
 
 @Mapper
 public interface MemberMapper {
@@ -22,4 +24,8 @@ public interface MemberMapper {
     public int checkId(String memID);
 
     MemberDTO getMemberDTO(String memID);
+
+    int updateMemberCredit(HashMap<String,Object> credit);
+
+    int updateMemberIncome(HashMap<String,Object> income);
 }

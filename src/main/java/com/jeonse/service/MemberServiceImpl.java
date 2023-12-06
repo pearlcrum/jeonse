@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 public class MemberServiceImpl implements MemberService{
     @Autowired
@@ -65,4 +67,10 @@ public class MemberServiceImpl implements MemberService{
         System.out.println("All info of member"+user);
         return user;
     }
+    @Override
+    public void updateMemberCredit(HashMap<String,Object> credit){
+        memberMapper.updateMemberCredit(credit);
+    }
+    @Override
+    public void updateMemberIncome(HashMap<String,Object> income) {memberMapper.updateMemberIncome(income);}
 }

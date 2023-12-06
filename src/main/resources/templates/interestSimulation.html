@@ -118,6 +118,7 @@
             color: #333;
         }
     </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
 
@@ -145,14 +146,14 @@
                 <td>
                     <div class="input-container">
                         <label class="form-label">전전월 신용(체크)카드 결제실적</label>
-                        <input class="form-control form-control-lg" type="text" id="answer1A"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer1A"/>
                         <br>
                         <label class="form-label">전월 신용(체크)카드 결제실적</label>
-                        <input class="form-control form-control-lg" type="text" id="answer1B"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer1B"/>
                     </div>
                 </td>
                 <td id="result1">
-                    <!-- 결과를 표시할 div 엘리먼트 추가 -->
+                    <!— 결과를 표시할 div 엘리먼트 추가 —>
                     <div id="resultContainer1"></div>
                 </td>
             </tr>
@@ -166,12 +167,12 @@
                 <td>
                     <div class="input-container">
                         <label class="form-label">전전월 급여 혹은 연금실적</label>
-                        <br><input class="form-control form-control-lg" type="text" id="answer2A" placeholder="급여"/>
-                        <input class="form-control form-control-lg" type="text" id="answer2C" placeholder="연금"/>
+                        <br><input class="form-control form-control-lg validation" type="text" id="answer2A" placeholder="급여"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer2C" placeholder="연금"/>
                         <br>
                         <label class="form-label">전월 급여 혹은 연금실적</label>
-                        <br><input class="form-control form-control-lg" type="text" id="answer2B" placeholder="급여"/>
-                        <input class="form-control form-control-lg" type="text" id="answer2D" placeholder="연금"/>
+                        <br><input class="form-control form-control-lg validation" type="text" id="answer2B" placeholder="급여"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer2D" placeholder="연금"/>
                         <br><small style="color: red">*급여, 연금 중 하나만 입력가능</small>
                     </div>
                 </td>
@@ -187,10 +188,10 @@
                 <td>
                     <div class="input-container">
                         <label class="form-label">전전월 적금 입금 건수</label>
-                        <input class="form-control form-control-lg" type="text" id="answer3A"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer3A"/>
                         <br>
                         <label class="form-label">전월 적금 입금 건수</label>
-                        <input class="form-control form-control-lg" type="text" id="answer3B"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer3B"/>
                     </div>
                 </td>
                 <td id="result3"></td>
@@ -206,10 +207,10 @@
                 <td>
                     <div class="input-container">
                         <label class="form-label">전전월 공과금 자동이체 건수</label>
-                        <input class="form-control form-control-lg" type="text" id="answer4A"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer4A"/>
                         <br>
                         <label class="form-label">전월 공과금 자동이체 건수</label>
-                        <input class="form-control form-control-lg" type="text" id="answer4B"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer4B"/>
                     </div>
                 </td>
                 <td id="result4"></td>
@@ -223,10 +224,10 @@
                 <td>
                     <div class="input-container">
                         <label class="form-label">전전월 청약 입금 건수</label>
-                        <input class="form-control form-control-lg" type="text" id="answer5A"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer5A"/>
                         <br>
                         <label class="form-label">전월 청약 입금 건수</label>
-                        <input class="form-control form-control-lg" type="text" id="answer5B"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer5B"/>
                     </div>
                 </td>
                 <td id="result5"></td>
@@ -240,7 +241,7 @@
                 <td>
                     <div class="input-container">
                         <label class="form-label">전월 이체 건수</label>
-                        <input class="form-control form-control-lg" type="text" id="answer6A"/>
+                        <input class="form-control form-control-lg validation" type="text" id="answer6A"/>
                     </div>
                 </td>
                 <td id="result6"></td>
@@ -267,7 +268,7 @@
         <small style="color: red;">*"실적제공 동의서"를 작성한 대출고객의 배우자, 부모, 자녀가 기준에 적합하는 경우에도 인정가능
         </small>
 
-        <!-- 결과 출력 및 버튼 -->
+        <!— 결과 출력 및 버튼 —>
         <div class="input-container" style="margin-top: 20px;">
             <button type="button" onclick="calculateScore()">감면가능 금리 조회하기</button>
         </div>
@@ -279,9 +280,9 @@
             let score = 0;
 
 
-            // 첫 번째 질문
-            let answer1A = parseInt(document.getElementById("answer1A").value) || 0;
-            let answer1B = parseInt(document.getElementById("answer1B").value) || 0;
+           // 첫 번째 질문
+            let answer1A = parseInt(document.getElementById("answer1A").value.replace(/,/g, '')) || 0;
+            let answer1B = parseInt(document.getElementById("answer1B").value.replace(/,/g, '')) || 0;
 
             if (answer1A + answer1B >= 1000000) {
                 score += 0.2;
@@ -289,10 +290,10 @@
             }
 
             // 두 번째 질문
-            let answer2A = parseInt(document.getElementById("answer2A").value) || 0;
-            let answer2B = parseInt(document.getElementById("answer2B").value) || 0;
-            let answer2C = parseInt(document.getElementById("answer2C").value) || 0;
-            let answer2D = parseInt(document.getElementById("answer2D").value) || 0;
+            let answer2A = parseInt(document.getElementById("answer2A").value.replace(/,/g, '')) || 0;
+            let answer2B = parseInt(document.getElementById("answer2B").value.replace(/,/g, '')) || 0;
+            let answer2C = parseInt(document.getElementById("answer2C").value.replace(/,/g, '')) || 0;
+            let answer2D = parseInt(document.getElementById("answer2D").value.replace(/,/g, '')) || 0;
 
             if (answer2A + answer2B >= 1000000 || answer2C + answer2D >= 600000) {
                 score += 0.2;
@@ -300,8 +301,8 @@
             }
 
             // 세 번째 질문
-            let answer3A = parseInt(document.getElementById("answer3A").value) || 0;
-            let answer3B = parseInt(document.getElementById("answer3B").value) || 0;
+            let answer3A = parseInt(document.getElementById("answer3A").value.replace(/,/g, '')) || 0;
+            let answer3B = parseInt(document.getElementById("answer3B").value.replace(/,/g, '')) || 0;
 
             if (answer3A + answer3B >= 1) {
                 score += 0.1;
@@ -309,8 +310,8 @@
             }
 
             // 네 번째 질문
-            let answer4A = parseInt(document.getElementById("answer4A").value) || 0;
-            let answer4B = parseInt(document.getElementById("answer4B").value) || 0;
+            let answer4A = parseInt(document.getElementById("answer4A").value.replace(/,/g, '')) || 0;
+            let answer4B = parseInt(document.getElementById("answer4B").value.replace(/,/g, '')) || 0;
 
             if (answer4A + answer4B >= 3) {
                 score += 0.1;
@@ -318,8 +319,8 @@
             }
 
             // 다섯 번재 질문
-            let answer5A = parseInt(document.getElementById("answer5A").value) || 0;
-            let answer5B = parseInt(document.getElementById("answer5B").value) || 0;
+            let answer5A = parseInt(document.getElementById("answer5A").value.replace(/,/g, '')) || 0;
+            let answer5B = parseInt(document.getElementById("answer5B").value.replace(/,/g, '')) || 0;
 
             if (answer5A + answer5B >= 1) {
                 score += 0.2;
@@ -327,12 +328,13 @@
             }
 
             // 여섯 번째 질문
-            let answer6A = parseInt(document.getElementById("answer6A").value) || 0;
+            let answer6A = parseInt(document.getElementById("answer6A").value.replace(/,/g, '')) || 0;
 
-            if (answer6A  >= 2) {
+            if (answer6A >= 2) {
                 score += 0.1;
                 document.getElementById("result6").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
             }
+
 
             // 일곱 번째 질문
             let answer7 = document.getElementById("question7").value;
@@ -366,8 +368,30 @@
         }
 
     </script>
+    <script>
+        $(document).ready(function(){
+  $('.validation').on("input", function(e) {
+       const prevValue = e.target.value.slice(0, -1)
+       const regex = /[^0-9]/g;
+       const newNum = e.target.value.replace(regex, "");
+       if(newNum > 10**10){
+            e.target.value = prevValue
+            $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
+            $(this).siblings(".checkVal").css("display", "block")
+            $(this).siblings(".checkVal").css("color", "red");
+       }else{
+            e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+            $(this).siblings(".checkVal").css("display", "none")
+       }
+  });
+});
+    </script>
 </body>
 </html>
+
+
+
+
 
 
 

@@ -198,9 +198,10 @@
 
 
 
-                            <form action="/result" method="get"> <!--신용정보 관련 form. 경로 수정필요  -->
+                            <form action="/updateMemberCredit" id="updateMemberCredit" th:object="${creditDTO}" method="post"> <!--신용정보 관련 form. 경로 수정필요  -->
                             <hr class="my-0"/>
-                            <div class="card-body">
+                                <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
+                                <div class="card-body">
                                 <h5 class="h6 card-title" style="display:inline-block; margin-right: 5px;">신용정보</h5>
                                 <div class="wrap">
                                     <a href="https://www.credit.co.kr/ib20/mnu/BZWMAN00001" target="_blank"
@@ -211,9 +212,9 @@
                                 </div>
                                 <div style="text-align: center;">
                                     <ul style="text-align: left; list-style: none; padding: 0;">
-                                        <li>NICE 신용점수<textarea class="form-control" id="niceScore" rows="1" th:placeholder="${nice}"></textarea></li>
+                                        <li>NICE 신용점수<input type="textarea" class="form-control" id="nice" name="nice" rows="1" th:placeholder="${nice}"></inpttextarea></li>
                                         <br>
-                                        <li>KCB 신용점수<textarea class="form-control" id="kcbScore" rows="1" th:placeholder="${kcb}"></textarea></li>
+                                        <li>KCB 신용점수<input type="textarea" class="form-control" id="kcb" name="kcb" rows="1" th:placeholder="${kcb}"></inputtextarea></li>
                                     </ul>
                                     <button class="btn btn-primary">제출</button>
                                 </div>
@@ -221,9 +222,10 @@
                             </div>
                             </form>
 
-                            <form action="/processSignup" method="post"> <!--소득정보 관련 form. 경로 수정필요  -->
+                            <form action="/updateMemberIncome" id="updateMemberIncome" th:object="${incomeDTO}" method="post"> <!--소득정보 관련 form. 경로 수정필요  -->
                             <hr class="my-0"/>
-                            <div class="card-body">
+                                <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
+                                <div class="card-body">
                                 <div class="wrap">
                                     <h5 class="h6 card-title" style="display:inline-block; margin-right: 5px;">소득정보</h5>
                                     <a href="https://www.nts.go.kr/nts/cm/cntnts/cntntsView.do?mi=6467&cntntsId=7903"
@@ -235,15 +237,15 @@
                                 <div style="text-align: center;">
                                     <ul style="text-align: left; list-style: none; padding: 0;">
 
-                                    <li>작년 소득<textarea class="form-control" id="lastIncome" rows="1"
-                                                       th:placeholder="${incomeLastYear}"></textarea></li>
+                                    <li>작년 소득<input type="textarea" class="form-control validation" id="incomeLastYear" name="incomeLastYear" rows="1"
+                                                       th:placeholder="${incomeLastYear}"></inputtextarea></li>
                                     <br>
-                                    <li>재작년 소득<textarea class="form-control" id="last2Income" rows="1"
-                                                        th:placeholder="${incomeYearBeforeLast}"></textarea></li>
+                                    <li>재작년 소득<input type="textarea" class="form-control validation" id="incomeYearBeforeLast" name="incomeYearBeforeLast" rows="1"
+                                                        th:placeholder="${incomeYearBeforeLast}"></inputtextarea></li>
                                     <br>
 
-                                    <li>부채<textarea class="form-control" id="debt" rows="1"
-                                                    th:placeholder="${debt}"></textarea></li>
+                                    <li>부채<input type="textarea" class="form-control validation" id="debt" name="debt" rows="1"
+                                                    th:placeholder="${debt}"></inputtextarea></li>
                                     <br>
                                     <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                 </ul>
@@ -279,7 +281,7 @@
                                         <div class="m-sm-4">
                                             <form action="/processSignup" method="post"> <!--정보 수정 form. 경로 수정 필요-->
                                                 <div class="mb-3">
-                                                    <label class="form-label">이름</label>
+                                                    <label class="form-label">보유 주택 수</label>
                                                     <input class="form-control form-control-lg" type="text"
                                                            name="inputName" th:placeholder="${name}"/>
                                                 </div>
@@ -439,6 +441,8 @@
 </div>
 
 <script src="/js/app.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 <script>
     // 가상의 검색어 데이터 (실제로는 서버에서 가져와야 함)
     const searchSuggestions = ["JavaScript", "HTML", "CSS", "React", "Vue", "Angular"];
@@ -491,7 +495,30 @@
         }
     });
 </script>
+/*
+<script>
+    let incomeLastYear = parseInt(document.getElementById("incomeLastYear").value.replace(/,/g, '')) || 0;
+    let debt = parseInt(document.getElementById("debt").value.replace(/,/g, '')) || 0;
+    let incomeYearBeforeLast = parseInt(document.getElementById("incomeYearBeforeLast").value.replace(/,/g, '')) || 0;
 
+    $(document).ready(function(){
+$('.validation').on("input", function(e) {
+   const prevValue = e.target.value.slice(0, -1)
+   const regex = /[^0-9]/g;
+   const newNum = e.target.value.replace(regex, "");
+   if(newNum > 10**10){
+        e.target.value = prevValue
+        $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
+        $(this).siblings(".checkVal").css("display", "block")
+        $(this).siblings(".checkVal").css("color", "red");
+   }else{
+        e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        $(this).siblings(".checkVal").css("display", "none")
+   }
+});
+});
+    */
+</script>
 
 </body>
 

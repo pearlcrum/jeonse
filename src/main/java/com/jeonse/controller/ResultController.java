@@ -30,7 +30,7 @@ public class ResultController {
     @Autowired
     private MemberService memberService;
 
-    //HouseInfo도 추가할 것
+
     @GetMapping("/result")
     public String result(@SessionAttribute(name="memID", required = false) String memID, Model model) {
         CommonchecklistDTO commonchecklistDTO=commonchecklistService.getCommonChecklist(memID);
@@ -165,8 +165,9 @@ public class ResultController {
         double customerPays; //소득대비 금융위험부담률
         //고객이 연간 부담하는 대출이자(본건 대출 포함) / 고객의 연소득 * 100
         // 본건 대출 제외 대출에 적용하는 이자 한은 가중평균 가계대출금리 5.24 + 1
-        customerPays=(debt*6.24/100)+(loanAmount*interestRate/100)/incomeLastYear*100;
-        if(customerPays>0.4) {
+        customerPays=((debt*6.24/100)+(loanAmount*interestRate/100))/incomeLastYear*100;
+        System.out.println("현재 customerPays"+ customerPays);
+        if(customerPays>40) {
             ibkJeonseReason.add("소득 대비 부채의 비중이 과도하여 취급이 불가능합니다.");
         }
         if(nowJeonse) {

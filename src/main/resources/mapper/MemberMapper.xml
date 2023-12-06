@@ -43,4 +43,16 @@
 
     </select>
 
+    <update id="updateMemberCredit" parameterType="HashMap">
+        update member
+        set nice=#{nice}, kcb=#{kcb}
+        where memID=#{memID}
+    </update>
+
+    <update id="updateMemberIncome" parameterType="HashMap">
+        update member
+        set incomeLastYear=#{incomeLastYear}, incomeYearBeforeLast=#{incomeYearBeforeLast}, debt=#{debt}
+        where memID=#{memID}
+    </update>
+
 </mapper>
