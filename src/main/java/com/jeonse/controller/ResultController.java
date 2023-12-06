@@ -241,7 +241,7 @@ public class ResultController {
             return "result";
         }else{
             model.addAttribute("message","체크리스트를 먼저 작성해 주세요.");
-            model.addAttribute("returnURL","http://127.0.0.1:8000/");
+            model.addAttribute("returnURL","/");
             return "message";
         }
     }
