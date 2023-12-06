@@ -17,7 +17,11 @@
     <link rel="canonical" href="https://demo-basic.adminkit.io/pages-sign-up.html" />
 
     <title>Sign Up | AdminKit Demo</title>
-
+    <style>
+        select {
+            font-size: 16px;
+        }
+    </style>
     <link href="/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
@@ -113,8 +117,9 @@
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">부채</label>
-                                        <input class="form-control form-control-lg" type="text" id="debt" name="debt"
+                                        <input class="form-control form-control-lg validation" type="text" id="debt" name="debt"
                                                placeholder="원(숫자만 입력)" onkeydown="return isNumberKey(event)"/>
+                                        <span class="checkVal"></span>
                                     </div>
                                     <div class="mb-3">
                                         <label class="form-label">보유 주택 수</label>
@@ -300,6 +305,15 @@
         //joinForm.append('birth',birth);
         //console.log("birth" + birth);
 
+        //입력값 db로 전송시 컴마 제거
+        joinForm.elements['tel'].value = tel.replace(/-/g, "");
+        joinForm.elements['incomeLastYear'].value = incomeLastYear.replace(/,/g, "");
+        joinForm.elements['incomeYearBeforeLast'].value = incomeYearBeforeLast.replace(/,/g, "");
+        joinForm.elements['debt'].value = debt.replace(/,/g, "");
+        console.log('INCOME' + joinForm.elements['incomeLastYear'].value);
+        console.log('INCOME1' + joinForm.elements['incomeYearBeforeLast'].value);
+        console.log('INCOME2' + joinForm.elements['debt'].value);
+
         // 동적으로 폼 데이터 수정
         var yy = document.getElementById('signup-birth-yy').value;
         var mm = document.getElementById('signup-birth-mm').value;
@@ -307,7 +321,7 @@
         let birth = yy + mm + dd;
         joinForm.elements['birth'].value = Number(birth);
 
-        event.preventDefault();
+
         // 폼 제출
         if(!memID || !pass || !passCheck || !tel || !name || !nice || !kcb || !incomeLastYear || !incomeYearBeforeLast || !debt || !numhouse){
             alert("전부 입력해주세요");
@@ -319,23 +333,21 @@
     // 숫자 입력 회계처리
     $(document).ready(function(){
         $('.validation').on("input", function(e) {
-
-            const prevValue = e.target.value.slice(0, -1)
+            const prevValue = e.target.value === '0' ? '' : e.target.value.slice(0, -1);
             const regex = /[^0-9]/g;
             const newNum = e.target.value.replace(regex, "");
-            if(newNum > 10**10){
-                e.target.value = prevValue
+            if (newNum > 10**10) {
+                e.target.value = prevValue;
                 $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
-                $(this).siblings(".checkVal").css("display", "block")
+                $(this).siblings(".checkVal").css("display", "block");
                 $(this).siblings(".checkVal").css("color", "red");
-            }else{
-                e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-                $(this).siblings(".checkVal").css("display", "none")
-                        const valueWithoutComma = newNum.replace(/,/g, "");
-
+            } else {
+                e.target.value = newNum === '' ? '' : newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $(this).siblings(".checkVal").css("display", "none");
             }
         });
     });
+
 
     // 숫자만 입력
     function isNumberKey(event) {
