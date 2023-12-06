@@ -347,48 +347,47 @@
 
                                 <div class="container">
                                     <div class="row">
+
                                         <div class="col-md-6">
                                             <div class="card">
                                                 <div class="card-body h-100 d-flex align-items-center justify-content-center">
-                                                    <div class="card-body text-center" style="background-color: skyblue; width: 400px; height: 200px;">
-                                                        <h3 style="color: grey">IBK 안심 전세대출</h3>
-                                                        <h3><span th:text="${ibkAnsimJeonseResult}"></span></h3>
-                                                        <h5>대출 한도: <span th:text="${ibkAnsimJeonseAmount}" 원></span></h5>
-                                                        <h6>
+                                                    <div class="card-body text-center" style="background-color: skyblue; max-width: 100%;">
+                                                        <h3 style="color: grey; overflow-wrap: break-word;">IBK 안심전세대출</h3>
+                                                        <h3 style="overflow-wrap: break-word;"><span th:text="${ibkAnsimJeonseResult}"></span></h3>
+                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkAnsimJeonseAmount}" 원></span></h5>
+                                                        <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkAnsimJeonseReason}">
                                                                 <li th:text="${reason}"></li>
                                                             </ul>
                                                         </h6>
-                                                        <img src="???" alt="기은센 우는 임티">
+                                                        <img src="???" alt="기은센 우는 임티" style="max-width: 100%;">
                                                     </div>
                                                 </div>
-
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
-
-                                            <div class="card">
+                                            <div class="card" style="max-width: 400px;">
                                                 <div class="card-body h-100 d-flex align-items-center justify-content-center">
-                                                    <div class="card-body text-center" style="background-color: lightgoldenrodyellow; width: 400px; height: 200px;">
-                                                        <h3 style="color: grey">IBK 전세대출</h3>
-                                                        <h3><span th:text="${ibkJeonseResult}"></span></h3>
-                                                        <h5>대출 한도: <span th:text="${ibkJeonseAmount}" 원></span></h5>
-                                                        <h6>
+                                                    <div class="card-body text-center" style="background-color: lightgoldenrodyellow; width: 100%; max-width: 400px;">
+                                                        <h3 style="color: grey; overflow-wrap: break-word;">IBK 전세대출</h3>
+                                                        <h3 style="overflow-wrap: break-word;"><span th:text="${ibkJeonseResult}"></span></h3>
+                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkJeonseAmount}" 원></span></h5>
+                                                        <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkJeonseReason}">
-                                                                <li th:text="${reason}">
-                                                                </li>
+                                                                <li th:text="${reason}"></li>
                                                             </ul>
                                                         </h6>
-                                                        <img src="???" alt="기은센 우는 임티">
+                                                        <img src="???" alt="기은센 우는 임티" style="max-width: 100%;">
                                                     </div>
                                                 </div>
-
                                             </div>
-
                                         </div>
+
                                     </div>
                                 </div>
+
+                            </div>
 
 
 
