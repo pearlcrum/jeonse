@@ -138,13 +138,13 @@
 <!--                    <a class="sidebar-link" href="/signup">-->
 <!--                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>-->
 <!--                    </a>-->
-<!--                </li>-->
+<!--                </li>-
 
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/checklist">
                         <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>
                     </a>
-                </li>
+                </li>-->
 
             </ul>
         </div>
@@ -212,9 +212,9 @@
                                 </div>
                                 <div style="text-align: center;">
                                     <ul style="text-align: left; list-style: none; padding: 0;">
-                                        <li>NICE 신용점수<input type="textarea" class="form-control" id="nice" name="nice" rows="1" th:placeholder="${nice}"></inpttextarea></li>
+                                        <li>NICE 신용점수<input type="textarea" class="form-control" id="nice" name="nice" rows="1" th:placeholder="${nice != 0 ? #numbers.formatInteger(nice, 3, 'COMMA') : '0'}"></inpttextarea></li>
                                         <br>
-                                        <li>KCB 신용점수<input type="textarea" class="form-control" id="kcb" name="kcb" rows="1" th:placeholder="${kcb}"></inputtextarea></li>
+                                        <li>KCB 신용점수<input type="textarea" class="form-control" id="kcb" name="kcb" rows="1" th:placeholder="${kcb != 0 ? #numbers.formatInteger(kcb, 3, 'COMMA') : '0'}"></inputtextarea></li>
                                     </ul>
                                     <button class="btn btn-primary">제출</button>
                                 </div>
@@ -238,14 +238,14 @@
                                     <ul style="text-align: left; list-style: none; padding: 0;">
 
                                     <li>작년 소득<input type="textarea" class="form-control validation" id="incomeLastYear" name="incomeLastYear" rows="1"
-                                                       th:placeholder="${incomeLastYear}"></inputtextarea></li>
+                                                       th:placeholder="${incomeLastYear != 0 ? #numbers.formatInteger(incomeLastYear, 3, 'COMMA') + '원' : '0원'}"></inputtextarea></li>
                                     <br>
                                     <li>재작년 소득<input type="textarea" class="form-control validation" id="incomeYearBeforeLast" name="incomeYearBeforeLast" rows="1"
-                                                        th:placeholder="${incomeYearBeforeLast}"></inputtextarea></li>
+                                                        th:placeholder="${incomeYearBeforeLast != 0 ? #numbers.formatInteger(incomeYearBeforeLast, 3, 'COMMA') + '원' : '0원'}"></inputtextarea></li>
                                     <br>
 
                                     <li>부채<input type="textarea" class="form-control validation" id="debt" name="debt" rows="1"
-                                                    th:placeholder="${debt}"></inputtextarea></li>
+                                                    th:placeholder="${debt != 0 ? #numbers.formatInteger(debt, 3, 'COMMA') + '원' : '0원'}"></inputtextarea></li>
                                     <br>
                                     <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                 </ul>
@@ -269,7 +269,7 @@
                         </div>
                     </div>
 
-                    <div class="col-md-4 col-xl-9">
+                    <div class="col-md-4 col-xl-9"><!--
                         <div class="card">
                             <div class="card-header">
 
@@ -281,7 +281,7 @@
                                 <div class="card">
                                     <div class="card-body">
                                         <div class="m-sm-4">
-                                            <form action="/processSignup" method="post"> <!--정보 수정 form. 경로 수정 필요-->
+                                            <form action="/processSignup" method="post"> 정보 수정 form. 경로 수정 필요
                                                 <div class="mb-3">
                                                     <label class="form-label">보유 주택 수</label>
                                                     <input class="form-control form-control-lg" type="text"
@@ -309,7 +309,7 @@
 
                                 </div>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="card">
                             <div class="card-header">
 
@@ -331,7 +331,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label"></label>
-                                                    <label class="form-label">KB시세: <span th:text="${housePrice}" style="width: 100%" ></span></label>
+                                                    <label class="form-label">KB시세: <span th:text="${housePrice != 0 ? #numbers.formatInteger(housePrice, 3, 'COMMA') + '원': '0'}" style="width: 100%" ></span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -355,16 +355,21 @@
                                         <div class="col-md-6">
                                             <div class="card">
                                                 <div class="card-body h-100 d-flex align-items-center justify-content-center">
-                                                    <div class="card-body text-center" style="background-color: skyblue; max-width: 100%;">
-                                                        <h3 style="color: grey; overflow-wrap: break-word;">IBK 안심전세대출</h3>
+                                                    <div class="card-body text-center" style="max-width: 100%;">
+                                                        <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 안심전세대출</h3>
+                                                        <div style=""></div>
                                                         <h3 style="overflow-wrap: break-word;"><span th:text="${ibkAnsimJeonseResult}"></span></h3>
-                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkAnsimJeonseAmount}" 원></span></h5>
+                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkAnsimJeonseAmount != 0 ? #numbers.formatInteger(ibkAnsimJeonseAmount, 3, 'COMMA') + '': '0원'}" 원></span></h5>
                                                         <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkAnsimJeonseReason}">
                                                                 <li th:text="${reason}"></li>
                                                             </ul>
                                                         </h6>
                                                         <img src="???" alt="기은센 우는 임티" style="max-width: 100%;">
+                                                        <!--
+                                                        <img th:if="${ibkAnsimJeonseResult == '대출 불가능'}" src="/img/avatars/crysen.png" alt="대출 불가능 이미지">
+                                                        <img th:if="${ibkAnsimJeonseResult == '대출 가능'}" src="/img/avatars/happysen.png" alt="대출 가능 이미지">
+                                                        -->
                                                     </div>
                                                 </div>
                                             </div>
@@ -373,16 +378,20 @@
                                         <div class="col-md-6">
                                             <div class="card" style="max-width: 400px;">
                                                 <div class="card-body h-100 d-flex align-items-center justify-content-center">
-                                                    <div class="card-body text-center" style="background-color: lightgoldenrodyellow; width: 100%; max-width: 400px;">
-                                                        <h3 style="color: grey; overflow-wrap: break-word;">IBK 전세대출</h3>
+                                                    <div class="card-body text-center" style="width: 100%; max-width: 400px;">
+                                                        <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 전세대출</h3>
                                                         <h3 style="overflow-wrap: break-word;"><span th:text="${ibkJeonseResult}"></span></h3>
-                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkJeonseAmount}" 원></span></h5>
+                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkJeonseAmount != 0 ? #numbers.formatInteger(ibkJeonseAmount, 3, 'COMMA') + '원' : '0원'}" 원></span></h5>
                                                         <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkJeonseReason}">
                                                                 <li th:text="${reason}"></li>
                                                             </ul>
                                                         </h6>
                                                         <img src="???" alt="기은센 우는 임티" style="max-width: 100%;">
+                                                        <!--
+                                                        <img th:if="${ibkAnsimJeonseResult == '대출 불가능'}" src="/img/avatars/crysen.png" alt="대출 불가능 이미지">
+                                                        <img th:if="${ibkAnsimJeonseResult == '대출 가능'}" src="/img/avatars/happysen.png" alt="대출 가능 이미지">
+                                                        -->
                                                     </div>
                                                 </div>
                                             </div>

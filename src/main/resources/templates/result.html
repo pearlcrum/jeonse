@@ -103,6 +103,13 @@
             </a>
 
             <ul class="sidebar-nav">
+                <li class="sidebar-link">
+                    <input class="align-middle" id="search-input" style="width:155px;" type="text"
+                           placeholder="매물을 검색하세요">
+                    <button class="align-middle" type="button" style="display:inline">검색</button>
+                    <div id="search-suggestions"></div>
+                </li>
+
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
@@ -177,6 +184,10 @@
                                                                             <li th:text="${reason}"></li>
                                                                         </ul>
                                                                     </h6>
+                                                                    <!--
+                                                                    <img th:if="${ibkAnsimJeonseResult == '대출 불가능'}" src="/img/avatars/crysen.png" alt="대출 불가능 이미지">
+                                                                    <img th:if="${ibkAnsimJeonseResult == '대출 가능'}" src="/img/avatars/happysen.png" alt="대출 가능 이미지">
+                                                                    -->
                                                                     <img src="???" alt="기은센 우는 임티">
                                                                 </div>
                                                             </div>
@@ -195,6 +206,11 @@
                                                                             </li>
                                                                         </ul>
                                                                     </h6>
+                                                                    <!--
+                                                                    <img th:if="${ibkAnsimJeonseResult == '대출 불가능'}" src="/img/avatars/crysen.png" alt="대출 불가능 이미지">
+                                                                    <img th:if="${ibkAnsimJeonseResult == '대출 가능'}" src="/img/avatars/happysen.png" alt="대출 가능 이미지">
+
+                                                                    -->
                                                                     <img src="???" alt="기은센 우는 임티">
                                                                 </div>
                                                             </div>
