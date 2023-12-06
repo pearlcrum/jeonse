@@ -103,34 +103,9 @@
             </a>
 
             <ul class="sidebar-nav">
-                <li class="sidebar-link">
-                    <input class="align-middle" id="search-input" style="width:155px;" type="text"
-                           placeholder="매물을 검색하세요">
-                    <button class="align-middle" type="button" style="display:inline">검색</button>
-                    <div id="search-suggestions"></div>
-                </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/login">
-                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">로그인</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/signup">
-                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>
-                    </a>
-                </li>
-
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/checklist">
-                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>
                     </a>
                 </li>
 
@@ -177,53 +152,6 @@
                             </div>
                             <div class="card-body h-100">
                                 <div class="card" id="default_map" style="height:300px;"></div>
-                                <script src="/js/app.js"></script>
-                                <script>
-                                    var map;
-                                    var infoWindow;
-                                    var isOpen = false;
-                                    var position = {
-                                        lat: 37.56657309193628,
-                                        lng: 126.98658696263642
-                                    };
-
-                                    function initMaps() {
-                                        map = new google.maps.Map(document.getElementById("default_map"), {
-                                            zoom: 17,
-                                            center: position,
-                                            mapTypeId: google.maps.MapTypeId.ROADMAP
-                                        });
-
-                                        infoWindow = new google.maps.InfoWindow({
-                                            content: "아이파크 15억"
-                                        });
-                                        var displayPosition = new google.maps.LatLng(position);
-                                        infoWindow.setPosition(displayPosition);
-                                        infoWindow.open(map);
-
-                                    }
-                                </script>
-                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMaps"></script>
-
-                                <div class="card">
-                                    <div class="card-body">
-                                        <div class="m-sm-4">
-                                            <div class="mb-3">
-                                                <label class="form-label" >주소: <span th:text="${address}"></span></label>
-
-                                            </div>
-
-                                            <div class="mb-3">
-                                                <label class="form-label">KB시세: <span th:text="${housePrice}"></span></label>
-                                            </div>
-                                            <div class="mb-3">
-                                                <label class="form-label">선순위 채권: <span th:text="${seniorDebt}"></span></label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                </div>
                             </div>
                         </div>
 
@@ -368,6 +296,34 @@
         }
     });
 </script>
+<script th:inline="javascript">
+    var map;
+    var infoWindow;
+    var isOpen = false;
+    var position = {
+        lat: [[${lat}]],
+        lng: [[${lng}]],
+    };
+    function initMaps() {
+        map = new google.maps.Map(document.getElementById("default_map"), {
+            zoom: 17,
+            center: position,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+
+        infoWindow = new google.maps.InfoWindow({
+            content: "<h2>"+[[${address}]]+"</h2>"
+                + "<p>최근 실거래가 : "+[[${housePrice}]]+"</p>"
+                + "<p>선순위 채권 : "+[[${seniorDebt}]]+"</p>"
+
+        });
+        var displayPosition = new google.maps.LatLng(position);
+        infoWindow.setPosition(displayPosition);
+        infoWindow.open(map);
+
+    }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMaps"></script>
 
 </body>
 

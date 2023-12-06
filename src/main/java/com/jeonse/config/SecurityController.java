@@ -34,8 +34,7 @@ public class SecurityController {
         }
         //https://chb2005.tistory.com/175
         //https://technology-share.tistory.com/20
-        //세션을 생성하기 전에 기존의 세션 파기
-        httpServletRequest.getSession().invalidate();
+
         HttpSession session = httpServletRequest.getSession(true); //세션이 없으면 생성
 
         session.setAttribute("memID", userInfo.getUsername());

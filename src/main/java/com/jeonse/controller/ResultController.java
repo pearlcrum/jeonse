@@ -1,13 +1,7 @@
 package com.jeonse.controller;
 
-import com.jeonse.dto.CommonchecklistDTO;
-import com.jeonse.dto.IbkansimjeonseDTO;
-import com.jeonse.dto.IbkjeonseDTO;
-import com.jeonse.dto.MemberDTO;
-import com.jeonse.service.CommonchecklistService;
-import com.jeonse.service.IbkansimjeonseService;
-import com.jeonse.service.IbkjeonseService;
-import com.jeonse.service.MemberService;
+import com.jeonse.dto.*;
+import com.jeonse.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +24,9 @@ public class ResultController {
     @Autowired
     private MemberService memberService;
 
+    @Autowired
+    private HouseinfoService houseinfoService;
+
 
     @GetMapping("/result")
     public String result(@SessionAttribute(name="memID", required = false) String memID, Model model) {
@@ -38,6 +35,12 @@ public class ResultController {
         IbkjeonseDTO ibkjeonseDTO=ibkjeonseService.getIbkjeonseDTO(memID);
         MemberDTO memberDTO=memberService.getMemberDTO(memID);
         String address=commonchecklistService.getAddress(memID);
+        int houseID = commonchecklistService.getHouseID(memID);
+        HouseinfoDTO houseinfoDTO = houseinfoService.getHouseinfo(houseID);
+        double lat = houseinfoDTO.getLat();
+        double lng = houseinfoDTO.getLng();
+        String aptName = houseinfoDTO.getAptName();
+
         String name=memberDTO.getName();
         String pass=memberDTO.getPass();
         String tel=memberDTO.getTel();
@@ -231,6 +234,9 @@ public class ResultController {
         model.addAttribute("ibkAnsimJeonseAmount",ibkAnsimJeonseAmount);
         model.addAttribute("ibkJeonseReason",ibkJeonseReason);
         model.addAttribute("ibkAnsimJeonseReason",ibkAnsimJeonseReason);
+        model.addAttribute("lat", lat);
+        model.addAttribute("lng", lng);
+        model.addAttribute("aptName",aptName);
         return "result";
     }
 }

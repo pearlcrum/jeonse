@@ -85,12 +85,10 @@
 <!--맵-->
 <script>
     var map;
-    var infoWindow;
-    //var isOpen = false;
     var content;
     var position = {
-        lat: 37.56657309193628,
-        lng: 126.98658696263642
+        lat: 37.566548,
+        lng: 126.986542
     };
     var maxDistance = 0.001; // 클릭 감지 거리 (조절 가능)
 
@@ -115,7 +113,8 @@
         var infoWindow = new google.maps.InfoWindow({
             content:
                 "<h2>"+house.aptName+"</h2>"
-                + "<p>"+house.dealAmount+"</p>"
+                + "<p>최근 실거래가 : "+house.dealAmount+" ( 거래일 : "+house.dealYear+")</p>"
+                + "<p>면적 : "+house.area+"m^2</p>"
                 + "<a href='/checklist?houseID="+house.houseID+"'>대출 조회하기</a>"
         });
 
@@ -157,15 +156,19 @@
         console.log(aptName);
         $.ajax({
             type: 'POST',
-            url: '/houseSearch',
-            contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+            url: 'houseSearch',
+            contentType: "application/x-www-form-urlencoded;charset=UTF-8",
             data: {aptName:aptName},
+            cache:'false',
+            async:false,
             beforeSend: function (xhr) {
+                console.log(aptName);
                 xhr.setRequestHeader(header, token);
             },
             success: function (house) {
                 if(house==null){
-                    console.log("error");
+                    console.log("찾는 아파트가 없어용");
+                    alert("찾는 아파트가 없어용");
                 }else{
                     console.log("house search success!"+house.houseID);
                     var position = {
@@ -175,8 +178,11 @@
                     setMaps(position, house);
                 }
             },
-            error: function () {
-                alert("ERROR");
+            error: function (request, status, error) {
+                console.log("code: " + request.status)
+                console.log("message: " + request.responseText)
+                console.log("error: " + error);
+                alert(error);
             }
         })
     }

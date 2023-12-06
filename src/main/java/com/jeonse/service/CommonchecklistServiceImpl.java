@@ -88,4 +88,9 @@ public class CommonchecklistServiceImpl implements CommonchecklistService{
         address=houseinfoDTO.getCity()+" "+houseinfoDTO.getGu()+" "+houseinfoDTO.getDong()+" "+houseinfoDTO.getAptName();
         return address;
     }
+
+    @Override
+    public int getHouseID(String memID){
+        return commonchecklistMapper.getHouseIDFromCommonchecklist(memID);
+    }
 }
