@@ -383,13 +383,13 @@
                                 <td>
                                     <div class="input-container">
                                         <label class="form-label">전전월 신용(체크)카드 결제실적</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer1A"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer1A"/>
 
                                     </div>
                                     <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 신용(체크)카드 결제실적</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer1B"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer1B"/>
                                     </div>
                                 </td>
 
@@ -408,14 +408,14 @@
                                 <td>
                                     <div class="input-container">
                                         <label class="form-label">전전월 급여 혹은 연금실적</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer2A" placeholder="급여"/>
-                                        <input class="form-control form-control-lg" type="text" id="answer2C" placeholder="연금"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer2A" placeholder="급여"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer2C" placeholder="연금"/>
                                         </div>
                                         <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 급여 혹은 연금실적</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer2B" placeholder="급여"/>
-                                        <input class="form-control form-control-lg" type="text" id="answer2D" placeholder="연금"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer2B" placeholder="급여"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer2D" placeholder="연금"/>
                                     </div>
                                     <br>
                                     <small style="color: red;">*급여, 연금 중 하나만 입력가능</small>
@@ -432,12 +432,12 @@
                                 <td>
                                     <div class="input-container">
                                         <label class="form-label">전전월 적금 입금 건수</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer3A"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer3A"/>
                                     </div>
                                     <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 적금 입금 건수</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer3B"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer3B"/>
                                     </div>
                                 </td>
                                 <td id="result3"></td>
@@ -453,12 +453,12 @@
                                 <td>
                                     <div class="input-container">
                                         <label class="form-label">전전월 공과금 자동이체 건수</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer4A"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer4A"/>
                                         </div>
                                         <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 공과금 자동이체 건수</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer4B"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer4B"/>
                                     </div>
                                 </td>
                                 <td id="result4"></td>
@@ -472,12 +472,12 @@
                                 <td>
                                     <div class="input-container">
                                         <label class="form-label">전전월 청약 입금 건수</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer5A"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer5A"/>
                                         </div>
                                         <br>
                                     <div class="input-container">
                                         <label class="form-label">전월 청약 입금 건수</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer5B"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer5B"/>
                                     </div>
                                 </td>
                                 <td id="result5"></td>
@@ -491,7 +491,7 @@
                                 <td>
                                     <div class="input-container">
                                         <label class="form-label">전월 이체 건수</label>
-                                        <input class="form-control form-control-lg" type="text" id="answer6A"/>
+                                        <input class="form-control form-control-lg validation" type="text" id="answer6A"/>
                                     </div>
                                 </td>
                                 <td id="result6"></td>
@@ -536,7 +536,7 @@
 
                             if (answer1A + answer1B >= 1000000) {
                                 score += 0.2;
-                                document.getElementById("result1").innerHTML = "다음 다음 달부터 0.2% 금리 감면 가능합니다.";
+                                document.getElementById("result1").innerHTML = "익익월부터 0.2% 금리 감면 가능합니다.";
                             }
 
                             // 두 번째 질문
@@ -547,7 +547,7 @@
 
                             if (answer2A + answer2B >= 1000000 || answer2C + answer2D >= 600000) {
                                 score += 0.2;
-                                document.getElementById("result2").innerHTML = "다음 다음 달부터 0.2% 금리 감면 가능합니다.";
+                                document.getElementById("result2").innerHTML = "익익월부터 0.2% 금리 감면 가능합니다.";
                             }
 
                             // 세 번째 질문
@@ -556,7 +556,7 @@
 
                             if (answer3A + answer3B >= 1) {
                                 score += 0.1;
-                                document.getElementById("result3").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+                                document.getElementById("result3").innerHTML = "익익월부터 0.1% 금리 감면 가능합니다.";
                             }
 
                             // 네 번째 질문
@@ -565,7 +565,7 @@
 
                             if (answer4A + answer4B >= 3) {
                                 score += 0.1;
-                                document.getElementById("result4").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+                                document.getElementById("result4").innerHTML = "익익월부터 0.1% 금리 감면 가능합니다.";
                             }
 
                             // 다섯 번재 질문
@@ -574,7 +574,7 @@
 
                             if (answer5A + answer5B >= 1) {
                                 score += 0.2;
-                                document.getElementById("result5").innerHTML = "다음 다음 달부터 0.2% 금리 감면 가능합니다.";
+                                document.getElementById("result5").innerHTML = "익익월부터 0.2% 금리 감면 가능합니다.";
                             }
 
                             // 여섯 번째 질문
@@ -582,7 +582,7 @@
 
                             if (answer6A  >= 2) {
                                 score += 0.1;
-                                document.getElementById("result6").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+                                document.getElementById("result6").innerHTML = "익익월부터 0.1% 금리 감면 가능합니다.";
                             }
 
                             // 일곱 번째 질문
@@ -590,7 +590,7 @@
 
                             if (answer7 === "yes") {
                                 score += 0.1;
-                                document.getElementById("result7").innerHTML = "다음 다음 달부터 0.1% 금리 감면 가능합니다.";
+                                document.getElementById("result7").innerHTML = "익익월부터 0.1% 금리 감면 가능합니다.";
                             }
                             else {
                                 var result7Element = document.getElementById("result7");
@@ -607,7 +607,7 @@
 
                             // 결과 출력
                             let resultContainer = document.getElementById("resultContainer");
-                            resultContainer.innerHTML = "고객님께서 받으실 수 있는 최고 감면한도는 " + score + "점입니다.";
+                            resultContainer.innerHTML = "고객님께서 받으실 수 있는 최고 감면한도는 " + score + "%입니다.";
                         }
 
 
@@ -662,7 +662,7 @@
 </footer>
 </div>
 </div>
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script src="/js/app.js"></script>
 <script>
     // 가상의 검색어 데이터 (실제로는 서버에서 가져와야 함)
@@ -715,6 +715,25 @@
             searchSuggestionsContainer.style.display = 'none';
         }
     });
+</script>
+</script>
+<script>
+    $(document).ready(function(){
+$('.validation').on("input", function(e) {
+   const prevValue = e.target.value.slice(0, -1)
+   const regex = /[^0-9]/g;
+   const newNum = e.target.value.replace(regex, "");
+   if(newNum > 10**10){
+        e.target.value = prevValue
+        $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
+        $(this).siblings(".checkVal").css("display", "block")
+        $(this).siblings(".checkVal").css("color", "red");
+   }else{
+        e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        $(this).siblings(".checkVal").css("display", "none")
+   }
+});
+});
 </script>
 
 

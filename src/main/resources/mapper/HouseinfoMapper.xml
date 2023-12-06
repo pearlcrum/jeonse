@@ -23,6 +23,7 @@
             *
         from houseinfo
         where aptName like concat('%',#{aptName},'%')
+        limit 1
     </select>
 
 </mapper>
