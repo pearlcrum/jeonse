@@ -304,18 +304,22 @@
         lat: [[${lat}]],
         lng: [[${lng}]],
     };
+
     function initMaps() {
         map = new google.maps.Map(document.getElementById("default_map"), {
             zoom: 17,
             center: position,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        let housePrice = [[${housePrice}]];
+        housePrice = housePrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        let seniorDebt = [[${seniorDebt}]];
+        seniorDebt = seniorDebt.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 
         infoWindow = new google.maps.InfoWindow({
             content: "<h2>"+[[${address}]]+"</h2>"
-                + "<p>최근 실거래가 : "+[[${housePrice}]]+"</p>"
-                + "<p>선순위 채권 : "+[[${seniorDebt}]]+"</p>"
-
+                + "<p>최근 실거래가 : "+housePrice+"</p>"
+                + "<p>선순위 채권 : "+seniorDebt+"</p>"
         });
         var displayPosition = new google.maps.LatLng(position);
         infoWindow.setPosition(displayPosition);
