@@ -40,6 +40,7 @@ public class CommonchecklistController {
     @GetMapping("/checklist")
     public String checklist(@SessionAttribute(name="memID", required = false) String memID,@RequestParam(value="houseID") String houseId, CommonchecklistDTO commonchecklistDTO, Model model) {
         //체크리스트에 값이 이미 있는 경우
+        memberID=memID;
         if(commonchecklistService.checkCommonchecklistID(memID)!=0){
             ibkansimjeonseService.deleteIbkAnsimjeonse(memberID);
             ibkjeonseService.deleteIbkjeonse(memberID);
@@ -52,7 +53,6 @@ public class CommonchecklistController {
         }else{
             //체크리스트에 값이 없는 경우
             //memid 를 받아야함.
-            memberID=memID;
             houseID=Integer.parseInt(houseId);
             System.out.println("**** house ID is "+ houseID);
             System.out.println("memID is " + memID);
