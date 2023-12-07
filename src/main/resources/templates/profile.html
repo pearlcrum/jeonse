@@ -237,15 +237,15 @@
                                     <div style="text-align: center;">
                                         <ul style="text-align: left; list-style: none; padding: 0;">
 
-                                            <li>작년 소득<input type="textarea" class="form-control validation" id="incomeLastYear" name="incomeLastYear" rows="1"
-                                                            th:placeholder="${incomeLastYear}"></inputtextarea></li>
+                                            <li>작년 소득<input type="text" class="form-control validation" id="incomeLastYear" name="incomeLastYear" rows="1"
+                                                            th:placeholder="${incomeLastYear}"></input></li>
                                             <br>
-                                            <li>재작년 소득<input type="textarea" class="form-control validation" id="incomeYearBeforeLast" name="incomeYearBeforeLast" rows="1"
-                                                             th:placeholder="${incomeYearBeforeLast}"></inputtextarea></li>
+                                            <li>재작년 소득<input type="text" class="form-control validation" id="incomeYearBeforeLast" name="incomeYearBeforeLast" rows="1"
+                                                             th:placeholder="${incomeYearBeforeLast}"></input></li>
                                             <br>
 
-                                            <li>부채<input type="textarea" class="form-control validation" id="debt" name="debt" rows="1"
-                                                         th:placeholder="${debt}"></inputtextarea></li>
+                                            <li>부채<input type="text" class="form-control validation" id="debt" name="debt" rows="1"
+                                                         th:placeholder="${debt}"></input></li>
                                             <br>
                                             <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                         </ul>
@@ -497,7 +497,7 @@
         }
     });
 </script>
-/*
+
 <script>
     let incomeLastYear = parseInt(document.getElementById("incomeLastYear").value.replace(/,/g, '')) || 0;
     let debt = parseInt(document.getElementById("debt").value.replace(/,/g, '')) || 0;
@@ -519,7 +519,7 @@ $('.validation').on("input", function(e) {
    }
 });
 });
-    */
+
 </script>
 
 </body>

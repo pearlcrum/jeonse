@@ -249,58 +249,7 @@
 </div>
 
 <script src="/js/app.js"></script>
-<script>
-    // 가상의 검색어 데이터 (실제로는 서버에서 가져와야 함)
-    const searchSuggestions = ["JavaScript", "HTML", "CSS", "React", "Vue", "Angular"];
 
-    const searchInput = document.getElementById('search-input');
-    const searchSuggestionsContainer = document.getElementById('search-suggestions');
-
-    // 검색어 입력 시 자동 완성 기능 활성화
-    searchInput.addEventListener('input', function () {
-        const inputValue = this.value.toLowerCase();
-
-        // 검색어 추천 목록 생성
-        const suggestions = searchSuggestions.filter(suggestion =>
-            suggestion.toLowerCase().startsWith(inputValue)
-        );
-
-        // 검색어 추천 목록을 화면에 표시
-        showSuggestions(suggestions);
-    });
-
-    // 검색어 추천 목록을 화면에 표시하는 함수
-    function showSuggestions(suggestions) {
-        if (suggestions.length === 0) {
-            searchSuggestionsContainer.style.display = 'none';
-            return;
-        }
-
-        // 검색어 추천 목록을 생성하여 화면에 표시
-        searchSuggestionsContainer.innerHTML = '';
-        suggestions.forEach(suggestion => {
-            const suggestionElement = document.createElement('div');
-            suggestionElement.classList.add('suggestion');
-            suggestionElement.textContent = suggestion;
-            suggestionElement.addEventListener('click', function () {
-                // 검색어를 클릭하면 해당 검색어를 검색창에 채우고 추천 목록 숨김
-                searchInput.value = suggestion;
-                searchSuggestionsContainer.style.display = 'none';
-            });
-            searchSuggestionsContainer.appendChild(suggestionElement);
-        });
-
-        // 검색어 추천 목록을 보이도록 설정
-        searchSuggestionsContainer.style.display = 'block';
-    }
-
-    // 화면을 클릭하면 검색어 추천 목록을 숨김
-    document.addEventListener('click', function (event) {
-        if (!searchSuggestionsContainer.contains(event.target) && event.target !== searchInput) {
-            searchSuggestionsContainer.style.display = 'none';
-        }
-    });
-</script>
 <script th:inline="javascript">
     var map;
     var infoWindow;
