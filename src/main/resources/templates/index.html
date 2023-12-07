@@ -36,11 +36,6 @@
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="/checklist">
-                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>
-                    </a>
-                </li>
 
                 <li class="sidebar-link">
                     <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
@@ -113,7 +108,7 @@
         var infoWindow = new google.maps.InfoWindow({
             content:
                 "<h2>"+house.aptName+"</h2>"
-                + "<p>최근 실거래가 : "+house.dealAmount+" ( 거래일 : "+house.dealYear+")</p>"
+                + "<p>최근 실거래가 : "+house.dealAmount+"만원 ( 거래일 : "+house.dealYear+")</p>"
                 + "<p>면적 : "+house.area+"m^2</p>"
                 + "<a href='/checklist?houseID="+house.houseID+"'>대출 조회하기</a>"
         });

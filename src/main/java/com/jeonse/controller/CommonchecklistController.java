@@ -38,10 +38,16 @@ public class CommonchecklistController {
 
     //체크리스트 보여주기
     @GetMapping("/checklist")
-    public String checklist(@SessionAttribute(name="memID", required = false) String memID,@RequestParam(value="houseID") String houseId, CommonchecklistDTO commonchecklistDTO) {
+    public String checklist(@SessionAttribute(name="memID", required = false) String memID,@RequestParam(value="houseID") String houseId, CommonchecklistDTO commonchecklistDTO, Model model) {
         //체크리스트에 값이 이미 있는 경우
         if(commonchecklistService.checkCommonchecklistID(memID)!=0){
-            //세션 초기화 및 profile로 이동하여 기존 체크리스트 삭제 요청 필요 (-->해야해?)
+            ibkansimjeonseService.deleteIbkAnsimjeonse(memberID);
+            ibkjeonseService.deleteIbkjeonse(memberID);
+            commonchecklistService.deleteCommonchecklist(memberID);
+            model.addAttribute("message","기존의 체크리스트는 삭제됩니다. 물건지를 다시 검색해 주세요.");
+            model.addAttribute("returnURL","/");
+
+            return "message";
             //return "profile";
         }else{
             //체크리스트에 값이 없는 경우
@@ -58,9 +64,9 @@ public class CommonchecklistController {
             System.out.println("debt is"+ member.getDebt());
             System.out.println("birth is"+ member.getBirth());
             System.out.println("numhouse is"+ member.getNumhouse());
+            return "checklist";
 
         }
-        return "checklist";
     }
 
     @PostMapping("/checklistNextStep")
@@ -100,15 +106,20 @@ public class CommonchecklistController {
 
     }
     @GetMapping("/ibkansimjeonseChecklist")
-    public String ibkansimjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkansimjeonseDTO ibkansimjeonseDTO) {
+    public String ibkansimjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkansimjeonseDTO ibkansimjeonseDTO, Model model) {
         //체크리스트에 값이 이미 있는 경우
-
+        if(commonchecklistService.checkCommonchecklistID(memID)==0){
+            model.addAttribute("message","공통 체크리스트부터 작성하셔야 합니다.");
+            model.addAttribute("returnURL","/");
+            return "message";
+        }else {
             //체크리스트에 값이 없는 경우
             //memid 를 받아야함.
-            memberID=memID;
+            memberID = memID;
             System.out.println("memID is " + memID);
 
-        return "ibkansimjeonseChecklist";
+            return "ibkansimjeonseChecklist";
+        }
     }
     @PostMapping("/ansimJeonseCheckList")
     public String ansimJeonseCheckList(IbkansimjeonseDTO ibkansimjeonseDTO){
@@ -126,17 +137,24 @@ public class CommonchecklistController {
         return "redirect:ibkjeonseChecklist";
         //good이 0일 경우 error 페이지 개발 필요
     }
+
+
     @GetMapping("/ibkjeonseChecklist")
-    public String ibkjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkjeonseDTO ibkjeonseDTO) {
+    public String ibkjeonseChecklist(@SessionAttribute(name="memID", required = false) String memID, IbkjeonseDTO ibkjeonseDTO, Model model) {
         //체크리스트에 값이 이미 있는 경우
+        if(commonchecklistService.checkCommonchecklistID(memID)==0){
+            model.addAttribute("message","공통 체크리스트부터 작성하셔야 합니다.");
+            model.addAttribute("returnURL","/");
+            return "message";
+        }else {
+            //체크리스트에 값이 없는 경우
+            //memid 를 받아야함.
+            memberID = memID;
+            System.out.println("ibk jeonse memID is " + memID);
 
-        //체크리스트에 값이 없는 경우
-        //memid 를 받아야함.
-        memberID=memID;
-        System.out.println("ibk jeonse memID is " + memID);
-
-        //추후 결과 화면 값 나오면 여기서 체크
-        return "ibkjeonseChecklist";
+            //추후 결과 화면 값 나오면 여기서 체크
+            return "ibkjeonseChecklist";
+        }
     }
     @PostMapping("/ibkJeonseCheckList")
     public String ibkJeonseCheckList(IbkjeonseDTO ibkjeonseDTO){

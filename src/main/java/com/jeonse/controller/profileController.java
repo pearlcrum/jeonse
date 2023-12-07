@@ -248,7 +248,7 @@ public class profileController {
     }
 
 
-    @PostMapping("/deleteMember")
+    @GetMapping("/deleteMember")
     public String deleteMember(){
     //public String deleteMember(HttpServletRequest httpServletRequest){
         System.out.println("is it working ????");
@@ -258,7 +258,7 @@ public class profileController {
         ibkjeonseService.deleteIbkjeonse(memberID);
         commonchecklistService.deleteCommonchecklist(memberID);
         memberService.deleteMember(memberID);//현재 값 잘 들어가 있음.
-        return "/member/logout";
+        return "redirect:loginForm";
     }
 
     @PostMapping("/updateMemberCredit")
