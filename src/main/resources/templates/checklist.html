@@ -225,7 +225,7 @@
         </nav>
 
         <main class="content">
-            <form action="checklistNextStep" id="checklistNextStep" th:object="${commonchecklistDTO}" method="post">
+            <form action="checklistNextStep" id="checklistNextStep" name="checklistNextStep" th:object="${commonchecklistDTO}" method="post">
                 <!--            <form action="/processCheckList" method="post">-->
                 <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
                 <div class="container-fluid p-0">
@@ -242,8 +242,8 @@
                                     <h5 class="card-title mb-0">공인중개업자를 통해 임대차계약을 체결하고 임차보증금의 5%이상을 계약금으로 지급하셨습니까? </h5>
                                 </div>
                                 <div class="card-body">
-                                    <input type="radio" th:field="*{agentCheck}" value=1> O</input><br>
-                                    <input type="radio" th:field="*{agentCheck}" value=0> X</input>
+                                    <input type="radio" name="agentCheck" th:field="*{agentCheck}" value=1> O</input><br>
+                                    <input type="radio" name="agentCheck" th:field="*{agentCheck}" value=0> X</input>
                                 </div>
                             </div>
                             <div class="card">
@@ -251,8 +251,8 @@
                                     <h5 class="card-title mb-0">임대인이 외국인입니까?</h5>
                                 </div>
                                 <div class="card-body">
-                                    <input type="radio" th:field="*{foriengerCheck}" value=1> O</input><br>
-                                    <input type="radio" th:field="*{foriengerCheck}" value=0> X</input>
+                                    <input type="radio" name="foriengerCheck" th:field="*{foriengerCheck}" value=1> O</input><br>
+                                    <input type="radio" name="foriengerCheck" th:field="*{foriengerCheck}" value=0> X</input>
                                 </div>
                             </div>
                             <div class="card">
@@ -260,8 +260,8 @@
                                     <h5 class="card-title mb-0">임대인과의 관계가 다음 중 해당합니까?(배우자, 직계존비속, 형제자매)</h5>
                                 </div>
                                 <div class="card-body">
-                                    <input type="radio" th:field="*{familyCheck}" value=1> O</input><br>
-                                    <input type="radio" th:field="*{familyCheck}" value=0> X</input>
+                                    <input type="radio" name="familyCheck" th:field="*{familyCheck}" value=1> O</input><br>
+                                    <input type="radio" name="familyCheck" th:field="*{familyCheck}" value=0> X</input>
                                 </div>
                             </div>
 
@@ -271,7 +271,7 @@
                                     <h5 class="card-title mb-0">희망하는 대출 한도를 입력해주세요.</h5>
                                 </div>
                                 <div class="card-body">
-                                    <textarea class="form-control" id="loanAmount" name="loanAmount" rows="2" placeholder="숫자로 입력바랍니다."></textarea>
+                                    <input type="textarea" class="form-control" id="loanAmount" name="loanAmount" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></inputtextarea>
                                 </div>
                             </div>
 
@@ -281,7 +281,7 @@
                                     <h5 class="card-title mb-0">현재 물건지의 KB시세를 입력해 주세요.</h5>
                                 </div>
                                 <div class="card-body">
-                                    <textarea class="form-control" id="housePrice" name="housePrice" rows="2" placeholder="숫자로 입력바랍니다."></textarea>
+                                    <input type="textarea" class="form-control" id="housePrice" name="housePrice" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></inputtextarea>
                                     <A href="https://kbland.kr/map?xy=37.5205559,126.9265729,17" target="kb시세 조회">
                                         KB시세 조회! </A>
                                 </div>
@@ -291,7 +291,7 @@
                                     <h5 class="card-title mb-0">현재 물건지의 선순위 채권을 입력해 주세요.</h5>
                                 </div>
                                 <div class="card-body">
-                                    <textarea class="form-control" id="seniorDebt" name="seniorDebt" rows="2" placeholder="숫자로 입력바랍니다."></textarea>
+                                    <input type="textarea" class="form-control" id="seniorDebt" name="seniorDebt" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></inputtextarea>
                                 </div>
                             </div>
 
@@ -303,15 +303,15 @@
                                 <div class="card-body mb-0"> <!-- 여기에 mb-2 클래스 추가 -->
                                     <div class="form-group">
                                         <label for="jeonseDeposit">임차보증금</label>
-                                        <textarea class="form-control" id="jeonseDeposit", name="jeonseDeposit" rows="1"
-                                                  placeholder="임차보증금"></textarea>
+                                        <input type="textarea" class="form-control" id="jeonseDeposit", name="jeonseDeposit" rows="1"
+                                                  placeholder="임차보증금" onkeydown="return isNumberKey(event)"></inputtextarea>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="jesonseTerm">계약기간</label>
-                                        <textarea class="form-control" id="jeonseTerm" name="jeonseTerm" rows="1"
-                                                  placeholder="계약기간"></textarea>
+                                        <label for="jeonseTerm">계약기간</label>
+                                        <input type="textarea" class="form-control" id="jeonseTerm" name="jeonseTerm" rows="1"
+                                                  placeholder="계약기간" onkeydown="return isNumberKey(event)"></inputtextarea>
                                     </div>
                                 </div>
                             </div>
@@ -320,8 +320,8 @@
                                     <h5 class="card-title mb-0">임대인이 임차목적물을 소유한지 3개월 경과하였습니까? </h5>
                                 </div>
                                 <div class="card-body">
-                                    <input type="radio" th:field="*{landlordPossessionMonth}" value=1> O</input><br>
-                                    <input type="radio" th:field="*{landlordPossessionMonth}" value=0> X</input>
+                                    <input type="radio" name="landlordPossessionMonth" th:field="*{landlordPossessionMonth}" value=1> O</input><br>
+                                    <input type="radio" name="landlordPossessionMonth" th:field="*{landlordPossessionMonth}" value=0> X</input>
                                 </div>
                             </div>
                         </div>
@@ -362,16 +362,79 @@
         </footer>
     </div>
 </div>
+
+
+<script src="/js/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-    function regist(){
-        let checkListForm = document.getElementById("checklistNextStep");
-        checkListForm.submit();
-        console.log(radio);
-    }
 
+
+
+    /*입력 완료 시 form 전송*/
+    function regist(event){
+        let checklistNextStep = document.getElementById("checklistNextStep");
+
+        //let memID = $('#memID').val().trim();
+        let agentCheck = $('#agentCheck').val().trim();
+        let foriengerCheck = $('#foriengerCheck').val().trim();
+        let familyCheck = $('#familyCheck').val().trim();
+        let loanAmount = $('#loanAmount').val().trim();
+        let housePrice = $('#housePrice').val().trim();
+        let jeonseDeposit = $('#jeonseDeposit').val().trim();
+        let jeonseTerm = $('#jeonseTerm').val().trim();
+        let landlordPossessionMonth = $('#landlordPossessionMonth').val().trim();
+        let seniorDebt = $('#seniorDebt').val().trim();
+
+
+        //입력값 db로 전송시 컴마 제거
+        checklistNextStep.elements['loanAmount'].value = loanAmount.replace(/-/g, "");
+        checklistNextStep.elements['housePrice'].value = housePrice.replace(/,/g, "");
+        checklistNextStep.elements['jeonseDeposit'].value = jeonseDeposit.replace(/,/g, "");
+        checklistNextStep.elements['jeonseTerm'].value = jeonseTerm.replace(/,/g, "");
+        checklistNextStep.elements['seniorDebt'].value = seniorDebt.replace(/,/g, "");
+
+
+        // 폼 제출
+        if(!agentCheck || !foriengerCheck || !familyCheck || !loanAmount || !housePrice || !jeonseDeposit || !jeonseTerm || !landlordPossessionMonth || !seniorDebt){
+            alert("전부 입력해주세요");
+            event.preventDefault();
+        }else{
+            checklistNextStep.submit();
+        }
+    }
+    // 숫자 입력 회계처리
+    $(document).ready(function(){
+        $('.validation').on("input", function(e) {
+            const prevValue = e.target.value === '0' ? '' : e.target.value.slice(0, -1);
+            const regex = /[^0-9]/g;
+            const newNum = e.target.value.replace(regex, "");
+            if (newNum > 10**10) {
+                e.target.value = prevValue;
+                $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
+                $(this).siblings(".checkVal").css("display", "block");
+                $(this).siblings(".checkVal").css("color", "red");
+            } else {
+                e.target.value = newNum === '' ? '' : newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $(this).siblings(".checkVal").css("display", "none");
+            }
+        });
+    });
+
+
+    // 숫자만 입력
+    function isNumberKey(event) {
+        var keyCode = event.which || event.keyCode;
+        if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 96 && keyCode <= 105) || keyCode === 8) {
+            return true;
+        }
+        else{
+            event.preventDefault();
+        }
+
+        return false;
+    }
 </script>
-<script src="/js/app.js"></script>
+
 
 </body>
 
