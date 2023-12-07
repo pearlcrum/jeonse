@@ -16,6 +16,10 @@
     <title>Forms | AdminKit Demo</title>
     <link href="/css/app.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        .js-sidebar-toggle {margin-left: 20px; }
+        .js-sidebar-toggle {margin-left: 20px; }
+    </style>
 </head>
 <body>
 <div class="wrapper">
@@ -24,13 +28,7 @@
             <a class="sidebar-brand" href="/">
                 <span class="align-middle">어디까지 알아보고 오셨어요?</span>
             </a>
-
             <ul class="sidebar-nav">
-                <li class="sidebar-header">
-                    Pages
-                </li>
-
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
@@ -225,15 +223,12 @@
         </nav>
 
         <main class="content">
-            <form action="checklistNextStep" id="checklistNextStep" name="checklistNextStep" th:object="${commonchecklistDTO}" method="post">
+            <form action="/checklistNextStep" id="checklistNextStep" name="checklistNextStep" th:object="${commonchecklistDTO}" method="post">
                 <!--            <form action="/processCheckList" method="post">-->
                 <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
                 <div class="container-fluid p-0">
                     <div class="mb-3">
                         <h1 class="h3 d-inline align-middle">공통 체크리스트 </h1>
-                        <a class="badge bg-dark text-white ms-2" href="upgrade-to-pro.html">
-                            Get more form examples
-                        </a>
                     </div>
                     <div class="row">
                         <div class="col-12 col-lg-6">
@@ -271,7 +266,7 @@
                                     <h5 class="card-title mb-0">희망하는 대출 한도를 입력해주세요.</h5>
                                 </div>
                                 <div class="card-body">
-                                    <input type="textarea" class="form-control" id="loanAmount" name="loanAmount" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></inputtextarea>
+                                    <input type="text" class="form-control validation" id="loanAmount" name="loanAmount" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></input>
                                 </div>
                             </div>
 
@@ -281,7 +276,7 @@
                                     <h5 class="card-title mb-0">현재 물건지의 KB시세를 입력해 주세요.</h5>
                                 </div>
                                 <div class="card-body">
-                                    <input type="textarea" class="form-control" id="housePrice" name="housePrice" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></inputtextarea>
+                                    <input type="text" class="form-control validation" id="housePrice" name="housePrice" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></input>
                                     <A href="https://kbland.kr/map?xy=37.5205559,126.9265729,17" target="kb시세 조회">
                                         KB시세 조회! </A>
                                 </div>
@@ -291,7 +286,7 @@
                                     <h5 class="card-title mb-0">현재 물건지의 선순위 채권을 입력해 주세요.</h5>
                                 </div>
                                 <div class="card-body">
-                                    <input type="textarea" class="form-control" id="seniorDebt" name="seniorDebt" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></inputtextarea>
+                                    <input type="text" class="form-control validation" id="seniorDebt" name="seniorDebt" rows="2" placeholder="숫자로 입력바랍니다." onkeydown="return isNumberKey(event)"></input>
                                 </div>
                             </div>
 
@@ -303,15 +298,15 @@
                                 <div class="card-body mb-0"> <!-- 여기에 mb-2 클래스 추가 -->
                                     <div class="form-group">
                                         <label for="jeonseDeposit">임차보증금</label>
-                                        <input type="textarea" class="form-control" id="jeonseDeposit", name="jeonseDeposit" rows="1"
-                                                  placeholder="임차보증금" onkeydown="return isNumberKey(event)"></inputtextarea>
+                                        <input type="text" class="form-control form-control-lg validation" id="jeonseDeposit" name="jeonseDeposit" rows="1"
+                                                  placeholder="임차보증금" onkeydown="return isNumberKey(event)"></input>
                                     </div>
                                 </div>
                                 <div class="card-body">
                                     <div class="form-group">
                                         <label for="jeonseTerm">계약기간</label>
-                                        <input type="textarea" class="form-control" id="jeonseTerm" name="jeonseTerm" rows="1"
-                                                  placeholder="계약기간" onkeydown="return isNumberKey(event)"></inputtextarea>
+                                        <input type="text" class="form-control" id="jeonseTerm" name="jeonseTerm" rows="1"
+                                                  placeholder="계약기간" onkeydown="return isNumberKey(event)"></input>
                                     </div>
                                 </div>
                             </div>
@@ -328,7 +323,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-3">
-                    <button id="target_btn" type="submit" class="btn btn-lg btn-primary" onclick="regist()">완료</button>
+                    <button id="target_btn" type="button" class="btn btn-lg btn-primary" onclick="regist()">완료</button>
                 </div>
             </form>
         </main>
@@ -367,37 +362,31 @@
 <script src="/js/app.js"></script>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
-
-
-
     /*입력 완료 시 form 전송*/
-    function regist(event){
+    function regist(){
         let checklistNextStep = document.getElementById("checklistNextStep");
 
-        //let memID = $('#memID').val().trim();
-        let agentCheck = $('#agentCheck').val().trim();
-        let foriengerCheck = $('#foriengerCheck').val().trim();
-        let familyCheck = $('#familyCheck').val().trim();
         let loanAmount = $('#loanAmount').val().trim();
         let housePrice = $('#housePrice').val().trim();
         let jeonseDeposit = $('#jeonseDeposit').val().trim();
         let jeonseTerm = $('#jeonseTerm').val().trim();
-        let landlordPossessionMonth = $('#landlordPossessionMonth').val().trim();
+        //let landlordPossessionMonth = $('#landlordPossessionMonth').val().trim();
         let seniorDebt = $('#seniorDebt').val().trim();
 
 
         //입력값 db로 전송시 컴마 제거
-        checklistNextStep.elements['loanAmount'].value = loanAmount.replace(/-/g, "");
+        checklistNextStep.elements['loanAmount'].value = loanAmount.replace(/,/g, "");
         checklistNextStep.elements['housePrice'].value = housePrice.replace(/,/g, "");
         checklistNextStep.elements['jeonseDeposit'].value = jeonseDeposit.replace(/,/g, "");
         checklistNextStep.elements['jeonseTerm'].value = jeonseTerm.replace(/,/g, "");
         checklistNextStep.elements['seniorDebt'].value = seniorDebt.replace(/,/g, "");
 
+        console.log(loanAmount);
 
         // 폼 제출
-        if(!agentCheck || !foriengerCheck || !familyCheck || !loanAmount || !housePrice || !jeonseDeposit || !jeonseTerm || !landlordPossessionMonth || !seniorDebt){
+        if( !loanAmount || !housePrice || !jeonseDeposit || !jeonseTerm || !seniorDebt){
             alert("전부 입력해주세요");
-            event.preventDefault();
+            //event.preventDefault();
         }else{
             checklistNextStep.submit();
         }
