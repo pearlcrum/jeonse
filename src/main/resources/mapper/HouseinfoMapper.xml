@@ -10,20 +10,11 @@
         where houseID = #{houseID}
     </select>
 
-    <!-- 행정동에 따른 매물 조회 -->
-    <!--https://m.blog.naver.com/zxxne/222476370039-->
-    <select id="getHouseInfoByDong" parameterType="String" resultType="map">
+    <select id="autocomplete" parameterType="String" resultType="map">
         select
-        *
-        from houseinfo
-        where dong = #{dong}
-    </select>
-    <select id="getHouseInfoByName" parameterType="String" resultType="com.jeonse.dto.HouseinfoDTO">
-        select
-            *
+            gu, dong, aptName, houseID
         from houseinfo
         where aptName like concat('%',#{aptName},'%')
-        limit 1
     </select>
 
 </mapper>

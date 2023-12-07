@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SecurityController {
@@ -32,10 +34,6 @@ public class SecurityController {
             model.addAttribute("user", memberService.getUserInfo(userInfo.getUsername()));
 
         }
-        //https://chb2005.tistory.com/175
-        //https://technology-share.tistory.com/20
-        //세션을 생성하기 전에 기존의 세션 파기
-        //httpServletRequest.getSession().invalidate();
         HttpSession session = httpServletRequest.getSession(true); //세션이 없으면 생성
 
         session.setAttribute("memID", userInfo.getUsername());
@@ -46,17 +44,19 @@ public class SecurityController {
     }
     @PostMapping(value="/houseSearch")
     @ResponseBody
-    public HouseinfoDTO houseSearch(@RequestParam("aptName") String aptName){
-        System.out.println("houseSearch success"+ aptName);
-        HouseinfoDTO house = houseinfoService.getHouseInfoByName(aptName);
+    public HouseinfoDTO houseSearch(@RequestParam("houseID") int houseID){
+        System.out.println("houseSearch success"+ houseID);
+        HouseinfoDTO house = houseinfoService.getHouseinfo(houseID);
         return house;
     }
+    //아파트 자동완성 검색
+    @RequestMapping(value = "/autocomplete")
+    public @ResponseBody Map<String, Object> autocomplete
+            (@RequestParam Map<String, Object> paramMap) throws Exception{
 
-    /* 아파트 명 자동완성 검색 기능
-    @PostMapping(value="/houseSearch")
-    @ResponseBody
-    public HashMap<Integer, HouseinfoDTO> houseSearch(@RequestParam("aptName") String aptName){
-        HashMap<Integer, HouseinfoDTO> houses = houseinfoService.getHouseInfoByName(aptName);
-        return houses;
-    }*/
+        List<Map<String, Object>> resultList = houseinfoService.autocomplete(paramMap);
+        paramMap.put("resultList", resultList);
+
+        return paramMap;
+    }
 }

@@ -5,18 +5,14 @@ import org.apache.ibatis.annotations.Mapper;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface HouseinfoMapper {
 
-    // 매물 정보 조회
+    // houseID로 매물 정보 조회
     HouseinfoDTO getHouseInfo(int houseID);
 
-    //List<String> searchHouseByName(String aptName);
-
-    //HashMap<Integer, HouseinfoDTO> getHouseInfoByName(String aptName);
-
-    HouseinfoDTO getHouseInfoByName(String aptName);
-
-    HashMap<Integer, HouseinfoDTO> getHouseInfoByDong(String dong);
+    // 매물 자동완성 조회
+    List<Map<String, Object>> autocomplete(Map<String, Object> paramMap) throws Exception;
 }

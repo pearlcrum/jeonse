@@ -19,6 +19,11 @@
     <title>어디까지 알아보고 오셨어요?</title>
     <link href="/css/app.css" rel="stylesheet">
     <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .js-sidebar-toggle {
+            margin-left: 20px; /* Adjust the value as needed */
+        }
+    </style>
 
 </head>
 
@@ -40,6 +45,7 @@
                 <li class="sidebar-link">
                     <input type="hidden" th:name="${_csrf.parameterName }" th:value="${_csrf.token }"/>
                     <input class="align-middle" id="aptName" name="aptName" style="width:155px;" type="text" placeholder="매물을 검색하세요">
+                    <input type="hidden" id="houseID"/>
                     <button class="align-middle" type="button" style="display:inline" onclick="searchHouse()">검색</button>
                     <div id="search-suggestions"></div>
                 </li>
@@ -74,8 +80,11 @@
         <div class="toast" id="toastMessage"></div>
     </div>
 </div>
+
 <script src="/js/app.js"></script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <!--맵-->
 <script>
@@ -85,8 +94,10 @@
         lat: 37.566548,
         lng: 126.986542
     };
+    var token = $("meta[name='_csrf']").attr("content");
+    var header = $("meta[name='_csrf_header']").attr("content");
     var maxDistance = 0.001; // 클릭 감지 거리 (조절 가능)
-
+    // 초기화면  맵띄우기
     $(document ).ready(function initMap(){
         map = new google.maps.Map(document.getElementById("default_map"), {
             zoom: 17,
@@ -94,21 +105,21 @@
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
     });
-
+    // 아파트 검색 시 지도에 핑띄우기
     function setMaps(position, house) {
         map = new google.maps.Map(document.getElementById("default_map"), {
             zoom: 17,
             center: position,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         });
+        var dealAmount = house.dealAmount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+        var dealYear = house.dealYear.toString().substring(0,4)+'년 ' +  house.dealYear.toString().substring(4)+' 월';
 
-
-
-        // Creates a info window of the marker.
+        // Creates a info window of the marker
         var infoWindow = new google.maps.InfoWindow({
             content:
                 "<h2>"+house.aptName+"</h2>"
-                + "<p>최근 실거래가 : "+house.dealAmount+"만원 ( 거래일 : "+house.dealYear+")</p>"
+                + "<p>최근 실거래가 : "+dealAmount+" 만원 ( 거래년도 : "+dealYear+" )</p>"
                 + "<p>면적 : "+house.area+"m^2</p>"
                 + "<a href='/checklist?houseID="+house.houseID+"'>대출 조회하기</a>"
         });
@@ -120,50 +131,29 @@
         var displayPosition = new google.maps.LatLng(position);
         infoWindow.setPosition(displayPosition);
         //infoWindow.open(map);
-
-        /*google.maps.event.addListener(infoWindow,'click',function(){
-            location.href('/checklist?lat='+position.lat+'&lng='+position.lng);
-        });*/
-
-
-        // Add a click event listener to toggle InfoWindow
-        /*google.maps.event.addListener(map, 'click', function(event) {
-            var clickPosition = event.latLng;
-            var distance = google.maps.geometry.spherical.computeDistanceBetween(position, clickPosition);
-
-            // Check if the click is within the maximum distance
-            if (distance <= maxDistance) {
-                if (isOpen) {
-                    infoWindow.close();
-                } else {
-                    infoWindow.open(map);
-                }
-                isOpen = !isOpen;
-            }
-        });*/
     }
-
+    // 아파트 검색
     function searchHouse(){
 
-        let aptName = $('#aptName').val().trim();
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        console.log(aptName);
+        let houseID = $('#houseID').val().trim();
+
+        console.log(houseID);
         $.ajax({
             type: 'POST',
             url: 'houseSearch',
             contentType: "application/x-www-form-urlencoded;charset=UTF-8",
-            data: {aptName:aptName},
+            data: {houseID:houseID},
             cache:'false',
             async:false,
             beforeSend: function (xhr) {
-                console.log(aptName);
+                console.log(houseID);
                 xhr.setRequestHeader(header, token);
             },
             success: function (house) {
-                if(house==null){
-                    console.log("찾는 아파트가 없어용");
-                    alert("찾는 아파트가 없어용");
+                if(!house){
+                    console.log("찾는 아파트가 없어요");
+                    alert("찾는 아파트가 없어요");
+                    initMap();
                 }else{
                     console.log("house search success!"+house.houseID);
                     var position = {
@@ -181,16 +171,49 @@
             }
         })
     }
+
+    $('#aptName').autocomplete({
+        source : function(request, response) { //source: 입력시 보일 목록
+            $.ajax({
+                url : "/autocomplete",
+                type : "POST",
+                dataType: "JSON",
+                data : {aptName: request.term},	// 검색 키워드
+                beforeSend: function (xhr) {
+                        xhr.setRequestHeader(header, token);
+                },
+                success : function(data){ 	// 성공
+                    response(
+                        $.map(data.resultList, function(item) {
+                            return {
+                                label : item.gu+" "+ item.dong+" " + item.aptName,    	// 목록에 표시되는 값
+                                value : item.aptName,		// 선택 시 input창에 표시되는 값
+                                idx : item.houseID
+                            };
+                        })
+                    );
+                }
+                ,error : function(){ //실패
+                    alert("오류가 발생했습니다.");
+                }
+            });
+        }
+        ,focus : function(event, ui) { // 방향키로 자동완성단어 선택 가능하게 만들어줌
+            return false;
+        }
+        ,minLength: 2// 최소 글자수
+        ,autoFocus : true // true == 첫 번째 항목에 자동으로 초점이 맞춰짐
+        ,delay: 100	//autocomplete 딜레이 시간(ms)
+        ,select : function(evt, ui) {
+            // 아이템 선택시 실행 ui.item 이 선택된 항목을 나타내는 객체, lavel/value/idx를 가짐
+            console.log(ui.item.label);
+            $('#houseID').val(ui.item.idx);
+        }
+    });
+
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAPt3hFpQY6DH8j5qgoIBV6hejyd4agW7M&libraries=geometry&callback=initMap"></script>
-<script>
-    // 검색어 추천 목록 생성
-    /*const suggestions = searchSuggestions.filter(suggestion =>
-        suggestion.startsWith(inputValue)
-    );*/
 
-
-</script>
 </body>
 
 </html>

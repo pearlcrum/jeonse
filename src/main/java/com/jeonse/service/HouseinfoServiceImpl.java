@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class HouseinfoServiceImpl implements HouseinfoService {
@@ -17,18 +19,9 @@ public class HouseinfoServiceImpl implements HouseinfoService {
         return houseinfoMapper.getHouseInfo(houseID);
     }
 
-    /*@Override
-    public HashMap<Integer, HouseinfoDTO> getHouseInfoByName(String aptName) {
-        return houseinfoMapper.getHouseInfoByName(aptName);
-    }*/
-
     @Override
-    public HouseinfoDTO getHouseInfoByName(String aptName) {
-        return houseinfoMapper.getHouseInfoByName(aptName);
+    public List<Map<String, Object>> autocomplete(Map<String, Object> paramMap) throws Exception{
+        return houseinfoMapper.autocomplete(paramMap);
     }
 
-    @Override
-    public HashMap<Integer, HouseinfoDTO> getHouseInfoByDong(String dong) {
-        return houseinfoMapper.getHouseInfoByDong(dong);
-    }
 }
