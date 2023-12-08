@@ -43,7 +43,7 @@
 
 # [**서비스명: 어디까지 알아보셨어요? aka. 어알 ]**
 
-### 서울 **아파트 실거래가(KB시세)**를 바탕으로 신규 전세대출 가능 여부 및 한도 조회 서비스
+### 서울 아파트 실거래가(KB시세)를 바탕으로 신규 전세대출 가능 여부 및 한도 조회 서비스
 
 → 부동산 가격 kb 시세 평균가 이용하나 대략적인 **현재 API의 한계**로 인해 시세 활용, 고객에게 KB시세 안내(링크 제공) 후 입력값으로 받아 한도 조회하고자 함.
 
@@ -56,7 +56,7 @@
     
     → 실거래가와 실제 한도 산정 시 사용되는 kb부동산 시세 연결하는 **링크** 통해서, 차이를 고객에게 알 수 있도록 한다.
     
-    → **실제 정확한 한도 산출**을 원할 경우 **KB시세 일반가, 본인의 소득**을 직접 고객이 넣을 수 있도록 한다. (입력 값)
+    → **실제 정확한 한도** 산출을 원할 경우 **KB시세 일반가, 본인의 소득**을 직접 고객이 넣을 수 있도록 한다. (입력 값)
     
    ![Untitled](/uploads/78db7dbb2e5a79c29ce4b5c5f5889d7f/Untitled.png)
     
@@ -84,7 +84,7 @@
     - 당행 비대면 서비스 경쟁력 확보
     - 개인여신 없는 1조에서 책임자 여신과목 합격률 상승
 
-## **2. 서비스 주요 기능 설명 및 Usecase**
+## **2. 서비스 주요 기능 설명**
 
 **웹서비스의 유용성, 편의성 및 시각화의 실용성에 대한 설명**
 
@@ -169,24 +169,30 @@
 : 회원 입력값(신용도, 소득 등)에 따른 대출 가능한도 산출( 위 체크리스트 기반)
 - 금리 특약 예상 서비스
 : 교차 항목에 입력하여 현재 특약 금리 조회 및 앞으로의 최대 금리 특약 한도 산출
+![Untitled7](/uploads/2f8674be23aba36f1f280ec6dbaed18f/금리특약시뮬레이션.png)
 
 
-![Untitled7](/uploads/f06f7eb71296b0b0f89da7d394f45f1e/Untitled7.png)
+![Untitled8](/uploads/f06f7eb71296b0b0f89da7d394f45f1e/Untitled7.png)
+
+## **3. Usecase**
+![유스케이스](/uploads/86f75757f952f9d1478081965ac025a0/유스케이스.png)
 
 
+## **4. 서비스 구성도**
 
-## **3. 서비스 구성도**
+![Untitled9](/uploads/7d058a74485dda2444469b9613d985e2/서비스구성도.png))
 
-![Untitled8](/uploads/52824d6dc2592cb8b470ca50abd2954e/Untitled8.png)
-
-- Spring Framework (Spring Boot) ver. 2.3.5
+- Spring Boot ver. 2.3.5
 - WAS TomCat 8.0
 - JAVA 1.8.0 , javac 1.8.0
-- Vue.js (JavaScript)
-- Mysql /  Amazon S3 (활용 예정)
-- Amazon ec2
+- Mysql 8.0.33 
+- springboot security
+- Lombok
+- Thymeleaf
+- Ajax
+- jdbc
 
-## **4. 프로젝트 팀원 역할 분담**
+## **5. 프로젝트 팀원 역할 분담**
 
 | 이름 | 담당 업무 |
 | --- | --- |
@@ -229,12 +235,13 @@
 - 개발 단계: 백엔드 기능 개발
 - 수정 단계: 이슈리스트 작성 및 피드백 반영해서 백엔드 설계 수정
 
-## 5**. 개발 타임라인(**⭐)
+## **6. 개발 타임라인(⭐)**
 
 - 기능명세 작성 완료 (8/20)
 
 [1조 기능명세서](https://docs.google.com/spreadsheets/d/1348EmYrbX67XjoG_UATYuroP7aOpAz8zXG-pK0iCC1w/edit#gid=0)
 
-![Untitled9](/uploads/f3ee32bf26bd480cccc487415fae5ee7/타임라인.png)
+- 1조 타임라인
+![Untitled10](/uploads/f3ee32bf26bd480cccc487415fae5ee7/타임라인.png)
 
 
