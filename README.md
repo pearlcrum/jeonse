@@ -163,7 +163,7 @@
     
     - 맵에 표기 된 매물 선택 시 , 가격, 면적, 거래일 등 상세 정보 표기
     
-    ![Untitled6](/uploads/66af10217b07e79c8ab14b87b8c9e15d/Untitled6.png)
+    ![image](/uploads/f2b7452018fcc2f6782b16bc0ae2f425/image.png)
     
 - 대출 가능 한도 조회
 : 회원 입력값(신용도, 소득 등)에 따른 대출 가능한도 산출( 위 체크리스트 기반)
@@ -171,8 +171,6 @@
 : 교차 항목에 입력하여 현재 특약 금리 조회 및 앞으로의 최대 금리 특약 한도 산출
 ![Untitled7](/uploads/2f8674be23aba36f1f280ec6dbaed18f/금리특약시뮬레이션.png)
 
-
-![Untitled8](/uploads/f06f7eb71296b0b0f89da7d394f45f1e/Untitled7.png)
 
 ## **3. Usecase**
 ![유스케이스](/uploads/86f75757f952f9d1478081965ac025a0/유스케이스.png)
@@ -190,7 +188,7 @@
 - Lombok
 - Thymeleaf
 - Ajax
-- jdbc
+- MyBatis
 
 ## **5. 프로젝트 팀원 역할 분담**
 
