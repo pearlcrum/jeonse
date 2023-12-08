@@ -250,7 +250,7 @@
                                             <br>
                                             <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                         </ul>
-                                        <button class="btn btn-primary">제출</button>
+                                        <button class="btn btn-primary" onclick="regist()">제출</button>
                                     </div>
                                 </div>
                             </form>
@@ -502,26 +502,39 @@
 </script>
 
 <script>
-    let incomeLastYear = parseInt(document.getElementById("incomeLastYear").value.replace(/,/g, '')) || 0;
-    let debt = parseInt(document.getElementById("debt").value.replace(/,/g, '')) || 0;
-    let incomeYearBeforeLast = parseInt(document.getElementById("incomeYearBeforeLast").value.replace(/,/g, '')) || 0;
+
+    function regist(){
+        let updateMemberIncome = document.getElementById("updateMemberIncome");
+        let incomeLastYear = $('#incomeLastYear').val().trim();
+        let debt = $('#debt').val().trim();
+        let incomeYearBeforeLast = $('#incomeYearBeforeLast').val().trim();
+
+
+        updateMemberIncome.elements['incomeLastYear'].value =  incomeLastYear.replace(/,/g, "");
+        updateMemberIncome.elements['debt'].value =  debt.replace(/,/g, "");
+        updateMemberIncome.elements['incomeYearBeforeLast'].value =  incomeYearBeforeLast.replace(/,/g, "");
+
+       updateMemberIncome.submit();
+
+    }
+
 
     $(document).ready(function(){
-$('.validation').on("input", function(e) {
-    const prevValue = e.target.value === '0' ? '' : e.target.value.slice(0, -1);
-    //const prevValue = e.target.value.slice(0, -1);
-   const regex = /[^0-9]/g;
-   const newNum = e.target.value.replace(regex, "");
-   if(newNum > 10**10){
-        e.target.value = prevValue
-        $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
-        $(this).siblings(".checkVal").css("display", "block");
-        $(this).siblings(".checkVal").css("color", "red");
-   }else{
-        e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-        $(this).siblings(".checkVal").css("display", "none");
-   }
-});
+        $('.validation').on("input", function(e) {
+            const prevValue = e.target.value === '0' ? '' : e.target.value.slice(0, -1);
+            //const prevValue = e.target.value.slice(0, -1);
+           const regex = /[^0-9]/g;
+           const newNum = e.target.value.replace(regex, "");
+           if(newNum > 10**10){
+                e.target.value = prevValue
+                $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
+                $(this).siblings(".checkVal").css("display", "block");
+                $(this).siblings(".checkVal").css("color", "red");
+           }else{
+                e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+                $(this).siblings(".checkVal").css("display", "none");
+           }
+        });
 });
 
 </script>
