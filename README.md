@@ -235,4 +235,10 @@
 
 [1조 기능명세서](https://docs.google.com/spreadsheets/d/1348EmYrbX67XjoG_UATYuroP7aOpAz8zXG-pK0iCC1w/edit#gid=0)
 
+![Untitled9](/uploads/37f5db24a6a895d5635b4d98a21bbcad/타임라인1.png)
+![Untitled10](/uploads/e8b978be603b97ca07c7951ab2305c12/타임라인2.png)
+![Untitled11](/uploads/76ae1a57398a786f97e0abbfbf8d01ba/타임라인3.png)
+![Untitled12](/uploads/01de1bf5236f79e39e4c98bdd6df8616/타임라인4.png)
+![Untitled813](/uploads/d4f68d1759f1edbba71917a0f934c8d9/타임라인5.png)
+
 
