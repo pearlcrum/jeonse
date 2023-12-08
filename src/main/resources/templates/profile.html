@@ -212,6 +212,7 @@
                                     </div>
                                     <div style="text-align: center;">
                                         <ul style="text-align: left; list-style: none; padding: 0;">
+
                                             <li>NICE 신용점수<input type="textarea" class="form-control" id="nice" name="nice" rows="1" th:placeholder="${nice}"></inpttextarea></li>
                                             <br>
                                             <li>KCB 신용점수<input type="textarea" class="form-control" id="kcb" name="kcb" rows="1" th:placeholder="${kcb}"></inputtextarea></li>
@@ -238,14 +239,14 @@
                                         <ul style="text-align: left; list-style: none; padding: 0;">
 
                                             <li>작년 소득<input type="text" class="form-control validation" id="incomeLastYear" name="incomeLastYear" rows="1"
-                                                            th:placeholder="${incomeLastYear}"></input></li>
+                                                            th:placeholder="${#numbers.formatInteger(incomeLastYear, 3, 'COMMA')}"></input></li>
                                             <br>
                                             <li>재작년 소득<input type="text" class="form-control validation" id="incomeYearBeforeLast" name="incomeYearBeforeLast" rows="1"
-                                                             th:placeholder="${incomeYearBeforeLast}"></input></li>
+                                                             th:placeholder="${#numbers.formatInteger(incomeYearBeforeLast, 3, 'COMMA')}"></input></li>
                                             <br>
 
                                             <li>부채<input type="text" class="form-control validation" id="debt" name="debt" rows="1"
-                                                         th:placeholder="${debt}"></input></li>
+                                                         th:placeholder="${#numbers.formatInteger(debt, 3, 'COMMA')}"></input></li>
                                             <br>
                                             <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                         </ul>
@@ -332,7 +333,7 @@
                                             <div class="col-md-6">
                                                 <div class="form-group">
                                                     <label class="form-label"></label>
-                                                    <label class="form-label">KB시세: <span th:text="${housePrice}" style="width: 100%" ></span></label>
+                                                    <label class="form-label">KB시세: <span th:text="${#numbers.formatInteger(housePrice, 3, 'COMMA')}" style="width: 100%" ></span></label>
                                                 </div>
                                             </div>
                                         </div>
@@ -357,8 +358,9 @@
                                                 <div class="card-body h-100 d-flex align-items-center justify-content-center">
                                                     <div class="card-body text-center" style=" max-width: 100%;">
                                                         <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 안심전세대출</h3>
+
                                                         <h3 style="overflow-wrap: break-word;"><span th:text="${ibkAnsimJeonseResult}"></span></h3>
-                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkAnsimJeonseAmount}" 원></span></h5>
+                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkAnsimJeonseAmount, 3, 'COMMA')}">원</span></h5>
                                                         <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkAnsimJeonseReason}">
                                                                 <li th:text="${reason}"></li>
@@ -378,7 +380,7 @@
                                                     <div class="card-body text-center" style="width: 100%; max-width: 400px;">
                                                         <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 전세대출</h3>
                                                         <h3 style="overflow-wrap: break-word;"><span th:text="${ibkJeonseResult}"></span></h3>
-                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkJeonseAmount}" 원></span></h5>
+                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkJeonseAmount, 3, 'COMMA')}">원</span></h5>
                                                         <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkJeonseReason}">
                                                                 <li th:text="${reason}"></li>
@@ -445,6 +447,7 @@
 </div>
 
 <script src="/js/app.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <script>
     // 가상의 검색어 데이터 (실제로는 서버에서 가져와야 함)
     const searchSuggestions = ["JavaScript", "HTML", "CSS", "React", "Vue", "Angular"];
@@ -505,17 +508,18 @@
 
     $(document).ready(function(){
 $('.validation').on("input", function(e) {
-   const prevValue = e.target.value.slice(0, -1)
+    const prevValue = e.target.value === '0' ? '' : e.target.value.slice(0, -1);
+    //const prevValue = e.target.value.slice(0, -1);
    const regex = /[^0-9]/g;
    const newNum = e.target.value.replace(regex, "");
    if(newNum > 10**10){
         e.target.value = prevValue
         $(this).siblings(".checkVal").html("100억 이하의 값을 입력해주세요");
-        $(this).siblings(".checkVal").css("display", "block")
+        $(this).siblings(".checkVal").css("display", "block");
         $(this).siblings(".checkVal").css("color", "red");
    }else{
-        e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-        $(this).siblings(".checkVal").css("display", "none")
+        e.target.value = newNum.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        $(this).siblings(".checkVal").css("display", "none");
    }
 });
 });
