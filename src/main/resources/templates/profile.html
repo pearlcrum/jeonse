@@ -116,36 +116,11 @@
             </a>
 
             <ul class="sidebar-nav">
-                <li class="sidebar-link">
-                    <input class="align-middle" id="search-input" style="width:155px;" type="text" placeholder="매물을 검색하세요">
-                    <button class="align-middle" type="button" style="display:inline">검색</button>
-                    <div id="search-suggestions"></div>
-                </li>
-
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="/profile">
                         <i class="align-middle" data-feather="user"></i> <span class="align-middle">회원정보</span>
                     </a>
                 </li>
-
-                <!--                <li class="sidebar-item">-->
-                <!--                    <a class="sidebar-link" href="/login">-->
-                <!--                        <i class="align-middle" data-feather="log-in"></i> <span class="align-middle">로그인</span>-->
-                <!--                    </a>-->
-                <!--                </li>-->
-
-                <!--                <li class="sidebar-item">-->
-                <!--                    <a class="sidebar-link" href="/signup">-->
-                <!--                        <i class="align-middle" data-feather="user-plus"></i> <span class="align-middle">회원가입</span>-->
-                <!--                    </a>-->
-                <!--                </li>-->
-
-                <!--                <li class="sidebar-item">-->
-                <!--                    <a class="sidebar-link" href="/checklist">-->
-                <!--                        <i class="align-middle" data-feather="check-square"></i> <span class="align-middle">체크리스트</span>-->
-                <!--                    </a>-->
-                <!--                </li>-->
-
             </ul>
         </div>
     </nav>
@@ -217,7 +192,7 @@
                                             <br>
                                             <li>KCB 신용점수<input type="textarea" class="form-control" id="kcb" name="kcb" rows="1" th:placeholder="${kcb}"></inputtextarea></li>
                                         </ul>
-                                        <button class="btn btn-primary">제출</button>
+                                        <button type="button" class="btn btn-primary" onclick="registCredit()">제출</button>
                                     </div>
 
                                 </div>
@@ -250,7 +225,7 @@
                                             <br>
                                             <h5 style="color:red">* 부부소득 합산 시 부채도 함께 합산됨</h5>
                                         </ul>
-                                        <button class="btn btn-primary" onclick="regist()">제출</button>
+                                        <button class="btn btn-primary" type="button" onclick="regist()">제출</button>
                                     </div>
                                 </div>
                             </form>
@@ -272,46 +247,6 @@
                     </div>
 
                     <div class="col-md-4 col-xl-9">
-                        <!--                        <div class="card">-->
-                        <!--                            <div class="card-header">-->
-
-                        <!--                                <h5 class="card-title mb-0">회원 정보 수정</h5>-->
-                        <!--                            </div>-->
-
-                        <!--                            <div class="card-body h-100">-->
-
-                        <!--                                <div class="card">-->
-                        <!--                                    <div class="card-body">-->
-                        <!--                                        <div class="m-sm-4">-->
-                        <!--&lt;!&ndash;                                            <form action="/processSignup" method="post"> &lt;!&ndash;정보 수정 form. 경로 수정 필요&ndash;&gt;&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                <div class="mb-3">&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                    <label class="form-label">이름</label>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                    <input class="form-control form-control-lg" type="text"&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                           name="inputName" th:placeholder="${name}"/>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
-
-                        <!--&lt;!&ndash;                                                <div class="mb-3">&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                    <label class="form-label">비밀번호</label>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                    <input class="form-control form-control-lg" type="password"&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                           name="inputPassword"/>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                <div class="mb-3">&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                    <label class="form-label">전화번호</label>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                    <input class="form-control form-control-lg" type="tel"&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                           name="inputTel" th:placeholder="${tel}"/>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                <div class="text-center mt-3">&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                    <button type="submit" class="btn btn-lg btn-primary">수정</button>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                                </div>&ndash;&gt;-->
-                        <!--&lt;!&ndash;                                            </form>&ndash;&gt;-->
-
-                        <!--                                        </div>-->
-                        <!--                                    </div>-->
-
-
-                        <!--                                </div>-->
-                        <!--                            </div>-->
-                        <!--                        </div>-->
                         <div class="card">
                             <div class="card-header">
 
@@ -360,7 +295,8 @@
                                                         <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 안심전세대출</h3>
 
                                                         <h3 style="overflow-wrap: break-word;"><span th:text="${ibkAnsimJeonseResult}"></span></h3>
-                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkAnsimJeonseAmount, 3, 'COMMA')}">원</span></h5>
+                                                        <h5 th:if="${ibkAnsimJeonseAmount>=1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkAnsimJeonseAmount, 3, 'COMMA')}">원</span></h5>
+                                                        <h5 th:if="${ibkAnsimJeonseAmount<1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkAnsimJeonseAmount}">원</span></h5>
                                                         <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkAnsimJeonseReason}">
                                                                 <li th:text="${reason}"></li>
@@ -380,7 +316,8 @@
                                                     <div class="card-body text-center" style="width: 100%; max-width: 400px;">
                                                         <h3 style="border-bottom: 2px solid #ccc; color: grey; overflow-wrap: break-word;">IBK 전세대출</h3>
                                                         <h3 style="overflow-wrap: break-word;"><span th:text="${ibkJeonseResult}"></span></h3>
-                                                        <h5 style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkJeonseAmount, 3, 'COMMA')}">원</span></h5>
+                                                        <h5 th:if="${ibkJeonseAmount<1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${ibkJeonseAmount}">원</span></h5>
+                                                        <h5 th:if="${ibkJeonseAmount>=1000}" style="overflow-wrap: break-word;">대출 한도: <span th:text="${#numbers.formatInteger(ibkJeonseAmount, 3, 'COMMA')}">원</span></h5>
                                                         <h6 style="overflow-wrap: break-word;">
                                                             <ul th:each="reason: ${ibkJeonseReason}">
                                                                 <li th:text="${reason}"></li>
@@ -502,19 +439,36 @@
 </script>
 
 <script>
+    function registCredit(event){
+        let updateMemberCredit = document.getElementById("updateMemberCredit");
+        let kcb = document.getElementById("kcb");
+        let nice = document.getElementById("nice");
 
-    function regist(){
+        if(!kcb || !nice){
+            alert("전부 입력해주세요");
+            event.preventDefault();
+        }else{
+            updateMemberCredit.submit();
+        }
+    }
+    function regist(event){
         let updateMemberIncome = document.getElementById("updateMemberIncome");
         let incomeLastYear = $('#incomeLastYear').val().trim();
         let debt = $('#debt').val().trim();
         let incomeYearBeforeLast = $('#incomeYearBeforeLast').val().trim();
 
+        if(!updateMemberIncome || !incomeLastYear ||  !debt || !incomeYearBeforeLast ){
+            alert("전부 입력해주세요");
+            event.preventDefault();
+        }else{
+            updateMemberIncome.elements['incomeLastYear'].value =  incomeLastYear.replace(/,/g, "");
+            updateMemberIncome.elements['debt'].value =  debt.replace(/,/g, "");
+            updateMemberIncome.elements['incomeYearBeforeLast'].value =  incomeYearBeforeLast.replace(/,/g, "");
 
-        updateMemberIncome.elements['incomeLastYear'].value =  incomeLastYear.replace(/,/g, "");
-        updateMemberIncome.elements['debt'].value =  debt.replace(/,/g, "");
-        updateMemberIncome.elements['incomeYearBeforeLast'].value =  incomeYearBeforeLast.replace(/,/g, "");
+            updateMemberIncome.submit();
+        }
 
-       updateMemberIncome.submit();
+
 
     }
 
