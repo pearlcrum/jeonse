@@ -176,7 +176,7 @@
                 'color': 'red'
             });
         }
-        if(!isValidEmail(memID)){
+        /*if(!isValidEmail(memID)){
             $('.id_form').css({
                 'display': 'inline-block',
                 'color': 'red'
@@ -186,7 +186,7 @@
         else{
             $('.id_form').css("display","none");
             console.log("email form true");
-        }
+        }*/
 
         $.ajax({
             type:'POST',
@@ -197,14 +197,31 @@
             },
             success:function(cnt){ //컨트롤러에서 넘어온 cnt값을 받는다
                 if(cnt != 1){ //cnt가 1이 아니면(=0일 경우) -> 사용 가능한 아이디
-                    $('.id_ok').css({
-                        'display': 'inline-block',
-                        'color': 'blue'
-                    });
-                    $('.id_already').css("display", "none");
-                    $('.id_space').css("display","none");
-                    target.disabled = false;
-                    console.log(cnt);
+                    if(!isValidEmail(memID)){
+                        $('.id_form').css({
+                            'display': 'inline-block',
+                            'color': 'red'
+                        });
+                        $('.id_ok').css("display", "none");
+                        console.log("email form false");
+                    }
+                    else{
+                        $('.id_form').css("display","none");
+                        $('.id_ok').css({
+                            'display': 'inline-block',
+                            'color': 'blue'
+                        });
+
+                        $('.id_already').css("display", "none");
+                        $('.id_space').css("display","none");
+                        target.disabled = false;
+                        console.log(cnt);
+/*
+                        $('.id_form').css("display","none");
+                        console.log("email form true");
+*/
+                    }
+
                 } else { // cnt가 1일 경우 -> 이미 존재하는 아이디
                     $('.id_already').css({
                         'display': 'inline-block',
